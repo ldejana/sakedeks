@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -12,16 +13,16 @@ namespace BookingApp.Models
 
         [Required]
         [StringLength(256)]
-        public string Name { get; set; }
+        public String Name { get; set; }
 
         [StringLength(1024)]
-        public string Description { get; set; }
+        public String Description { get; set; }
 
         [StringLength(256)]
-        public string Address { get; set; }
+        public String Address { get; set; }
 
         [Range(0, 5)]
-        public decimal AverageGrade { get; set; }
+        public decimal? AverageGrade { get; set; }
 
         [Required]
         public double Latitude { get; set; }
@@ -29,9 +30,30 @@ namespace BookingApp.Models
         [Required]
         public double Longitude { get; set; }
 
-        public string ImageUrl { get; set; }
+        public String ImageUrl { get; set; }
 
         [Required]
         public bool Approved { get; set; }
+
+        public IList<Room> Rooms { get; set; }
+
+        [Required]
+        [ForeignKey("AccommodationType")]
+        public int AccommodationTypeId { get; set; }
+
+        public AccommodationType AccommodationType { get; set; }
+
+        [Required]
+        [ForeignKey("Place")]
+        public int PlaceId { get; set; }
+        public Place Place { get; set; }
+
+        public IList<Comment> Comments { get; set; }
+
+        [Required]
+        [ForeignKey("Owner")]
+        public int OwnerId { get; set; }
+
+        public AppUser Owner { get; set; }
     }
 }

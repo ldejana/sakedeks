@@ -6,21 +6,13 @@ using System.Web;
 
 namespace BookingApp.Models
 {
-    public class AppUser
+    public class AccommodationType
     {
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(20)]
+        [MaxLength(50)]
         public String Name { get; set; }
-
-        [Required]
-        [MaxLength(20)]
-        public String LastName { get; set; }
-
-        public IList<Comment> Comments { get; set; }
-
-        public IList<RoomReservation> RoomReservations { get; set; }
 
         public IList<Accommodation> Accommodations { get; set; }
     }
