@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookingApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
@@ -8,7 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 
-namespace BookingApp.Models
+namespace BookingApp.Controllers
 {
     [RoutePrefix("api")]
     public class CountryController : ApiController
@@ -40,6 +41,7 @@ namespace BookingApp.Models
 
         // PUT: api/Countries/5
         [HttpPut]
+        [Authorize]
         [Route("Countries")]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutCountry(int id, Country country)
@@ -77,6 +79,7 @@ namespace BookingApp.Models
 
         // POST: api/Countries
         [HttpPost]
+        [Authorize]
         [Route("Countries")]
         [ResponseType(typeof(Country))]
         public IHttpActionResult PostCountry(Country country)
@@ -94,6 +97,7 @@ namespace BookingApp.Models
 
         // DELETE: api/Countries/5
         [HttpDelete]
+        [Authorize]
         [Route("Countries/{id}")]
         [ResponseType(typeof(Country))]
         public IHttpActionResult DeleteCountry(int id)
