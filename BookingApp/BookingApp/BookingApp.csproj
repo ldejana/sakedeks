@@ -308,8 +308,10 @@
     <Compile Include="Models\AppUser.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Country.cs" />
+    <Compile Include="Models\CountryController.cs" />
     <Compile Include="Models\Place.cs" />
     <Compile Include="Models\Region.cs" />
+    <Compile Include="Models\RegionController.cs" />
     <Compile Include="Models\Room.cs" />
     <Compile Include="Models\RoomReservation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

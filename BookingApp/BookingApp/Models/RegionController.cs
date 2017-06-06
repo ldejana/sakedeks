@@ -1,5 +1,4 @@
-﻿using BookingApp.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
@@ -9,53 +8,53 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 
-namespace BookingApp.Controllers
+namespace BookingApp.Models
 {
     [RoutePrefix("api")]
-    public class PlaceController : ApiController
+    public class RegionController : ApiController
     {
         private BAContext db = new BAContext();
 
-        // GET: api/Places
+        // GET: api/Regions
         [HttpGet]
-        [Route("Places")]
-        public IQueryable<Place> GetPlaces()
+        [Route("Regions")]
+        public IQueryable<Region> GetRegions()
         {
-            return db.Places;
+            return db.Regions;
         }
 
-        // GET: api/Places/5
+        // GET: api/Regions/5
         [HttpGet]
-        [Route("Places/{id}")]
-        [ResponseType(typeof(Place))]
-        public IHttpActionResult GetPlace(int id)
+        [Route("Regions/{id}")]
+        [ResponseType(typeof(Region))]
+        public IHttpActionResult GetRegion(int id)
         {
-            Place place = db.Places.Find(id);
-            if (place == null)
+            Region region = db.Regions.Find(id);
+            if (region == null)
             {
                 return NotFound();
             }
 
-            return Ok(place);
+            return Ok(region);
         }
 
-        // PUT: api/Places/5
+        // PUT: api/Regions/5
         [HttpPut]
-        [Route("Places")]
+        [Route("Regions")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutPlace(int id, Place place)
+        public IHttpActionResult PutRegion(int id, Region region)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != place.Id)
+            if (id != region.Id)
             {
                 return BadRequest();
             }
 
-            db.Entry(place).State = EntityState.Modified;
+            db.Entry(region).State = EntityState.Modified;
 
             try
             {
@@ -63,7 +62,7 @@ namespace BookingApp.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PlaceExists(id))
+                if (!RegionExists(id))
                 {
                     return NotFound();
                 }
@@ -76,39 +75,39 @@ namespace BookingApp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Places
+        // POST: api/Regions
         [HttpPost]
-        [Route("Places")]
+        [Route("Regions")]
         [ResponseType(typeof(Place))]
-        public IHttpActionResult PostPlace(Place place)
+        public IHttpActionResult PostRegion(Region region)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Places.Add(place);
+            db.Regions.Add(region);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { controller = "Place", Id = place.Id }, place);
+            return CreatedAtRoute("DefaultApi", new { controller = "Region", Id = region.Id }, region);
         }
 
-        // DELETE: api/Places/5
+        // DELETE: api/Regions/5
         [HttpDelete]
-        [Route("Places/{id}")]
-        [ResponseType(typeof(Place))]
-        public IHttpActionResult DeletePlace(int id)
+        [Route("Regions/{id}")]
+        [ResponseType(typeof(Region))]
+        public IHttpActionResult DeleteRegion(int id)
         {
-            Place place = db.Places.Find(id);
-            if (place == null)
+            Region region = db.Regions.Find(id);
+            if (region == null)
             {
                 return NotFound();
             }
 
-            db.Places.Remove(place);
+            db.Regions.Remove(region);
             db.SaveChanges();
 
-            return Ok(place);
+            return Ok(region);
         }
 
         protected override void Dispose(bool disposing)
@@ -121,7 +120,7 @@ namespace BookingApp.Controllers
         }
 
 
-        private bool PlaceExists(int id)
+        private bool RegionExists(int id)
         {
             return db.Places.Count(e => e.Id == id) > 0;
         }
