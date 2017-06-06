@@ -106,6 +106,13 @@ namespace BookingApp.Controllers
             db.Rooms.Remove(room);
             db.SaveChanges();
 
+            IQueryable<RoomReservation> roomReservations = db.RoomReservations.Where(rr => rr.RoomId == room.Id);
+
+            foreach (RoomReservation roomReservation in roomReservations)
+            {
+                db.RoomReservations.Remove(roomReservation);
+            }
+
             return Ok(room);
         }
 
