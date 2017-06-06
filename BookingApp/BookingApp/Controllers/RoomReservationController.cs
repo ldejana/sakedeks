@@ -37,6 +37,7 @@ namespace BookingApp.Controllers
             return Ok(roomReservation);
         }
 
+        [Authorize]
         [HttpPut]
         [Route("RoomReservations/{id}")]
         [ResponseType(typeof(void))]
@@ -73,6 +74,7 @@ namespace BookingApp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        [Authorize]
         [HttpPost]
         [Route("RoomReservations")]
         [ResponseType(typeof(RoomReservation))]
@@ -89,6 +91,7 @@ namespace BookingApp.Controllers
             return CreatedAtRoute("DefaultApi", new { controller = "RoomReservation", id = roomReservation.Id }, roomReservation);
         }
 
+        [Authorize]
         [HttpDelete]
         [Route("RoomReservations/{id}")]
         [ResponseType(typeof(RoomReservation))]
