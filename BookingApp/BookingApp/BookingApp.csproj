@@ -250,6 +250,7 @@
     <Compile Include="Controllers\AccommodationTypeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PlaceController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Controllers\RoomReservationController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -314,8 +315,10 @@
     <Compile Include="Models\AppUser.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Country.cs" />
+    <Compile Include="Models\CountryController.cs" />
     <Compile Include="Models\Place.cs" />
     <Compile Include="Models\Region.cs" />
+    <Compile Include="Models\RegionController.cs" />
     <Compile Include="Models\Room.cs" />
     <Compile Include="Models\RoomReservation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
