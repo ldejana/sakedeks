@@ -246,9 +246,12 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AccommodationController.cs" />
     <Compile Include="Controllers\AccommodationTypeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RoomController.cs" />
+    <Compile Include="Controllers\RoomReservationController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -296,6 +299,10 @@
     <Compile Include="Migrations\201706060838594_AccommodationTypeNameIsUnique.cs" />
     <Compile Include="Migrations\201706060838594_AccommodationTypeNameIsUnique.Designer.cs">
       <DependentUpon>201706060838594_AccommodationTypeNameIsUnique.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706061052191_BAIdentityUserrr.cs" />
+    <Compile Include="Migrations\201706061052191_BAIdentityUserrr.Designer.cs">
+      <DependentUpon>201706061052191_BAIdentityUserrr.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Accommodation.cs" />
@@ -422,6 +429,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706060838594_AccommodationTypeNameIsUnique.resx">
       <DependentUpon>201706060838594_AccommodationTypeNameIsUnique.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706061052191_BAIdentityUserrr.resx">
+      <DependentUpon>201706061052191_BAIdentityUserrr.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,4 +1,5 @@
 ﻿using BookingApp.Models;
+using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -16,9 +17,11 @@ namespace BookingApp.Controllers
     {
         private BAContext db = new BAContext();
 
+        
+
         [HttpGet]
         [Route("AccommodationTypes")]
-        public IQueryable<AccommodationType> m1()
+        public IQueryable<AccommodationType> GetAccommodationTypes()
         {
             return db.AccommodationTypes;
         }
@@ -26,7 +29,7 @@ namespace BookingApp.Controllers
         [HttpGet]
         [Route("AccommodationTypes/{id}")]
         [ResponseType(typeof(AccommodationType))]
-        public IHttpActionResult m2(int id)
+        public IHttpActionResult GetAccommodationType(int id)
         {
             AccommodationType accommodationType = db.AccommodationTypes.Find(id);
             if (accommodationType == null)
@@ -40,7 +43,7 @@ namespace BookingApp.Controllers
         [HttpPut]
         [Route("AccommodationTypes/{id}")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult m3(int id, AccommodationType accommodationType)
+        public IHttpActionResult PutAccommodationType(int id, AccommodationType accommodationType)
         {
             if (!ModelState.IsValid)
             {
@@ -64,6 +67,10 @@ namespace BookingApp.Controllers
                 {
                     return NotFound();
                 }
+                else if (AccommodationTypeNameExists(accommodationType.Name))
+                {
+                    return BadRequest();
+                }
                 else
                 {
                     throw;
@@ -82,7 +89,10 @@ namespace BookingApp.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            if (AccommodationTypeNameExists(accommodationType.Name))
+            {
+                return BadRequest(ModelState);
+            }
             db.AccommodationTypes.Add(accommodationType);
             db.SaveChanges();
 
@@ -92,7 +102,7 @@ namespace BookingApp.Controllers
         [HttpDelete]
         [Route("AccommodationTypes/{id}")]
         [ResponseType(typeof(AccommodationType))]
-        public IHttpActionResult DeleteProduct(int id)
+        public IHttpActionResult DeleteAccommodationType(int id)
         {
             AccommodationType accommodationType = db.AccommodationTypes.Find(id);
             if (accommodationType == null)
@@ -106,9 +116,23 @@ namespace BookingApp.Controllers
             return Ok(accommodationType);
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
         private bool AccommodationTypeExists(int id)
         {
             return db.AccommodationTypes.Count(e => e.Id == id) > 0;
+        }
+
+        private bool AccommodationTypeNameExists(string name)
+        {
+            return db.AccommodationTypes.Count(e => e.Name == name) > 0;
         }
     }
 }
