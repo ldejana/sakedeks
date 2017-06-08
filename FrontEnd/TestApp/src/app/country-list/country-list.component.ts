@@ -24,7 +24,8 @@ export class CountryListComponent implements OnInit {
 
   onSubmit(c: Country) {
     
-    this.countryService.create(new Country(3, this.Name, this.Code));
+    this.countryService.create(new Country(3, this.Name, this.Code)).subscribe();
+    this.countryService.getAll().subscribe(x => this.countries = x.json());
     this.Name = "";
     this.Code = "";
   }

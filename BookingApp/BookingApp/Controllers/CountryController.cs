@@ -79,7 +79,7 @@ namespace BookingApp.Controllers
 
         // POST: api/Countries
         [HttpPost]
-        [Authorize]
+        //[Authorize]
         [Route("Countries")]
         [ResponseType(typeof(Country))]
         public IHttpActionResult PostCountry(Country country)

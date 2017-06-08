@@ -6,12 +6,16 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { CountryListComponent } from './country-list/country-list.component';
 import { CountryComponent } from './country/country.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CountryListComponent,
-    CountryComponent
+    CountryComponent,
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
