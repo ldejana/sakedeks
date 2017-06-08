@@ -1,3 +1,22 @@
-<p>
-  register works!
-</p>
+<form #f = "ngForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="Email"> Email: </label>
+    <input type="text" id="Email" name="Email" [(ngModel)]="Email"> <br/>
+    <label for="Password"> Password: </label>
+    <input type="password" id="Password" name="Password" [(ngModel)] = "Password"> <br/>
+    <label for="ConfirmPassword"> Confirm password: </label>
+    <input type="password" id="ConfirmPassword" name="ConfirmPassword" [(ngModel)] = "ConfirmPassword"> <br/>
+    <label for="Name"> Name: </label>
+    <input type="text" id="Name" name="Name" [(ngModel)]="Name"> <br/>
+    <label for="LastName"> Last name: </label>
+    <input type="text" id="LastName" name="LastName" [(ngModel)]="LastName"> <br/>
+    <label> Register as manager</label>
+    <input type="checkbox" id="mon" (change)="mon($event)"> <br/>
+    <label for="Role"> Role: </label>
+    <select [(ngModel)]="selectedRole">
+      <option value="User">User</option>
+      <option value="Manager">Manager</option>
+    </select> <br/>
+    <input type="submit" value="Posalji me">
+  </div>
+</form>

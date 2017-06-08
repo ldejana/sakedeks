@@ -316,6 +316,10 @@
     <Compile Include="Migrations\201706061052191_BAIdentityUserrr.Designer.cs">
       <DependentUpon>201706061052191_BAIdentityUserrr.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706081927253_m.cs" />
+    <Compile Include="Migrations\201706081927253_m.Designer.cs">
+      <DependentUpon>201706081927253_m.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Accommodation.cs" />
     <Compile Include="Models\AccommodationType.cs" />
@@ -444,6 +448,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706061052191_BAIdentityUserrr.resx">
       <DependentUpon>201706061052191_BAIdentityUserrr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706081927253_m.resx">
+      <DependentUpon>201706081927253_m.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
