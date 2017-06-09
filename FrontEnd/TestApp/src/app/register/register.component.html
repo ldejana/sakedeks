@@ -12,7 +12,8 @@
     <input type="text" id="LastName" name="LastName" [(ngModel)]="LastName"> <br/>
     <label> Register as manager</label>
     <input type="checkbox" id="mon" (change)="mon($event)"> <br/>
-    <label for="Role"> Role: </label>
-    <input type="submit" value="Posalji me">
+    <input type="submit" value="Register">
   </div>
+
+  <div> {{Message}} </div>
 </form>

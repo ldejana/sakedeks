@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
    LastName: string;
    Role: string;
    isManager: boolean = false;
+   Message: string = "";
 
   constructor(private registerService: RegisterService) { 
   }
@@ -24,13 +25,14 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
+    this.Message = "";
     if (this.isManager){
       this.Role = "Manager";
     } else {
       this.Role = "AppUser";
     }
     this.registerService.register(new RegisterData(this.Email, this.Password, this.ConfirmPassword,
-      this.Name, this.LastName, this.Role)).subscribe();
+      this.Name, this.LastName, this.Role)).subscribe(x => this.Message="Successful registration", x => this.Message=x.json().Message);
 
     this.Name = "";
     this.Email = "";
