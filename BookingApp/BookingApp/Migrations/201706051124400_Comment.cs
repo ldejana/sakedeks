@@ -17,8 +17,8 @@ namespace BookingApp.Migrations
                         Grade = c.Double(nullable: false),
                     })
                 .PrimaryKey(t => new { t.AppUserId, t.AccommodationId })
-                .ForeignKey("dbo.Accommodations", t => t.AccommodationId, cascadeDelete: false)
-                .ForeignKey("dbo.AppUsers", t => t.AppUserId, cascadeDelete: true)
+                .ForeignKey("dbo.Accommodations", t => t.AccommodationId, cascadeDelete: true)
+                .ForeignKey("dbo.AppUsers", t => t.AppUserId, cascadeDelete: false)
                 .Index(t => t.AppUserId)
                 .Index(t => t.AccommodationId);
             

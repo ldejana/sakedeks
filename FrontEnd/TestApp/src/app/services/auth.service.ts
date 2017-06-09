@@ -18,7 +18,7 @@ export class AuthService {
         console.log(role);
         let authdata = new AuthData('Admin', access_token);
 
-        console.log(response.headers);
+        console.log(response);
         console.log('role: ' + role);
 
 
