@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
 
-    this.loginService.login(new LoginData(this.Username, this.Password)).subscribe(x => );
+    this.loginService.login(new LoginData(this.Username, this.Password)).subscribe();
 
     this.Username = "";
     this.Password = "";
