@@ -9,30 +9,30 @@ export class AuthService {
 
     }
 
-    logIn(userName: string, response: Response) : void {
+    logIn(response: Response) : void {
 
         let response_json = response.json();
         let access_token = response_json['access_token'];
 
         let role = response.headers.get('Role');
         console.log(role);
-        let authdata = new AuthData('Admin', access_token);
+        let authdata = new AuthData(role, access_token);
 
         console.log(response);
         console.log('role: ' + role);
 
 
-        localStorage.setItem(userName, JSON.stringify(authdata));
+        localStorage.setItem("token", JSON.stringify(authdata));
     }
 
-    logOut(userName: string): void {
-        if(this.isLoggedIn(userName) === true) {
-            localStorage.removeItem(userName);
+    logOut(): void {
+        if(this.isLoggedIn() === true) {
+            localStorage.removeItem("token");
         }
     }
 
-    isLoggedIn(userName: string): boolean {
-        if(localStorage.getItem(userName) !== null)
+    isLoggedIn(): boolean {
+        if(localStorage.getItem("token") !== null)
             return true;
         else
             return false;
