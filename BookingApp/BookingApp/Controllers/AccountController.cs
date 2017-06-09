@@ -322,16 +322,19 @@ namespace BookingApp.Controllers
         [AllowAnonymous]
         [Route("Register")]
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)
+        //public IHttpActionResult Register(RegisterBindingModel model)
         {
+            
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             AppUser appUser = new AppUser() { Name = model.Name, LastName = model.LastName };
             string BaIdentityUserId = Guid.NewGuid().ToString();
-            var user = new BAIdentityUser() {Id = BaIdentityUserId, UserName = model.Email, Email = model.Email, AppUser = appUser };
+            var user = new BAIdentityUser() {Id = BaIdentityUserId, UserName = model.Email, Email = model.Email, AppUser = appUser, PasswordHash = BAIdentityUser.HashPassword(model.Password) };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+            //IdentityResult result = UserManager.Create(user);
 
             if (!result.Succeeded)
             {
@@ -341,6 +344,15 @@ namespace BookingApp.Controllers
             UserManager.AddToRole(BaIdentityUserId, model.Role);
            
             return Ok();
+            
+          
+    /*
+            if (!context.Users.Any(u => u.UserName == "admin"))
+            {
+                var user = new BAIdentityUser() { Id = "admin", UserName = "admin", Email = "admin@yahoo.com", PasswordHash = BAIdentityUser.HashPassword("admin") };
+                userManager.Create(user);
+                userManager.AddToRole(user.Id, "Admin");
+            }*/
         }
 
         // POST api/Account/RegisterExternal

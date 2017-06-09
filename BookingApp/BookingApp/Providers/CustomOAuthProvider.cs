@@ -41,24 +41,28 @@ namespace BookingApp.Providers
                 return;
             }
 
-            bool isAdmin = await userManager.IsInRoleAsync(user.UserName, "Admin");
+            BAContext BAContext = new BAContext();
+            var userRole = user.Roles.First().RoleId;
+            var role = BAContext.Roles.FirstOrDefault(r => r.Id == userRole);
 
-            if (isAdmin)
+            //BAContext.Roles.Where(x => 
+            //bool isAdmin = await userManager.IsInRoleAsync(user.UserName, "Admin");
+
+
+
+            if (role.Name.Equals("Admin"))
             {
                 context.OwinContext.Response.Headers.Add("Role", new[] { "Admin" });
             }
+            else if (role.Name.Equals("Manager"))
+            {
+                context.OwinContext.Response.Headers.Add("Role", new[] { "Manager" });
+            }
             else
             {
-                bool isManager = await userManager.IsInRoleAsync(user.UserName, "Manager");
-                if (isManager)
-                {
-                    context.OwinContext.Response.Headers.Add("Role", new[] { "Manager" });
-                }
-                else
-                {
-                    context.OwinContext.Response.Headers.Add("Role", new[] { "User" });
-                }
+                context.OwinContext.Response.Headers.Add("Role", new[] { "User" });
             }
+           
 
             //if (!user.EmailConfirmed)
             //{
