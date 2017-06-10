@@ -16,9 +16,10 @@ export class AccommodationTypeComponent implements OnInit {
 
   Id: number = -1;
   Accomodations: Accommodation[];
+  AccommodationType: string;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private accTypeService: AccommodationTypeService) { 
-    activatedRoute.params.subscribe(params => {this.Id = params["Id"]});
+    activatedRoute.params.subscribe(params => {this.Id = params["Id"]; this.AccommodationType = params["AccName"]});
   }
 
   ngOnInit() {

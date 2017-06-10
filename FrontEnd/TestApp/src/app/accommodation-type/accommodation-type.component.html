@@ -1,9 +1,9 @@
+<h4> Accomodations of type {{AccommodationType}} </h4>
 <ul>
   <li *ngFor="let accommodation of Accomodations"> Name: {{accommodation.Name}} <br/> Description: {{accommodation.Description}} <br />
     Address: {{accommodation.Address}} <br/> Average grade: {{accommodation.AverageGrade}} <br/> Latitude: {{accommodation.Latitude}} <br/>
-    Longitude: {{accommodation.Longitude}}
+    Longitude: {{accommodation.Longitude}} <br/>
+    <a [routerLink]="['/rooms', accommodation.Id, accommodation.Name, AccommodationType, Id]"> Show rooms </a>
   </li>
 </ul>
 
-<button (click)="showRooms("> Rooms </a>
-<router-outlet></router-outlet>

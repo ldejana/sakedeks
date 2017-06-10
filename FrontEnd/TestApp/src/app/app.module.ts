@@ -26,21 +26,22 @@ import { RegionComponent } from './region/region.component';
 import { RoomComponent } from './room/room.component';
 
 const ChildRoutes = [
-   {path: "rooms", component: RoomComponent},
+   
   ]
 
 const Routes = [
-  {path: "home/:Id", component: HomeComponent},
+  {path: "home/:Id/:AccName", component: HomeComponent},
   {path: "countryList", component: CountryListComponent},
   {path: "accommodation", component: AccommodationComponent},
   {path: "accommodationList", component: AccommodationListComponent},
-  {path: "accommodationType/:Id", component: AccommodationTypeComponent, children:ChildRoutes},
+  {path: "accommodationType/:Id/:AccName", component: AccommodationTypeComponent, children:ChildRoutes},
   {path: "accommodationTypeList", component: AccommodationTypeListComponent},
   {path: "country/:Id", component: CountryComponent},
   {path: "place",  component: PlaceComponent},
   {path: "placeList",  component: PlaceListComponent},
   {path: "region",  component: RegionComponent},
-  {path: "regionList/:countryId",  component: RegionListComponent}
+  {path: "regionList/:countryId",  component: RegionListComponent},
+  {path: "rooms/:Id/:AccName/:AccType/:AccTypeId", component: RoomComponent}
 ]
 
 @NgModule({
