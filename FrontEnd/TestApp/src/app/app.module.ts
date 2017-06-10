@@ -15,10 +15,18 @@ import { AuthService } from './services/auth.service';
 import { LoggedInGuard } from './guards/logged-in.guard';
 import { LogoutComponent } from './logout/logout.component';
 import { HomeComponent } from './home/home.component';
+import { RegionListComponent } from './region-list/region-list.component';
+import { PlaceListComponent } from './place-list/place-list.component';
+import { AccommodationTypeListComponent } from './accommodation-type-list/accommodation-type-list.component';
+import { AccommodationListComponent } from './accommodation-list/accommodation-list.component';
+import { AccommodationComponent } from './accommodation/accommodation.component';
+import { AccommodationTypeComponent } from './accommodation-type/accommodation-type.component';
+import { PlaceComponent } from './place/place.component';
+import { RegionComponent } from './region/region.component';
 
 const Routes = [
   {path: "home", component: HomeComponent},
-  {path: "login", component: LoginComponent}
+  {path: "countryList", component: CountryListComponent}
 ]
 
 @NgModule({
@@ -29,7 +37,15 @@ const Routes = [
     RegisterComponent,
     LoginComponent,
     LogoutComponent,
-    HomeComponent
+    HomeComponent,
+    RegionListComponent,
+    PlaceListComponent,
+    AccommodationTypeListComponent,
+    AccommodationListComponent,
+    AccommodationComponent,
+    AccommodationTypeComponent,
+    PlaceComponent,
+    RegionComponent
   ],
   imports: [
     BrowserModule,

@@ -1,21 +1,16 @@
 <div *ngIf="isLoggedIn()">
   <logout> </logout>
 </div>
+<div *ngIf="!isLoggedIn()">
+  <login> </login>
+</div>
 <div style="text-align:center">
   <h1>
     Welcome to {{title}}!!
   </h1>
 </div>
 
-<ul>
-  <li> <a [routerLink]="['/home']"> Countries </a> </li>
-  <li> Regions </li>
-  <li> Places </li>
-  <li> Accommodations </li>
-  <li> AccommodatiosTypes </li>
-  <li> Rooms </li>
-  <li> Room Reservations </li>
-  <li> Comments </li>
-</ul>
+<h4> Countries: </h4>
+<country-list> </country-list>
 
 <router-outlet></router-outlet>
