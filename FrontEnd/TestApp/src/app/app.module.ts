@@ -29,7 +29,7 @@ const Routes = [
   {path: "countryList", component: CountryListComponent},
   {path: "accommodation", component: AccommodationComponent},
   {path: "accommodationList", component: AccommodationListComponent},
-  {path: "accommodationType", component: AccommodationTypeComponent},
+  {path: "accommodationType/:Id", component: AccommodationTypeComponent},
   {path: "accommodationTypeList", component: AccommodationTypeListComponent},
   {path: "country/:Id", component: CountryComponent},
   {path: "place",  component: PlaceComponent},

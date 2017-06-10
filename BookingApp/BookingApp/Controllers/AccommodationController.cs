@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Http.OData;
 
 namespace BookingApp.Controllers
 {
@@ -18,6 +19,7 @@ namespace BookingApp.Controllers
 
         [HttpGet]
         [Route("Accommodations")]
+        [EnableQuery]
         public IQueryable<Accommodation> m1()
         {
             return db.Accommodations;
