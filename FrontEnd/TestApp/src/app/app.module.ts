@@ -23,13 +23,18 @@ import { AccommodationComponent } from './accommodation/accommodation.component'
 import { AccommodationTypeComponent } from './accommodation-type/accommodation-type.component';
 import { PlaceComponent } from './place/place.component';
 import { RegionComponent } from './region/region.component';
+import { RoomComponent } from './room/room.component';
+
+const ChildRoutes = [
+   {path: "rooms", component: RoomComponent},
+  ]
 
 const Routes = [
-  {path: "home", component: HomeComponent},
+  {path: "home/:Id", component: HomeComponent},
   {path: "countryList", component: CountryListComponent},
   {path: "accommodation", component: AccommodationComponent},
   {path: "accommodationList", component: AccommodationListComponent},
-  {path: "accommodationType/:Id", component: AccommodationTypeComponent},
+  {path: "accommodationType/:Id", component: AccommodationTypeComponent, children:ChildRoutes},
   {path: "accommodationTypeList", component: AccommodationTypeListComponent},
   {path: "country/:Id", component: CountryComponent},
   {path: "place",  component: PlaceComponent},
@@ -54,7 +59,8 @@ const Routes = [
     AccommodationComponent,
     AccommodationTypeComponent,
     PlaceComponent,
-    RegionComponent
+    RegionComponent,
+    RoomComponent
   ],
   imports: [
     BrowserModule,

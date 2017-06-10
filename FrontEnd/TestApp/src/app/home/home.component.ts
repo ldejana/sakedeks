@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {
+  Router,
+  ActivatedRoute
+} from '@angular/router';
 
 @Component({
   selector: 'home',
@@ -7,9 +11,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  Id: number = -1;
+
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+    activatedRoute.params.subscribe(params => {this.Id = params["Id"]});
+   }
 
   ngOnInit() {
+    this.router.navigate(['/accommodationType', this.Id]);
   }
 
 }

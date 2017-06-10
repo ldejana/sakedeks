@@ -3,7 +3,7 @@ import { RegionListService } from './region-list.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-region-list',
+  selector: 'region-list',
   templateUrl: './region-list.component.html',
   styleUrls: ['./region-list.component.css'],
   providers: [RegionListComponent]
