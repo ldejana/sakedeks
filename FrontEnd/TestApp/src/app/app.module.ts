@@ -26,7 +26,16 @@ import { RegionComponent } from './region/region.component';
 
 const Routes = [
   {path: "home", component: HomeComponent},
-  {path: "countryList", component: CountryListComponent}
+  {path: "countryList", component: CountryListComponent},
+  {path: "accommodation", component: AccommodationComponent},
+  {path: "accommodationList", component: AccommodationListComponent},
+  {path: "accommodationType", component: AccommodationTypeComponent},
+  {path: "accommodationTypeList", component: AccommodationTypeListComponent},
+  {path: "country", component: CountryComponent},
+  {path: "place",  component: PlaceComponent},
+  {path: "placeList",  component: PlaceListComponent},
+  {path: "region",  component: RegionComponent},
+  {path: "regionList",  component: RegionListComponent}
 ]
 
 @NgModule({
