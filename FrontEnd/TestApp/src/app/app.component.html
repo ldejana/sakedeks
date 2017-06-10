@@ -1,4 +1,3 @@
-<!--The whole content below can be removed with the new code.-->
 <div *ngIf="isLoggedIn()">
   <logout> </logout>
 </div>
@@ -7,5 +6,16 @@
     Welcome to {{title}}!!
   </h1>
 </div>
+
+<ul>
+  <li> <a [routerLink]="['/home']"> Countries </a> </li>
+  <li> Regions </li>
+  <li> Places </li>
+  <li> Accommodations </li>
+  <li> AccommodatiosTypes </li>
+  <li> Rooms </li>
+  <li> Room Reservations </li>
+  <li> Comments </li>
+</ul>
 
 <router-outlet></router-outlet>
