@@ -4,14 +4,12 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class RegionListService {
+export class RegionService {
 
-    constructor(private http: Http) {
+    constructor(private http: Http) {}
 
+
+    getById(id: number) : Observable<any> {
+       return this.http.get(`http://localhost:54042/api/Regions/${id}`);
     }
-
-    getAll(countryId: number) {
-         return this.http.get("http://localhost:54042/api/Regions?$filter=Id eq " + countryId);
-    }
-
 }

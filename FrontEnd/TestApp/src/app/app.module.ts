@@ -35,7 +35,7 @@ const Routes = [
   {path: "place",  component: PlaceComponent},
   {path: "placeList",  component: PlaceListComponent},
   {path: "region",  component: RegionComponent},
-  {path: "regionList",  component: RegionListComponent}
+  {path: "regionList/:countryId",  component: RegionListComponent}
 ]
 
 @NgModule({
