@@ -31,11 +31,11 @@ const Routes = [
   {path: "accommodationList", component: AccommodationListComponent},
   {path: "accommodationType/:Id", component: AccommodationTypeComponent},
   {path: "accommodationTypeList", component: AccommodationTypeListComponent},
-  {path: "country", component: CountryComponent},
+  {path: "country/:Id", component: CountryComponent},
   {path: "place",  component: PlaceComponent},
   {path: "placeList",  component: PlaceListComponent},
   {path: "region",  component: RegionComponent},
-  {path: "regionList",  component: RegionListComponent}
+  {path: "regionList/:countryId",  component: RegionListComponent}
 ]
 
 @NgModule({

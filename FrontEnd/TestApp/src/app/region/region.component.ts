@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Region } from './region.model';
+import { Router, ActivatedRoute } from '@angular/router';
+import { RegionService } from './region.service';
 
 @Component({
-  selector: 'app-region',
+  selector: 'region',
   templateUrl: './region.component.html',
-  styleUrls: ['./region.component.css']
+  styleUrls: ['./region.component.css'],
+  providers: [RegionService]
 })
 export class RegionComponent implements OnInit {
 
-  constructor() { }
+  constructor(private regionService: RegionService) { }
 
   ngOnInit() {
+    
   }
 
 }

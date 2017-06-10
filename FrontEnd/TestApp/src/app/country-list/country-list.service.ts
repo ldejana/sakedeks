@@ -15,10 +15,6 @@ export class CountryListService {
         return this.http.get("http://localhost:54042/api/Countries");
     }
 
-    getById(id: number) : Observable<any> {
-       return this.http.get(`http://localhost:54042/api/Countries/${id}`);
-    }
-
     create(country: Country) : Observable<any> {
         let header = new Headers();
         header.append('Content-Type', 'application/json');
