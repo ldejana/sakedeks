@@ -20,4 +20,19 @@ export class AccommodationTypeService {
         return this.http.get(urlAddress);
     }
 
+    getByCountryId(id: number): Observable<any> {
+        let urlAddress =  `http://localhost:54042/api/Accommodations/CountryId/${id}?filter=Id eq ${id} &$expand=Place, Owner`;
+        return this.http.get(urlAddress);
+    }
+
+    getByRegionId(id: number): Observable<any> {
+        let urlAddress =  `http://localhost:54042/api/Accommodations/RegionId/${id}?filter=Id eq ${id} &$expand=Place, Owner`; 
+        return this.http.get(urlAddress);
+    }
+
+    getByPlaceId(id: number): Observable<any> {
+        let urlAddress = `http://localhost:54042/api/Accommodations/PlaceId/${id}?filter=Id eq ${id} &$expand=Place, Owner`;
+        return this.http.get(urlAddress);
+    }
+
 }

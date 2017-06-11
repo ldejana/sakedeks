@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Accommodation} from '../accommodation/accommodation.model';
 import {AccommodationTypeService} from './accommodation-type.service';
-import {
-  Router,
-  ActivatedRoute
-} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Origins } from '../enumerations/origins.model';
 
 @Component({
   selector: 'accommodation-type',
@@ -17,14 +15,30 @@ export class AccommodationTypeComponent implements OnInit {
   Id: number = -1;
   Accomodations: Accommodation[];
   AccommodationType: string;
+  Origin: string;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private accTypeService: AccommodationTypeService) { 
-    activatedRoute.params.subscribe(params => {this.Id = params["Id"]; this.AccommodationType = params["AccName"]});
+    activatedRoute.params.subscribe(params => {this.Id = params["Id"]; 
+                                               this.AccommodationType = params["Name"]; 
+                                               this.Origin = params["Origin"]});
+
+    
   }
 
   ngOnInit() {
     this.Accomodations = [];
-    this.accTypeService.getByAccTypeId(this.Id).subscribe(x => this.Accomodations = x.json());
+
+      switch(this.Origin) {
+        case 'AccommodationType': 
+            this.accTypeService.getByAccTypeId(this.Id).subscribe(x => this.Accomodations = x.json()); break;
+        case 'Country': 
+            this.accTypeService.getByCountryId(this.Id).subscribe(x => this.Accomodations = x.json()); break;
+        case 'Region':
+            this.accTypeService.getByRegionId(this.Id).subscribe(x => this.Accomodations = x.json()); break;
+        case 'Place':
+            this.accTypeService.getByPlaceId(this.Id).subscribe(x => this.Accomodations = x.json()); break;
+        default: break;
+      }
   }
   
 

@@ -30,18 +30,18 @@ const ChildRoutes = [
   ]
 
 const Routes = [
-  {path: "home/:Id/:AccName", component: HomeComponent},
+  {path: "home/:Id/:Name/:Origin", component: HomeComponent},
   {path: "countryList", component: CountryListComponent},
   {path: "accommodation", component: AccommodationComponent},
   {path: "accommodationList", component: AccommodationListComponent},
-  {path: "accommodationType/:Id/:AccName", component: AccommodationTypeComponent, children:ChildRoutes},
+  {path: "accommodationType/:Id/:Name/:Origin", component: AccommodationTypeComponent, children:ChildRoutes},
   {path: "accommodationTypeList", component: AccommodationTypeListComponent},
   {path: "country/:Id", component: CountryComponent},
-  {path: "place",  component: PlaceComponent},
+  {path: "place/:regionId",  component: PlaceComponent},
   {path: "placeList",  component: PlaceListComponent},
   {path: "region",  component: RegionComponent},
   {path: "regionList/:countryId",  component: RegionListComponent},
-  {path: "rooms/:Id/:AccName/:AccType/:AccTypeId", component: RoomComponent}
+  {path: "rooms/:Id/:AccName/:AccType/:AccTypeId/:Origin", component: RoomComponent}
 ]
 
 @NgModule({

@@ -3,7 +3,7 @@
   <li *ngFor="let accommodation of Accomodations"> Name: {{accommodation.Name}} <br/> Description: {{accommodation.Description}} <br />
     Address: {{accommodation.Address}} <br/> Average grade: {{accommodation.AverageGrade}} <br/> Latitude: {{accommodation.Latitude}} <br/>
     Longitude: {{accommodation.Longitude}} <br/>
-    <a [routerLink]="['/rooms', accommodation.Id, accommodation.Name, AccommodationType, Id]"> Show rooms </a>
+    <a [routerLink]="['/rooms', accommodation.Id, accommodation.Name, AccommodationType, Id, Origin]"> Show rooms </a>
   </li>
 </ul>
 
