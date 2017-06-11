@@ -41,7 +41,7 @@ const Routes = [
   {path: "countryList", component: CountryListComponent},
   {path: "accommodation", component: AccommodationComponent},
   {path: "accommodationList", component: AccommodationListComponent},
-  {path: "accommodationType/:Id/:Name/:Origin", component: AccommodationTypeComponent, children:ChildRoutes},
+  {path: "accommodationShow/:Id/:Name/:Origin", component: AccommodationTypeComponent, children:ChildRoutes},
   {path: "accommodationTypeList", component: AccommodationTypeListComponent},
   {path: "country/:Id", component: CountryComponent},
   {path: "place/:regionId",  component: PlaceComponent},

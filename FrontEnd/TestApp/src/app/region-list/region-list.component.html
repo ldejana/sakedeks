@@ -1,4 +1,4 @@
-<a [routerLink]="['/country', country.Id]" (click)='onClick()'>{{country.Name}}</a>
+<a [routerLink]="['/home', country.Id, country.Name, Origin]" (click)='onClick()'>{{country.Name}}</a>
 
 &nbsp; <button *ngIf="isLoggedIn() && isAdmin()" (click)="deleteCountry(country.Id)"> <b> Delete </b> </button>
 &nbsp; <button *ngIf="isLoggedIn() && isAdmin()" (click)="editCountry(country.Id, country.Name, country.Code)"> <b> Edit </b> </button>
@@ -8,6 +8,5 @@
      <div *ngFor="let r of regions"> 
        <place-list [region] = 'r'>  </place-list>
      </div>
-     
   </div>
 

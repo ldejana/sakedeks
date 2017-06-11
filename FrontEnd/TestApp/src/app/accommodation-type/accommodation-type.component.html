@@ -1,8 +1,14 @@
-<h4> Accomodations of type {{AccommodationType}} </h4>
+<h4> Accomodations: {{AccommodationType}} </h4>
 <ul>
-  <li *ngFor="let accommodation of Accomodations"> Name: {{accommodation.Name}} <br/> Description: {{accommodation.Description}} <br />
-    Address: {{accommodation.Address}} <br/> Average grade: {{accommodation.AverageGrade}} <br/> Latitude: {{accommodation.Latitude}} <br/>
+  <li *ngFor="let accommodation of Accomodations"> 
+    Name: {{accommodation.Name}} <br/> 
+    Description: {{accommodation.Description}} <br />
+    Address: {{accommodation.Address}} <br/> 
+    Average grade: {{accommodation.AverageGrade}} <br/> 
+    Latitude: {{accommodation.Latitude}} <br/>
     Longitude: {{accommodation.Longitude}} <br/>
+    Owner: {{ accommodation.Owner.Name + ' ' + accommodation.Owner.LastName}} <br/>
+    Place: {{ accommodation.Place.Name }} <br/>
     <a [routerLink]="['/rooms', accommodation.Id, accommodation.Name, AccommodationType, Id, Origin]"> Show rooms </a>
   </li>
 </ul>
