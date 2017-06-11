@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.router.navigate(['/accommodationType', this.Id, this.Name, this.Origin]);
+    this.router.navigate(['/accommodationShow', this.Id, this.Name, this.Origin]);
   }
 
 }

@@ -1,8 +1,7 @@
-<a [routerLink]="['/country', country.Id]" (click)='onClick()'>{{country.Name}}</a>
+<a [routerLink]="['/home', country.Id, country.Name, Origin]" (click)='onClick()'>{{country.Name}}</a>
   <div *ngIf='show'>
      <div *ngFor="let r of regions"> 
        <place-list [region] = 'r'>  </place-list>
      </div>
-     
   </div>
 

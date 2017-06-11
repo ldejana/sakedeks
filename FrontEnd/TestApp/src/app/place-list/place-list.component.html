@@ -1,5 +1,5 @@
-<a [routerLink]="['/region', region.Id]" (click)='onClick()'>{{region.Name}}</a>
+<a [routerLink]="['/home', region.Id, region.Name, Origin]" (click)='onClick()'>{{region.Name}}</a>
   <ul *ngIf='show'>
-     <li *ngFor="let p of places"> <a [routerLink]="['/place', p.Id]">{{p.Name}}</a> </li>
+     <li *ngFor="let p of places"> <place [place] = 'p'> </place> </li>
   </ul>
 

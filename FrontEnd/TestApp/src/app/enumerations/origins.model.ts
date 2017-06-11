@@ -1,6 +1,6 @@
-export enum Origins {
-    Country,
-    Region,
-    Place,
-    AccommodationType
-}
+export type Origins =
+    'Country' 
+    | 'Region' 
+    | 'Place'
+    | 'AccommodationType'
+
