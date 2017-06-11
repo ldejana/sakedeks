@@ -4,28 +4,14 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class CountryListService {
+export class AddCountryService {
 
     constructor(private http: Http)
     {
        
     }
 
-    getAll() : Observable<any> {
-        return this.http.get("http://localhost:54042/api/Countries");
-    }
-
     create(country: Country) : Observable<any> {
-        let header = new Headers();
-        header.append('Content-Type', 'application/json');
-
-        let options = new RequestOptions();
-        options.headers = header;
-        
-        return this.http.post(`http://localhost:54042/api/Countries`, JSON.stringify(country), options);
-    }
-
-    delete(id) {
         let token=localStorage.getItem("token");
         let header = new Headers();
         header.append('Content-Type', 'application/json');
@@ -34,11 +20,10 @@ export class CountryListService {
         let options = new RequestOptions();
         options.headers = header;
         
-        let urlAddress = `http://localhost:54042/api/Countries/` + id;
-        return this.http.delete(urlAddress, options);
+        return this.http.post(`http://localhost:54042/api/Countries`, JSON.stringify(country), options);
     }
 
     update() {
-
+        
     }
 }

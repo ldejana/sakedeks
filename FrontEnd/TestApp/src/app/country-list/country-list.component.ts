@@ -3,6 +3,10 @@ import { Country } from '../country/country.model'
 import { CountryListService } from './country-list.service';
 import { RegionListComponent } from '../region-list/region-list.component';
 import { AuthService } from '../services/auth.service';
+import {
+  Router,
+  ActivatedRoute
+} from '@angular/router';
 
 @Component({
   selector: 'country-list',
@@ -17,7 +21,7 @@ export class CountryListComponent implements OnInit {
   Code: string;
   CountryId: number;
 
-  constructor(private countryService: CountryListService) { 
+  constructor(private countryService: CountryListService, private router: Router, private authService: AuthService) { 
     this.countries = []
   }
 
@@ -37,8 +41,15 @@ export class CountryListComponent implements OnInit {
     this.Code = "";
   }
 
+  isAdmin(): boolean {
+    return this.authService.getRole()=="Admin";
+  }
 
- 
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
 
-
+  showAddCountryForm() {
+    this.router.navigate(['/addCountry']);
+  }
 }
