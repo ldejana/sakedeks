@@ -38,4 +38,9 @@ export class AuthService {
             return false;
     }
 
+    getRole(): string {
+        let token=localStorage.getItem("token");
+        return JSON.parse(token).role;
+    }
+
 }

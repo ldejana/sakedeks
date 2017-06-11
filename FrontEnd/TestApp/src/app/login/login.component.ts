@@ -21,16 +21,16 @@ export class LoginComponent implements OnInit {
    }
 
   ngOnInit() {
-    if (this.authService.isLoggedIn()){
+    /*if (this.authService.isLoggedIn()){
       this.router.navigate(['/home']);
-    }
+    }*/
   }
 
   onSubmit() {
 
     let userName = this.Username;
     this.loginService.login(new LoginData(this.Username, this.Password)).subscribe(x => {this.authService.logIn(x); 
-        this.router.navigate(['/home']);});
+        /*this.router.navigate(['/home']);*/});
 
     //this.Username = "";
     //this.Password = "";

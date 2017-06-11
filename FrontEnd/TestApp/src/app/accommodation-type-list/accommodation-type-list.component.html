@@ -1,3 +1,11 @@
+
+<button *ngIf="isLoggedIn() && isAdmin()" (click)="showAddAccTypeForm()"> Add Accommodation Type </button>
+
 <ul>
-  <li *ngFor="let accType of accommodationTypes"> <a [routerLink]="['/home', accType.Id, accType.Name]"> {{accType.Name}} </a> </li>
+  <li *ngFor="let accType of accommodationTypes"> 
+    <a [routerLink]="['/home', accType.Id, accType.Name]"> {{accType.Name}} </a> 
+    &nbsp; <button *ngIf="isLoggedIn() && isAdmin()" (click)="deleteAccType(accType.Id)"> <b> Delete </b> </button>
+    &nbsp; <button *ngIf="isLoggedIn() && isAdmin()" (click)="editAccType(accType.Id, accType.Name)"> <b> Edit </b> </button>
+  </li>
 </ul>
+{{Message}}

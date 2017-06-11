@@ -4,23 +4,14 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class AccommodationTypeListService {
+export class EditAccTypeService {
 
     constructor(private http: Http)
     {
        
     }
 
-    getAll() : Observable<any> {
-        let header = new Headers();
-        header.append('Content-Type', 'application/json');  
-        let options = new RequestOptions();
-        options.headers = header;
-
-        return this.http.get("http://localhost:54042/api/AccommodationTypes", options);
-    }
-
-    delete(id) {
+    edit(accType: AccommodationType){
         let token=localStorage.getItem("token");
         let header = new Headers();
         header.append('Content-Type', 'application/json');
@@ -29,7 +20,11 @@ export class AccommodationTypeListService {
         let options = new RequestOptions();
         options.headers = header;
         
-        let urlAddress = `http://localhost:54042/api/AccommodationTypes/` + id;
-        return this.http.delete(urlAddress, options);
+        let urlAddress = `http://localhost:54042/api/AccommodationTypes/` + accType.Id;
+        return this.http.put(urlAddress, JSON.stringify(accType), options);
+    }
+
+    update() {
+        
     }
 }
