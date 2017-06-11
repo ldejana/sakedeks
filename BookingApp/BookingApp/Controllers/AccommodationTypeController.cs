@@ -17,8 +17,6 @@ namespace BookingApp.Controllers
     {
         private BAContext db = new BAContext();
 
-        
-
         [HttpGet]
         [Route("AccommodationTypes")]
         public IQueryable<AccommodationType> GetAccommodationTypes()

@@ -39,6 +39,54 @@ namespace BookingApp.Controllers
             return Ok(accommodation);
         }
 
+        [HttpGet]
+        [EnableQuery]
+        [Route("Accommodations/CountryId/{id}")]
+        [ResponseType(typeof(Accommodation))]
+        public IQueryable<Accommodation> GetAccommodationsByCountryId(int id)
+        {
+            IQueryable<Accommodation> queryableAccommodation =
+                                        from country in db.Countries
+                                        join region in db.Regions on country.Id equals region.CountryId
+                                        join place in db.Places on region.Id equals place.RegionId
+                                        join accommodation in db.Accommodations on place.Id equals accommodation.PlaceId
+                                        where country.Id == id
+                                        select accommodation;
+
+            return queryableAccommodation;
+        }
+
+        [HttpGet]
+        [EnableQuery]
+        [Route("Accommodations/RegionId/{id}")]
+        [ResponseType(typeof(Accommodation))]
+        public IQueryable<Accommodation> GetAccommodationsByRegionId(int id)
+        {
+            IQueryable<Accommodation> queryableAccommodation =
+                                        from region in db.Regions
+                                        join place in db.Places on region.Id equals place.RegionId
+                                        join accommodation in db.Accommodations on place.Id equals accommodation.PlaceId
+                                        where region.Id == id
+                                        select accommodation;
+
+            return queryableAccommodation;
+        }
+
+        [HttpGet]
+        [EnableQuery]
+        [Route("Accommodations/PlaceId/{id}")]
+        [ResponseType(typeof(Accommodation))]
+        public IQueryable<Accommodation> GetAccommodationsByPlaceId(int id)
+        {
+            IQueryable<Accommodation> queryableAccommodation =
+                                        from place in db.Places
+                                        join accommodation in db.Accommodations on place.Id equals accommodation.PlaceId
+                                        where place.Id == id
+                                        select accommodation;
+
+            return queryableAccommodation;
+        }
+
         [Authorize]
         [HttpPut]
         [Route("Accommodations/{id}")]

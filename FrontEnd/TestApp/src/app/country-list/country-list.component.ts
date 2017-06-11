@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Country } from '../country/country.model'
 import { CountryListService } from './country-list.service';
 import { RegionListComponent } from '../region-list/region-list.component';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'country-list',

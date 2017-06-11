@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AccommodationType } from '../accommodation-type/accommodation-type.model';
 import { AccommodationTypeListService } from './accommodation-type-list.service';
-import { AuthService } from '../services/auth.service'
+import { AuthService } from '../services/auth.service';
 import {Accommodation} from '../accommodation/accommodation.model';
 import {
   Router,
