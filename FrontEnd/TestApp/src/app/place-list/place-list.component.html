@@ -1,3 +1,5 @@
-<p>
-  place-list works!
-</p>
+<a [routerLink]="['/region', region.Id]" (click)='onClick()'>{{region.Name}}</a>
+  <ul *ngIf='show'>
+     <li *ngFor="let p of places"> <a [routerLink]="['/place', p.Id]">{{p.Name}}</a> </li>
+  </ul>
+

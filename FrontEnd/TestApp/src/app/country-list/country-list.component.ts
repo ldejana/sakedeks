@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Country } from '../country/country.model'
 import { CountryListService } from './country-list.service';
+import { RegionListComponent } from '../region-list/region-list.component';
 
 @Component({
   selector: 'country-list',
@@ -13,6 +14,7 @@ export class CountryListComponent implements OnInit {
   countries: Country[]
   Name: string;
   Code: string;
+  CountryId: number;
 
   constructor(private countryService: CountryListService) { 
     this.countries = []
@@ -22,6 +24,10 @@ export class CountryListComponent implements OnInit {
     this.countryService.getAll().subscribe(x => this.countries = x.json());
   }
 
+  onClick(CountryId : number) {
+    this.CountryId = CountryId;
+  }
+
   onSubmit(c: Country) {
     
     this.countryService.create(new Country(3, this.Name, this.Code)).subscribe();
@@ -29,5 +35,9 @@ export class CountryListComponent implements OnInit {
     this.Name = "";
     this.Code = "";
   }
+
+
+ 
+
 
 }

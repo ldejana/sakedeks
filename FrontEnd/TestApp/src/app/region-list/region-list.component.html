@@ -1,5 +1,8 @@
-<div>
-  <ul>
-     <li *ngFor="let r of regions"> <a [routerLink]="['/region', r.Id]">{{r.Name}}</a> </li>
-  </ul>
-</div>
+<a [routerLink]="['/country', country.Id]" (click)='onClick()'>{{country.Name}}</a>
+  <div *ngIf='show'>
+     <div *ngFor="let r of regions"> 
+       <place-list [region] = 'r'>  </place-list>
+     </div>
+     
+  </div>
+

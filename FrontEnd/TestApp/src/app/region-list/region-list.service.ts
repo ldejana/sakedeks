@@ -11,7 +11,7 @@ export class RegionListService {
     }
 
     getAll(countryId: number) {
-         return this.http.get("http://localhost:54042/api/Regions?$filter=Id eq " + countryId);
+         return this.http.get("http://localhost:54042/api/Regions?$filter=CountryId eq " + countryId);
     }
 
 }

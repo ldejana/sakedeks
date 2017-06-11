@@ -1,9 +1,7 @@
 <h4> Countries </h4>
-
-<ul>
-  <!--<li *ngFor="let c of countries"> <country [country] = "c"> </country> </li> -->
-  <li *ngFor="let c of countries"> <a [routerLink]="['/country', c.Id]">{{c.Name}}</a> </li>
-</ul>
+<div *ngFor="let c of countries"> 
+    <region-list [country] = 'c'> </region-list> 
+</div>
 
 <!--<form #f = "ngForm" (ngSubmit)="onSubmit()">
   <div>
