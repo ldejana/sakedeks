@@ -1,11 +1,11 @@
-<h4> Create accommodation type </h4>
-
 <form #f = "ngForm" (ngSubmit)="onSubmit()">
     <label for="Name"> Name: </label>
     <input type="text" id="Name" name="Name" [(ngModel)]="Name"> <br/>
     <input type="submit" value="Create">
 </form>
 
+<!--
 <button (click)="cancel()"> Cancel </button>
+-->
 
 <div> {{Message}} </div>

@@ -3,10 +3,7 @@ import { AccommodationType } from '../accommodation-type/accommodation-type.mode
 import { AccommodationTypeListService } from './accommodation-type-list.service';
 import { AuthService } from '../services/auth.service';
 import {Accommodation} from '../accommodation/accommodation.model';
-import {
-  Router,
-  ActivatedRoute
-} from '@angular/router';
+import {Router,ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'accommodation-type-list',
@@ -20,14 +17,14 @@ export class AccommodationTypeListComponent implements OnInit {
   accommodation: AccommodationType;
   Message: string = "";
 
-  constructor(private accommodationTypeSerice: AccommodationTypeListService, private router: Router,
+  constructor(private accommodationTypeService: AccommodationTypeListService, private router: Router,
     private authService: AuthService) { 
 
     this.accommodationTypes = [];
   }
 
   ngOnInit() {
-    this.accommodationTypeSerice.getAll().subscribe( x => this.accommodationTypes=x.json());
+    this.getAccommodationTypes()
   }
 
   showAddAccTypeForm() {
@@ -42,14 +39,7 @@ export class AccommodationTypeListComponent implements OnInit {
     return this.authService.isLoggedIn();
   }
 
-  deleteAccType(id) {
-    this.Message = "";
-    this.accommodationTypeSerice.delete(id).subscribe(x => this.Message="Accommodation type deleted successfuly!", 
-      x => this.Message=x.json().Message)
+  getAccommodationTypes() {
+    this.accommodationTypeService.getAll().subscribe( x => this.accommodationTypes=x.json());
   }
-
-  editAccType(id, name){
-    this.router.navigate(['/editAccType', id, name]);
-  }
-
 }

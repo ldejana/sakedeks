@@ -11,28 +11,22 @@ export class AccommodationTypeService {
        
     }
 
-    getAll() : Observable<any> {
-        return this.http.get("http://localhost:54042/api/Accommodations");
-    }
-
-    getByAccTypeId(id: number): Observable<any> {
-        let urlAddress = "http://localhost:54042/api/Accommodations?$filter=AccommodationTypeId eq " + id;
+    getAccommodationType(id: number): Observable<any> {
+        let urlAddress = "http://localhost:54042/api/AccommodationTypes?$filter=Id eq " + id;
         return this.http.get(urlAddress);
     }
 
-    getByCountryId(id: number): Observable<any> {
-        let urlAddress =  `http://localhost:54042/api/Accommodations/CountryId/${id}?filter=Id eq ${id} &$expand=Place, Owner`;
-        return this.http.get(urlAddress);
-    }
+    delete(id: number) {
+        let token=localStorage.getItem("token");
+        let header = new Headers();
+        header.append('Content-Type', 'application/json');
+        header.append('Authorization', 'Bearer '+ JSON.parse(token).token);
 
-    getByRegionId(id: number): Observable<any> {
-        let urlAddress =  `http://localhost:54042/api/Accommodations/RegionId/${id}?filter=Id eq ${id} &$expand=Place, Owner`; 
-        return this.http.get(urlAddress);
-    }
-
-    getByPlaceId(id: number): Observable<any> {
-        let urlAddress = `http://localhost:54042/api/Accommodations/PlaceId/${id}?filter=Id eq ${id} &$expand=Place, Owner`;
-        return this.http.get(urlAddress);
+        let options = new RequestOptions();
+        options.headers = header;
+        
+        let urlAddress = `http://localhost:54042/api/AccommodationTypes/` + id;
+        return this.http.delete(urlAddress, options);
     }
 
 }

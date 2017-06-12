@@ -1,8 +1,9 @@
 import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import {Accommodation} from '../accommodation/accommodation.model';
+import {AccommodationType} from '../accommodation-type/accommodation-type.model';
 import {AccommodationTypeService} from './accommodation-type.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Origins } from '../enumerations/origins.model';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'accommodation-type',
@@ -10,42 +11,42 @@ import { Origins } from '../enumerations/origins.model';
   styleUrls: ['./accommodation-type.component.css'],
   providers: [AccommodationTypeService]
 })
-export class AccommodationTypeComponent implements OnInit, OnChanges {
+export class AccommodationTypeComponent implements OnInit {
   
   Id: number = -1;
-  Accomodations: Accommodation[];
-  AccommodationType: string;
+  AccommodationTypeName: string;
   Origin: string;
+  Message: string;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private accTypeService: AccommodationTypeService) { 
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, 
+              private accommodationTypeService: AccommodationTypeService,
+              private authService: AuthService) { 
     activatedRoute.params.subscribe(params => {this.Id = params["Id"]; 
-                                               this.AccommodationType = params["Name"]; 
-                                               this.Origin = params["Origin"]});
+                                               this.AccommodationTypeName = params["Name"];});
+   
   }
 
   ngOnInit() {
-     this.getData();
+     
    }
 
-   ngOnChanges(changes: SimpleChanges): void {
-     this.getData();
+   deleteAccommodationType() {
+    this.Message = "";
+    this.accommodationTypeService.delete(this.Id).subscribe(
+      x => {this.Message="Accommodation type deleted successfuly!"; 
+            this.router.navigate(['/accommodationTypeList'])}, 
+      x => this.Message=x.json().Message)
   }
 
-  getData() {
-    this.Accomodations = [];
+   editAccommodationType() {
+      this.router.navigate(['/editAccommodationType', this.Id, this.AccommodationTypeName]);
+   }
 
-      switch(this.Origin) {
-        case 'AccommodationType': 
-            this.accTypeService.getByAccTypeId(this.Id).subscribe(x => this.Accomodations = x.json()); break;
-        case 'Country': 
-            this.accTypeService.getByCountryId(this.Id).subscribe(x => this.Accomodations = x.json()); break;
-        case 'Region':
-            this.accTypeService.getByRegionId(this.Id).subscribe(x => this.Accomodations = x.json()); break;
-        case 'Place':
-            this.accTypeService.getByPlaceId(this.Id).subscribe(x => this.Accomodations = x.json()); break;
-        default: break;
-      }
+   isAdmin(): boolean {
+    return this.authService.getRole()=="Admin";
   }
-  
 
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
 }

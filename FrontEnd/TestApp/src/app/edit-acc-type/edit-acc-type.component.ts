@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AccommodationType } from '../accommodation-type/accommodation-type.model';
 import { EditAccTypeService } from './edit-acc-type.service';
-import {
-  Router,
-  ActivatedRoute
-} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'edit-acc-type',
@@ -27,7 +24,8 @@ export class EditAccTypeComponent implements OnInit {
 
   onSubmit() {
     this.Message = "";
-    this.editAccTypeService.edit(new AccommodationType(this.Id, this.Name)).subscribe(x => this.Message="Accommodation type edited successfuly!", 
+    this.editAccTypeService.edit(new AccommodationType(this.Id, this.Name)).subscribe(
+      x => { this.Message="Accommodation type edited successfuly!"; this.router.navigate(['/accommodationType', this.Id, this.Name]); }, 
       x => this.Message=x.json().Message);
   }
 

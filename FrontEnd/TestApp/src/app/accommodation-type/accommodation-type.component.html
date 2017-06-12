@@ -1,4 +1,9 @@
-<h4> Accomodations: {{AccommodationType}} </h4>
+<h4> AccommodationType: {{ AccommodationTypeName }} </h4>
+
+&nbsp; <button *ngIf="isLoggedIn() && isAdmin()" (click)="deleteAccommodationType()"> <b> Delete </b> </button>
+&nbsp; <button *ngIf="isLoggedIn() && isAdmin()" (click)="editAccommodationType()"> <b> Edit </b> </button>
+
+<!--
 <ul>
   <li *ngFor="let accommodation of Accomodations"> 
     Name: {{accommodation.Name}} <br/> 
@@ -13,3 +18,4 @@
   </li>
 </ul>
 
+-->

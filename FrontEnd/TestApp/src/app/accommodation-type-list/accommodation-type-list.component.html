@@ -1,11 +1,12 @@
 <h4> Accommodation Types </h4>
-<button *ngIf="isLoggedIn() && isAdmin()" (click)="showAddAccTypeForm()"> Add Accommodation Type </button>
+<add-acc-type (onAccommodationTypeAdded)="getAccommodationTypes($event)"> </add-acc-type>
+
+<!--<button *ngIf="isLoggedIn() && isAdmin()" (click)="showAddAccTypeForm()"> Add Accommodation Type </button>
+-->
 
 <ul>
   <li *ngFor="let accType of accommodationTypes"> 
-    <a [routerLink]="['/home', accType.Id, accType.Name, 'AccommodationType']"> {{accType.Name}} </a> 
-    &nbsp; <button *ngIf="isLoggedIn() && isAdmin()" (click)="deleteAccType(accType.Id)"> <b> Delete </b> </button>
-    &nbsp; <button *ngIf="isLoggedIn() && isAdmin()" (click)="editAccType(accType.Id, accType.Name)"> <b> Edit </b> </button>
+    <a [routerLink]="['/accommodationType', accType.Id, accType.Name]"> {{accType.Name}} </a> 
   </li>
 </ul>
 {{Message}}
