@@ -43,7 +43,7 @@ namespace BookingApp.Controllers
 
             // PUT: api/Regions/5
             [HttpPut]
-            [Route("Regions")]
+            [Route("Regions/{id}")]
             [ResponseType(typeof(void))]
             public IHttpActionResult PutRegion(int id, Region region)
             {

@@ -33,6 +33,9 @@ import { AddCountryComponent } from './add-country/add-country.component';
 import { EditCountryComponent } from './edit-country/edit-country.component';
 import { AddRegionComponent } from './add-region/add-region.component';
 import { RoomListComponent } from './room-list/room-list.component';
+import { EditRegionComponent } from './edit-region/edit-region.component';
+import { AddPlaceComponent } from './add-place/add-place.component';
+import { EditPlaceComponent } from './edit-place/edit-place.component';
 
 const ChildRoutes = [
    
@@ -42,7 +45,7 @@ const Routes = [
   {path: "home/:Id/:Name/:Origin", component: HomeComponent},
   {path: "countryList", component: CountryListComponent},
   {path: "accommodation/:Id", component: AccommodationComponent},
-  {path: "accommodationList/:Id/:Name/:Origin", component: AccommodationListComponent},
+  {path: "accommodationList/:Id/:Name/:Origin/:PlaceName", component: AccommodationListComponent},
   {path: "accommodationTypeList", component: AccommodationTypeListComponent},
   {path: "accommodationType/:Id/:Name", component: AccommodationTypeComponent},
   {path: "country/:Id", component: CountryComponent},
@@ -57,7 +60,9 @@ const Routes = [
   {path: "editCountry/:Id/:Name/:Code",  component: EditCountryComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
   {path: "addRegion/:CountryId/:CountryName",  component: AddRegionComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
   {path: "login",  component: LoginComponent},
-  {path: "register",  component: RegisterComponent}
+  {path: "register",  component: RegisterComponent},
+  {path: "editRegion/:Id/:Name/:CountryId/:CountryName",  component: EditRegionComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
+  {path: "editPlace/:Id/:PlaceName/:RegionId/:Path",  component: EditPlaceComponent, canActivate: [LoggedInGuard, IsAdminGuard]}
 ]
 
 @NgModule({
@@ -83,7 +88,10 @@ const Routes = [
     AddCountryComponent,
     EditCountryComponent,
     AddRegionComponent,
-    RoomListComponent
+    RoomListComponent,
+    EditRegionComponent,
+    AddPlaceComponent,
+    EditPlaceComponent
   ],
   imports: [
     BrowserModule,

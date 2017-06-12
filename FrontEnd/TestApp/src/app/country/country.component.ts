@@ -43,4 +43,8 @@ export class CountryComponent implements OnInit {
   editCountry(id, name, code) {
     this.router.navigate(['/editCountry', id, name, code]);
   }
+
+  addRegion() {
+    this.countryService.getById(this.countryId).subscribe(x => { this.country = x.json() });
+  }
 }

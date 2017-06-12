@@ -44,7 +44,7 @@ namespace BookingApp.Controllers
         // PUT: api/Places/5
         [HttpPut]
         [Authorize]
-        [Route("Places")]
+        [Route("Places/{id}")]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutPlace(int id, Place place)
         {

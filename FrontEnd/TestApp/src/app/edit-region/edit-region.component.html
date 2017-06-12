@@ -1,4 +1,4 @@
-<h4> Edit country </h4>
+<h4> Edit region </h4>
 
 <form #f = "ngForm" (ngSubmit)="onSubmit()">
   <div>
@@ -6,9 +6,6 @@
     <input type="text" id="Id" name="Id" [(ngModel)]="Id" disabled> <br/>
     <label for="Name"> Name: </label>
     <input type="text" id="Name" name="Name" [(ngModel)]="Name"> <br/>
-    <label for="Code"> Code: </label>
-    <input type="text" id="Code" name="Code" [(ngModel)]="Code"> <br/>
     <input type="submit" value="Edit">
   </div>
 </form>
-

@@ -1,3 +1,11 @@
 <div *ngFor="let place of places"> 
-    <a [routerLink]="['/accommodationList', place.Id, path, Origin]"> {{place.Name}} </a>
+    <a [routerLink]="['/accommodationList', place.Id, path, Origin, place.Name]"> {{place.Name}} </a> &nbsp; 
+        <button *ngIf="isLoggedIn() && isAdmin()" (click)="deletePlace(place.Id)"> 
+            <b> Delete place </b> 
+        </button>
+        &nbsp; 
+        <button *ngIf="isLoggedIn() && isAdmin()" 
+            (click)="editPlace(place.Id, place.Name, region.Id, path)"> 
+            <b> Edit place </b> 
+        </button>
 </div>

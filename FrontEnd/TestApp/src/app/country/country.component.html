@@ -7,6 +7,9 @@
       <b> Edit </b> 
     </button>
   </p>
+  <div>
+    <add-region *ngIf="isLoggedIn() && isAdmin()" [CountryId]="country.Id" (onRegionAdded)="addRegion($event)"></add-region>
+  </div>
   <p> Code: {{ country.Code }} </p>
   <div>
     <region-list [country]='country'> </region-list>
