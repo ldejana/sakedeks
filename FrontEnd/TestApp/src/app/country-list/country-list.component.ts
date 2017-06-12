@@ -48,8 +48,4 @@ export class CountryListComponent implements OnInit {
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
   }
-
-  showAddCountryForm() {
-    this.router.navigate(['/addCountry']);
-  }
 }

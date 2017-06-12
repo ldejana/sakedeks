@@ -1,5 +1,7 @@
 <h4> Countries </h4>
-<button *ngIf="isLoggedIn() && isAdmin()" (click)="showAddCountryForm()"> Add Country </button>
+<div>
+    <add-country> </add-country>
+</div> <br/>
 
 <div *ngFor="let c of countries"> 
     <a [routerLink]="['/country', c.Id]"> {{c.Name}} </a> 
