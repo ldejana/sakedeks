@@ -32,4 +32,12 @@ export class AppComponent {
   showRegistrationPage(){
     this.router.navigate(['/register']);
   }
+
+  showCountries() {
+    this.router.navigate(['/countryList']);
+  }
+
+  showAccommodationTypes() {
+    this.router.navigate(['/accommodationTypeList']);
+  }
 }

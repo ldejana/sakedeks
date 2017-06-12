@@ -1,23 +1,41 @@
-<div *ngIf="isLoggedIn()">
-  <logout> </logout>
-</div>
-<div *ngIf="!isLoggedIn()">
-  <button (click)="showLoginPage()"> Sign In </button>
-  <button (click)="showRegistrationPage()"> Sign Up </button>
-</div>
-<div style="text-align:center">
-  <h1>
+<md-sidenav-container>
+<header>
+
+  <div style="text-align:center">
+    <h1>
     Welcome to {{title}}!!
-  </h1>
-</div>
+    </h1>
+  </div>
 
-<div style='display: inline-block'>
-  <ul>
-    <li> <a [routerLink]="['/countryList']"> Countries </a> </li>
-    <li> <a [routerLink]="['/accommodationTypeList']"> Accommodation Types </a> </li>
-  </ul>
-</div>
+  <span>
+    <div *ngIf="isLoggedIn()" style='display: inline-block'>
+        <logout> </logout>
+      </div>
+      
+      <div *ngIf="!isLoggedIn()" style='display: inline-block'>
+        <button md-button (click)="showLoginPage()"> Sign In </button>
+        <button md-button (click)="showRegistrationPage()"> Sign Up </button>
+      </div>
+  </span>
 
-<div style='float: right; position: relative; left: -50%;'>
-  <router-outlet ></router-outlet>
-</div>
+</header>
+
+
+<nav name="navigationBar">
+  <md-card>
+     <button md-button (click) = "showCountries()"> Countries </button>
+    <button md-button (click) = "showAccommodationTypes()"> Accommodation Types </button>
+  </md-card>
+</nav>
+
+
+<main>
+  <div style='float: right; position: relative; left: -50%;'>
+      <router-outlet ></router-outlet>
+  </div>
+</main>
+
+</md-sidenav-container>
+
+
+
