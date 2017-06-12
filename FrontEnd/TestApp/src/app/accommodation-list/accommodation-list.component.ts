@@ -16,11 +16,13 @@ export class AccommodationListComponent implements OnInit {
   path: string;
   origin: Origins;
   Accommodations: Accommodation[];
+  placeName: string;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private accListService: AccommodationListService) {
     activatedRoute.params.subscribe(params => {this.Id = params["Id"]; 
                                                this.path = params["Name"]; 
-                                               this.origin = params["Origin"]});
+                                               this.origin = params["Origin"];
+                                               this.placeName = params["PlaceName"]});
    }
 
   ngOnInit() {
@@ -33,8 +35,11 @@ export class AccommodationListComponent implements OnInit {
             this.accListService.getByCountryId(this.Id).subscribe(x => this.Accommodations = x.json()); break;
         case 'Region':
             this.accListService.getByRegionId(this.Id).subscribe(x => this.Accommodations = x.json()); break;
-        case 'Place':
-            this.accListService.getByPlaceId(this.Id).subscribe(x => this.Accommodations = x.json()); break;
+        case 'Place': {
+            this.accListService.getByPlaceId(this.Id).subscribe(x => this.Accommodations = x.json());
+            this.path = this.path + " >> " + this.placeName;
+            break;
+        }
         default: break;
       }
   }

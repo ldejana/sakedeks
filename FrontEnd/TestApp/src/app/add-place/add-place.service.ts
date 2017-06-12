@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Country } from '../country/country.model';
+import { Place } from '../place/place.model';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class AddCountryService {
+export class AddPlaceService {
 
     constructor(private http: Http)
     {
        
     }
 
-    create(country: Country) : Observable<any> {
+    create(place: Place) : Observable<any> {
         let token=localStorage.getItem("token");
         let header = new Headers();
         header.append('Content-Type', 'application/json');
@@ -20,6 +20,6 @@ export class AddCountryService {
         let options = new RequestOptions();
         options.headers = header;
         
-        return this.http.post(`http://localhost:54042/api/Countries`, JSON.stringify(country), options);
+        return this.http.post(`http://localhost:54042/api/Places`, JSON.stringify(place), options);
     }
 }
