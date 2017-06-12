@@ -1,12 +1,5 @@
-<a [routerLink]="['/home', country.Id, country.Name, Origin]" (click)='onClick()'>{{country.Name}}</a>
+<div *ngFor="let r of regions"> 
+    <a [routerLink]="['/region', r.Id, country.Name]"> {{r.Name}} </a>
+</div>
 
-&nbsp; <button *ngIf="isLoggedIn() && isAdmin()" (click)="deleteCountry(country.Id)"> <b> Delete </b> </button>
-&nbsp; <button *ngIf="isLoggedIn() && isAdmin()" (click)="editCountry(country.Id, country.Name, country.Code)"> <b> Edit </b> </button>
-&nbsp; <button *ngIf="isLoggedIn() && isAdmin()" (click)="addRegion(country.Id, country.Name)"> <b> Add region </b> </button>
-
-  <div *ngIf='show'>
-     <div *ngFor="let r of regions"> 
-       <place-list [region] = 'r'>  </place-list>
-     </div>
-  </div>
 

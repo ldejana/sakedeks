@@ -21,8 +21,7 @@ export class CountryComponent implements OnInit {
    }
 
   ngOnInit() {
-     this.countryService.getById(this.countryId).subscribe(x => { this.country = x.json() });
-    
+     this.countryService.getById(this.countryId).subscribe(x => { this.country = x.json() });    
   }
 
 }

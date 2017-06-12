@@ -14,12 +14,22 @@ export class AppComponent {
   title = 'app';
 
   constructor(private authService: AuthService, private router: Router){
+    
   }
 
   ngOnInit() {
+    
   }
 
   isLoggedIn() : boolean{
     return this.authService.isLoggedIn();
+  }
+
+  showLoginPage() {
+    this.router.navigate(['/login']);
+  }
+
+  showRegistrationPage(){
+    this.router.navigate(['/register']);
   }
 }

@@ -31,6 +31,7 @@ import { EditAccTypeComponent } from './edit-acc-type/edit-acc-type.component';
 import { AddCountryComponent } from './add-country/add-country.component';
 import { EditCountryComponent } from './edit-country/edit-country.component';
 import { AddRegionComponent } from './add-region/add-region.component';
+import { RoomListComponent } from './room-list/room-list.component';
 
 const ChildRoutes = [
    
@@ -39,21 +40,22 @@ const ChildRoutes = [
 const Routes = [
   {path: "home/:Id/:Name/:Origin", component: HomeComponent},
   {path: "countryList", component: CountryListComponent},
-  {path: "accommodation", component: AccommodationComponent},
-  {path: "accommodationList", component: AccommodationListComponent},
-  {path: "accommodationShow/:Id/:Name/:Origin", component: AccommodationTypeComponent, children:ChildRoutes},
+  {path: "accommodation/:Id", component: AccommodationComponent},
+  {path: "accommodationList/:Id/:Name/:Origin", component: AccommodationListComponent},
   {path: "accommodationTypeList", component: AccommodationTypeListComponent},
   {path: "country/:Id", component: CountryComponent},
   {path: "place/:regionId",  component: PlaceComponent},
   {path: "placeList",  component: PlaceListComponent},
-  {path: "region",  component: RegionComponent},
+  {path: "region/:Id/:CountryName",  component: RegionComponent},
   {path: "regionList/:countryId",  component: RegionListComponent},
   {path: "addAccType",  component: AddAccTypeComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
   {path: "editAccType/:Id/:Name",  component: EditAccTypeComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
-  {path: "rooms/:Id/:AccName/:AccType/:AccTypeId/:Origin", component: RoomComponent},
+  {path: "rooms/:Id/:AccName", component: RoomComponent},
   {path: "addCountry",  component: AddCountryComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
   {path: "editCountry/:Id/:Name/:Code",  component: EditCountryComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
-  {path: "addRegion/:CountryId/:CountryName",  component: AddRegionComponent, canActivate: [LoggedInGuard, IsAdminGuard]}
+  {path: "addRegion/:CountryId/:CountryName",  component: AddRegionComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
+  {path: "login",  component: LoginComponent},
+  {path: "register",  component: RegisterComponent}
 ]
 
 @NgModule({
@@ -78,7 +80,8 @@ const Routes = [
     EditAccTypeComponent,
     AddCountryComponent,
     EditCountryComponent,
-    AddRegionComponent
+    AddRegionComponent,
+    RoomListComponent
   ],
   imports: [
     BrowserModule,

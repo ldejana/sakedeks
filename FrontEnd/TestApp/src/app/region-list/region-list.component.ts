@@ -14,12 +14,11 @@ import { Origins } from '../enumerations/origins.model';
   providers: [ RegionListService, CountryListService ]
   
 })
-export class RegionListComponent implements OnInit {
-  
+export class RegionListComponent implements OnInit, OnChanges {
+ 
+
   @Input() country: Country;
-  @Input() show: boolean = false;
   regions : Region[];
-  Origin : Origins = 'Country';
 
 
   constructor(private regionListService : RegionListService, private authService: AuthService,
@@ -28,21 +27,16 @@ export class RegionListComponent implements OnInit {
   }
 
   ngOnInit() {
-     
+
   }
 
-  getData() {
-    this.regionListService.getAll(this.country.Id).subscribe(x => { this.regions = x.json() });
+   ngOnChanges(changes: SimpleChanges): void {
+     if (this.country.Id != undefined){
+        this.regionListService.getAll(this.country.Id).subscribe(x => { this.regions = x.json() });
+     }
   }
 
-  onClick() {
-    if(this.regions.length == 0){
-      this.getData();
-    } 
-    this.show = !this.show;
-  }
-
-  isAdmin(): boolean {
+  /*isAdmin(): boolean {
     return this.authService.getRole()=="Admin";
   }
 
@@ -61,5 +55,5 @@ export class RegionListComponent implements OnInit {
 
   addRegion(countryId, countryName) {
     this.router.navigate(['/addRegion', countryId, countryName]);
-  }
+  }*/
 }

@@ -13,26 +13,24 @@ import { Origins } from '../enumerations/origins.model';
 })
 export class PlaceListComponent implements OnInit, OnChanges {
  
-
-  show: boolean = false;
   @Input() region : Region;
   places: Place[];
-  regionId: number;
-  Origin: Origins = 'Region';
+  Origin: Origins = 'Place';
+  @Input() countryName: string;
+  path: string;
 
   constructor(private placeListService: PlaceListService, private router: Router, private activatedRoute: ActivatedRoute) {
-      activatedRoute.params.subscribe(params => {this.regionId = params["regionId"]});
   }
 
   ngOnInit() {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.placeListService.getAll(this.region.Id).subscribe(x => { this.places = x.json() });
+    if (this.region.Id != undefined) {
+      this.path = this.countryName + ' >> ' + this.region.Name;
+      this.placeListService.getAll(this.region.Id).subscribe(x => { this.places = x.json() });
+    }
   }
 
-  onClick() {
-    this.show = !this.show;
-  }
 
 }

@@ -1,3 +1,6 @@
-<p>
-  region works!
-</p>
+<div>
+  <p> {{countryName}} >> {{ region.Name }} </p>
+  <div>
+    <place-list [region]='region' [countryName] = 'countryName'> </place-list>
+  </div>
+</div>

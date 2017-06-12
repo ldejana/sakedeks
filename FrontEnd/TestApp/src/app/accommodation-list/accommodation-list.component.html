@@ -1,3 +1,5 @@
-<p>
-  accommodation-list works!
-</p>
+<h4> {{path}} Accommodations </h4>
+
+<div *ngFor="let accommodation of Accommodations"> 
+    <a [routerLink]="['/accommodation', accommodation.Id]"> {{accommodation.Name}} </a>
+</div>

@@ -2,6 +2,9 @@
 <button *ngIf="isLoggedIn() && isAdmin()" (click)="showAddCountryForm()"> Add Country </button>
 
 <div *ngFor="let c of countries"> 
-    <region-list [country] = 'c'> </region-list> 
+    <a [routerLink]="['/country', c.Id]"> {{c.Name}} </a> 
+    &nbsp; <button *ngIf="isLoggedIn() && isAdmin()" (click)="deleteCountry(c.Id)"> <b> Delete </b> </button>
+    &nbsp; <button *ngIf="isLoggedIn() && isAdmin()" (click)="editCountry(c.Id, c.Name, c.Code)"> <b> Edit </b> </button>
+    &nbsp; <button *ngIf="isLoggedIn() && isAdmin()" (click)="addRegion(c.Id, c.Name)"> <b> Add region </b> </button>
 </div>
 

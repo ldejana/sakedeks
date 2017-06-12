@@ -11,7 +11,7 @@ import {
 })
 export class HomeComponent implements OnInit {
 
-  Id: number = -1;
+  Id: number;
   Name: string;
   Origin: string;
 
@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.router.navigate(['/accommodationShow', this.Id, this.Name, this.Origin]);
+      this.router.navigate(['/accommodationShow', this.Id, this.Name, this.Origin]);
   }
 
 }

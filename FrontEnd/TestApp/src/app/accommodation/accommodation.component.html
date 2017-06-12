@@ -1,3 +1,11 @@
-<p>
-  accommodation works!
-</p>
+<div>  
+  Name: {{accommodation.Name}} <br/> 
+  Description: {{accommodation.Description}} <br />
+  Address: {{accommodation.Address}} <br/> 
+  Average grade: {{accommodation.AverageGrade}} <br/> 
+  Latitude: {{accommodation.Latitude}} <br/>
+  Longitude: {{accommodation.Longitude}} <br/>
+  Owner: {{ accommodation.Owner.Name + ' ' + accommodation.Owner.LastName}} <br/>
+  Place: {{ accommodation.Place.Name }} <br/>
+  <a [routerLink]="['/rooms', accommodation.Id, accommodation.Name]"> Rooms </a>
+</div>

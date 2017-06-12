@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {RegisterData} from './register-data.model';
 import { RegisterService } from './register.service';
+import {
+  Router,
+  ActivatedRoute
+} from '@angular/router';
 
 @Component({
   selector: 'register',
@@ -18,7 +22,7 @@ export class RegisterComponent implements OnInit {
    isManager: boolean = false;
    Message: string = "";
 
-  constructor(private registerService: RegisterService) { 
+  constructor(private registerService: RegisterService, private router: Router) { 
   }
 
   ngOnInit() {
@@ -32,7 +36,8 @@ export class RegisterComponent implements OnInit {
       this.Role = "AppUser";
     }
     this.registerService.register(new RegisterData(this.Email, this.Password, this.ConfirmPassword,
-      this.Name, this.LastName, this.Role)).subscribe(x => this.Message="Successful registration", x => this.Message=x.json().Message);
+      this.Name, this.LastName, this.Role)).subscribe(x => {this.Message="Successful registration";
+      this.router.navigate(['login'])}, x => this.Message=x.json().Message);
 
     this.Name = "";
     this.Email = "";

@@ -24,7 +24,8 @@ export class AddAccTypeComponent implements OnInit {
 
   onSubmit() {
     this.Message = "";
-    this.addAccTypeService.create(new AccommodationType(1, this.Name)).subscribe(x => this.Message="Accommodation type added successfuly!", 
+
+    this.addAccTypeService.create(new AccommodationType(1, this.Name)).subscribe(x => {this.Message="Accommodation type added successfuly!"}, 
       x => this.Message=x.json().Message);
     this.Name = "";
   }

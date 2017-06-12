@@ -17,13 +17,9 @@ export class RoomComponent implements OnInit {
   Id: number = -1;
   Rooms: Room[];
   AccommodationName: string;
-  AccTypeName: string;
-  AccTypeId: number;
-  Origin: string;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private roomService: RoomService) {
-    activatedRoute.params.subscribe(params => {this.Id = params["Id"]; this.AccommodationName = params["AccName"];
-    this.AccTypeName = params["AccType"]; this.AccTypeId = params["AccTypeId"]; this.Origin = params["Origin"]});
+    activatedRoute.params.subscribe(params => {this.Id = params["Id"]; this.AccommodationName = params["AccName"];});
    }
 
   ngOnInit() {
