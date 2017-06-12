@@ -25,19 +25,6 @@ export class CountryListService {
         return this.http.post(`http://localhost:54042/api/Countries`, JSON.stringify(country), options);
     }
 
-    delete(id) {
-        let token=localStorage.getItem("token");
-        let header = new Headers();
-        header.append('Content-Type', 'application/json');
-        header.append('Authorization', 'Bearer '+ JSON.parse(token).token);
-
-        let options = new RequestOptions();
-        options.headers = header;
-        
-        let urlAddress = `http://localhost:54042/api/Countries/` + id;
-        return this.http.delete(urlAddress, options);
-    }
-
     update() {
 
     }

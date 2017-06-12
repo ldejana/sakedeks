@@ -48,4 +48,8 @@ export class CountryListComponent implements OnInit {
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
   }
+
+  addCountry() {
+    this.countryService.getAll().subscribe(x => this.countries = x.json());
+  }
 }

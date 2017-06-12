@@ -24,7 +24,7 @@ export class EditCountryService {
         return this.http.put(urlAddress, JSON.stringify(country), options);
     }
 
-    update() {
-        
+    getById(id: number) : Observable<any> {
+       return this.http.get(`http://localhost:54042/api/Countries/${id}`);
     }
 }

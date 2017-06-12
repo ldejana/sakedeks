@@ -36,18 +36,9 @@ export class RegionListComponent implements OnInit, OnChanges {
      }
   }
 
-  /*isAdmin(): boolean {
-    return this.authService.getRole()=="Admin";
-  }
+  /*
 
-  isLoggedIn(): boolean {
-    return this.authService.isLoggedIn();
-  }
-
-  deleteCountry(id) {
-    this.countryListService.delete(id).subscribe(x => alert("Country deleted successfuly!"), 
-      x => alert(x.json().Message));
-  }
+  
 
   editCountry(id, name, code){
     this.router.navigate(['/editCountry', id, name, code]);

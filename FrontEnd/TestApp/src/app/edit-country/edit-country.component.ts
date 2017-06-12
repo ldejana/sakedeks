@@ -14,24 +14,23 @@ import {
 })
 export class EditCountryComponent implements OnInit {
 
-  Name: string;
   Id: number;
+  Name: string;
   Code: string;
 
   constructor(private editCountryService: EditCountryService, private activatedRoute: ActivatedRoute, private router: Router) {
-    activatedRoute.params.subscribe(params => {this.Id = params["Id"]; this.Name = params["Name"]; this.Code = params["Code"]});
+    activatedRoute.params.subscribe(params => {this.Id = params["Id"];
+    this.Name = params["Name"]; this.Code = params["Code"]});
    }
 
   ngOnInit() {
+     
   }
 
   onSubmit() {
-    this.editCountryService.edit(new Country(this.Id, this.Name, this.Code)).subscribe(x => alert("Accommodation type edited successfuly!"), 
+    this.editCountryService.edit(new Country(this.Id, this.Name, this.Code)).subscribe(x => 
+      {this.router.navigate(['/country', this.Id])}, 
       x => alert(x.json().Message));
-  }
-
-  cancel() {
-    this.router.navigate(['/']);
   }
 
 }
