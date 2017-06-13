@@ -24,19 +24,19 @@ export class AccommodationListService {
 
     getByCountryId(id: number): Observable<any> {
         let host = ConfigurationManager.Host
-        let urlAddress =  `http://${host}/api/Accommodations/CountryId/${id}?filter=Id eq ${id} &$expand=Place, Owner`;
+        let urlAddress =  `http://${host}/api/Accommodations/CountryId/${id}?filter=Id eq ${id} &$expand=Place, Owner, AccommodationType`;
         return this.http.get(urlAddress);
     }
 
     getByRegionId(id: number): Observable<any> {
         let host = ConfigurationManager.Host;
-        let urlAddress =  `http://${host}/api/Accommodations/RegionId/${id}?filter=Id eq ${id} &$expand=Place, Owner`; 
+        let urlAddress =  `http://${host}/api/Accommodations/RegionId/${id}?filter=Id eq ${id} &$expand=Place, Owner, AccommodationType`; 
         return this.http.get(urlAddress);
     }
 
     getByPlaceId(id: number): Observable<any> {
         let host = ConfigurationManager.Host;
-        let urlAddress = `http://${host}/api/Accommodations/PlaceId/${id}?filter=Id eq ${id} &$expand=Place, Owner`;
+        let urlAddress = `http://${host}/api/Accommodations/PlaceId/${id}?filter=Id eq ${id} &$expand=Place, Owner, AccommodationType`;
         return this.http.get(urlAddress);
     }
 

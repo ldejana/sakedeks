@@ -13,7 +13,7 @@ export class AccommodationService {
     getById(id: number) : Observable<any> {
 
         let host = ConfigurationManager.Host;
-        let urlAddress = `http://${host}/api/Accommodations?$filter=Id eq ${id} &$expand=Place, Owner`
+        let urlAddress = `http://${host}/api/Accommodations?$filter=Id eq ${id} &$expand=Place, Owner, AccommodationType`
         return this.http.get(urlAddress);
     }
 }
