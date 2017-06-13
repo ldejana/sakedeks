@@ -41,6 +41,7 @@ import { EditPlaceComponent } from './edit-place/edit-place.component';
 import { AddAccommodationComponent } from './add-accommodation/add-accommodation.component';
 import { AddRoomComponent } from './add-room/add-room.component';
 import { EditAccommodationComponent } from './edit-accommodation/edit-accommodation.component';
+import { EditRoomComponent } from './edit-room/edit-room.component';
 
 
 const ChildRoutes = [
@@ -61,7 +62,7 @@ const Routes = [
   {path: "regionList/:countryId",  component: RegionListComponent},
   {path: "addAccType",  component: AddAccTypeComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
   {path: "editAccommodationType/:Id/:Name",  component: EditAccTypeComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
-  {path: "roomList/:AccommodationId/:AccommodationName", component: RoomListComponent},
+  {path: "roomList/:AccommodationId/:AccommodationName/:OwnerId", component: RoomListComponent},
   {path: "room/:Id/:AccommodationName", component: RoomComponent},
   {path: "addCountry",  component: AddCountryComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
   {path: "editCountry/:Id/:Name/:Code",  component: EditCountryComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
@@ -73,7 +74,9 @@ const Routes = [
   {path: "editPlace/:Id/:PlaceName/:RegionId/:Path",  component: EditPlaceComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
   {path: "addAccommodation",  component: AddAccommodationComponent, canActivate: [LoggedInGuard, IsManagerGuard]},
   {path: "editAcc/:Id/:Name/:Description/:Address/:Latitude/:Longitude/:AverageGrade/:Approved/:AccommodationTypeId/:PlaceId/:OwnerId",  
-    component: EditAccommodationComponent, canActivate: [LoggedInGuard, IsManagerGuard]}
+    component: EditAccommodationComponent, canActivate: [LoggedInGuard, IsManagerGuard]},
+  {path: "editRoom/:Id", component: EditRoomComponent, canActivate: [LoggedInGuard, IsManagerGuard]}
+  
 ]
 
 @NgModule({
@@ -105,7 +108,8 @@ const Routes = [
     EditPlaceComponent,
     AddAccommodationComponent,
     AddRoomComponent,
-    EditAccommodationComponent
+    EditAccommodationComponent,
+    EditRoomComponent
   ],
   imports: [
     BrowserModule,

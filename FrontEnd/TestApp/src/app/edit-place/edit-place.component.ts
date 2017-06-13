@@ -2,10 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Place } from '../place/place.model';
 import { EditPlaceService } from './edit-place.service';
 import { Origins } from '../enumerations/origins.model';
-import {
-  Router,
-  ActivatedRoute
-} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'edit-place',

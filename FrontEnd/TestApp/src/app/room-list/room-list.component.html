@@ -1,5 +1,7 @@
-<add-room [AccommodationId] = 'accommodationId' (onRoomAdded) = 'addedRoom($event)'> </add-room>
+<div *ngIf="isLoggedIn() && isManager() && isMyAcc(ownerId)">
+    <add-room [AccommodationId] = 'accommodationId' (onRoomAdded) = 'roomListChanged($event)'> </add-room>
+</div>
 
 <div *ngFor="let room of rooms"> 
-    <room [Id] = 'room.Id'> </room>
+    <room [Id] = 'room.Id' [OwnerId] = 'ownerId' (onDeletedRoom) = 'roomListChanged($event)'> </room>
 </div>

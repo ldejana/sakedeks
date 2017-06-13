@@ -5,3 +5,7 @@
    Price per night: {{Room.PricePerNight}} <br/>
 </div>
 
+<div *ngIf="isLoggedIn() && isManager() && isMyAcc(OwnerId)">
+    <button (click) = 'editRoom()'> Edit </button>
+    <button (click) = 'deleteRoom()'> Delete </button>
+</div>

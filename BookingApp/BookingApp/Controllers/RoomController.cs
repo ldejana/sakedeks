@@ -26,6 +26,7 @@ namespace BookingApp.Controllers
         }
 
         [HttpGet]
+        [EnableQuery]
         [Route("Rooms/{id}")]
         [ResponseType(typeof(Room))]
         public IHttpActionResult GetRoom(int id)
