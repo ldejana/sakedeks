@@ -6,7 +6,7 @@
 <div>
   <ul>
   <li *ngFor="let accType of accommodationTypes"> 
-    <a [routerLink]="['/accommodationList', accType.Id, accType.Name, Origin, '']"> {{accType.Name}} </a> 
+    <a [routerLink]="['/accommodationList', accType.Id, accType.Name, Origin, 'empty']"> {{accType.Name}} </a> 
 
     &nbsp; <button *ngIf="isLoggedIn() && isAdmin()" (click)="deleteAccommodationType(accType.Id)"> <b> Delete </b> </button>
     &nbsp; <button *ngIf="isLoggedIn() && isAdmin()" (click)="editAccommodationType(accType.Id, accType.Name)"> <b> Edit </b> </button>

@@ -10,3 +10,15 @@
   Accommodation type: {{ accommodation.AccommodationType.Name }} <br/>
   <a [routerLink]="['/roomList', accommodation.Id, accommodation.Name]"> Rooms </a>
 </div>
+
+<div>
+  <button *ngIf="isLoggedIn() && isManager() && isMyAcc(accommodation.Owner.Id)" (click)="deleteAcc(accommodation.Id)"> 
+      <b> Delete Accommodation </b> 
+    </button>
+
+    <button *ngIf="isLoggedIn() && isManager() && isMyAcc(accommodation.Owner.Id)" 
+      (click)="editAcc(accommodation.Id, accommodation.Name, accommodation.Description, accommodation.Address, accommodation.Latitude, accommodation.Longitude,
+      accommodation.AverageGrade, accommodation.Approved, accommodation.AccommodationTypeId, accommodation.PlaceId, accommodation.OwnerId)"> 
+      <b> Edit Accommodation </b> 
+    </button>
+</div>  

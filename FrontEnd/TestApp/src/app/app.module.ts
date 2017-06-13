@@ -40,6 +40,8 @@ import { AddPlaceComponent } from './add-place/add-place.component';
 import { EditPlaceComponent } from './edit-place/edit-place.component';
 import { AddAccommodationComponent } from './add-accommodation/add-accommodation.component';
 import { AddRoomComponent } from './add-room/add-room.component';
+import { EditAccommodationComponent } from './edit-accommodation/edit-accommodation.component';
+
 
 const ChildRoutes = [
    
@@ -69,7 +71,9 @@ const Routes = [
   {path: "register/:Manager",  component: RegisterComponent},
   {path: "editRegion/:Id/:Name/:CountryId/:CountryName",  component: EditRegionComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
   {path: "editPlace/:Id/:PlaceName/:RegionId/:Path",  component: EditPlaceComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
-  {path: "addAccommodation",  component: AddAccommodationComponent, canActivate: [LoggedInGuard, IsManagerGuard]}
+  {path: "addAccommodation",  component: AddAccommodationComponent, canActivate: [LoggedInGuard, IsManagerGuard]},
+  {path: "editAcc/:Id/:Name/:Description/:Address/:Latitude/:Longitude/:AverageGrade/:Approved/:AccommodationTypeId/:PlaceId/:OwnerId",  
+    component: EditAccommodationComponent, canActivate: [LoggedInGuard, IsManagerGuard]}
 ]
 
 @NgModule({
@@ -100,7 +104,8 @@ const Routes = [
     AddPlaceComponent,
     EditPlaceComponent,
     AddAccommodationComponent,
-    AddRoomComponent
+    AddRoomComponent,
+    EditAccommodationComponent
   ],
   imports: [
     BrowserModule,

@@ -4,6 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AccommodationService } from './accommodation.service';
 import { User } from '../models/user.model';
 import { Place } from '../place/place.model';
+import { AuthService } from '../services/auth.service';
+import { AccommodationType } from '../accommodation-type/accommodation-type.model';
 
 @Component({
   selector: 'app-accommodation',
@@ -16,17 +18,43 @@ export class AccommodationComponent implements OnInit {
   accommodationId: number;
   accommodation: Accommodation;
   accommodations: Accommodation[];
+  placeName: string;
 
-  constructor(private accommodationService: AccommodationService, private router: Router, private activatedRoute: ActivatedRoute) { 
+  constructor(private accommodationService: AccommodationService, private router: Router, private activatedRoute: ActivatedRoute,
+    private authService: AuthService) { 
+
     activatedRoute.params.subscribe(params => {this.accommodationId = params["Id"];});
     this.accommodation = new Accommodation();
     this.accommodation.Owner = new User();
     this.accommodation.Place = new Place();
+    this.accommodation.AccommodationType = new AccommodationType();
   }
 
   ngOnInit() {
     this.accommodationService.getById(this.accommodationId).subscribe(x => { this.accommodations = x.json();
        this.accommodation = this.accommodations[0]});
+  }
+
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
+
+  isManager() : boolean{
+    return this.authService.getRole() == "Manager";
+  }
+
+  isMyAcc(ownerId: number): boolean {
+    return this.authService.getOwnerId() == ownerId;
+  }
+
+  deleteAcc(id) {
+    this.accommodationService.delete(id).subscribe(x => {alert("Accommodation deleted successfuly!");
+      this.router.navigate(['/accommodationList', this.accommodation.PlaceId, "Place", "Place", this.accommodation.Place.Name])}, 
+      x => alert(x.json().Message));
+  }
+
+  editAcc(id, name, desc, address, latitude, longitude, averageGr, /*imageUrl, dodaj kasnije*/ approved, accTypeId, placeId,ownerId) {
+    this.router.navigate(['/editAcc', id, name, desc, address, latitude, longitude, averageGr, /*imageUrl,*/ approved, accTypeId, placeId, ownerId]);
   }
 
 }
