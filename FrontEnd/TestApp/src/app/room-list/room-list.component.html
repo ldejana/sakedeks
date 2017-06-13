@@ -1,3 +1,5 @@
+<add-room [AccommodationId] = 'accommodationId' (onRoomAdded) = 'addedRoom($event)'> </add-room>
+
 <div *ngFor="let room of rooms"> 
-    <a [routerLink]="['/accommodationList']"> {{room.RoomNumber}} </a>
+    <room [Id] = 'room.Id'> </room>
 </div>

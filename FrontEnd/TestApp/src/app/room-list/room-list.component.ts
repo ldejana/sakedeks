@@ -11,19 +11,26 @@ import { Router, ActivatedRoute } from "@angular/router";
   providers: [ RoomListService ]
 })
 
-export class RoomListComponent implements OnInit, OnChanges {
+export class RoomListComponent implements OnInit {
 
-  @Input() accommodation : Accommodation;
+  accommodationId: number;
+  accommodationName: string;
   rooms: Room[];
 
-  constructor(private roomListService: RoomListService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private roomListService: RoomListService, private router: Router, private activatedRoute: ActivatedRoute) {
+    activatedRoute.params.subscribe(params => {this.accommodationId = params["AccommodationId"]; this.accommodationName = params["AccommodationName"]});
+      
+   }
 
   ngOnInit() {
+    if (this.accommodationId != undefined) {
+      this.roomListService.getAll(this.accommodationId).subscribe(x => { this.rooms = x.json() });
+    }
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (this.accommodation.Id != undefined) {
-      this.roomListService.getAll(this.accommodation.Id).subscribe(x => { this.rooms = x.json() });
+  addedRoom() {
+     if (this.accommodationId != undefined) {
+      this.roomListService.getAll(this.accommodationId).subscribe(x => { this.rooms = x.json() });
     }
   }
 

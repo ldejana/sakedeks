@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import {Room} from '../room/room.model';
 import {RoomService} from './room.service';
 import {
@@ -7,23 +7,29 @@ import {
 } from '@angular/router';
 
 @Component({
-  selector: 'app-room',
+  selector: 'room',
   templateUrl: './room.component.html',
   styleUrls: ['./room.component.css'],
   providers: [RoomService]
 })
-export class RoomComponent implements OnInit {
+export class RoomComponent implements OnInit, OnChanges {
+ 
 
-  Id: number = -1;
+  @Input() Id: number;
+  Room: Room;
   Rooms: Room[];
-  AccommodationName: string;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private roomService: RoomService) {
-    activatedRoute.params.subscribe(params => {this.Id = params["Id"]; this.AccommodationName = params["AccName"];});
+    //activatedRoute.params.subscribe(params => {this.Id = params["Id"]; this.AccommodationName = params["AccName"];});
+    this.Room = new Room();
    }
 
   ngOnInit() {
-    this.roomService.getByAccId(this.Id).subscribe(x => this.Rooms = x.json());
+    this.roomService.getById(this.Id).subscribe(x => { this.Rooms = x.json(); this.Room = this.Rooms[0]; });
+  }
+
+   ngOnChanges(changes: SimpleChanges): void {
+     this.roomService.getById(this.Id).subscribe(x => { this.Rooms = x.json(); this.Room = this.Rooms[0]; });
   }
 
 }

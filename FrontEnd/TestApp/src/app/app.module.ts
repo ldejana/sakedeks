@@ -39,6 +39,7 @@ import { EditRegionComponent } from './edit-region/edit-region.component';
 import { AddPlaceComponent } from './add-place/add-place.component';
 import { EditPlaceComponent } from './edit-place/edit-place.component';
 import { AddAccommodationComponent } from './add-accommodation/add-accommodation.component';
+import { AddRoomComponent } from './add-room/add-room.component';
 
 const ChildRoutes = [
    
@@ -58,7 +59,8 @@ const Routes = [
   {path: "regionList/:countryId",  component: RegionListComponent},
   {path: "addAccType",  component: AddAccTypeComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
   {path: "editAccommodationType/:Id/:Name",  component: EditAccTypeComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
-  {path: "rooms/:Id/:AccName", component: RoomComponent},
+  {path: "roomList/:AccommodationId/:AccommodationName", component: RoomListComponent},
+  {path: "room/:Id/:AccommodationName", component: RoomComponent},
   {path: "addCountry",  component: AddCountryComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
   {path: "editCountry/:Id/:Name/:Code",  component: EditCountryComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
   {path: "addRegion/:CountryId/:CountryName",  component: AddRegionComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
@@ -97,7 +99,8 @@ const Routes = [
     EditRegionComponent,
     AddPlaceComponent,
     EditPlaceComponent,
-    AddAccommodationComponent
+    AddAccommodationComponent,
+    AddRoomComponent
   ],
   imports: [
     BrowserModule,
