@@ -43,7 +43,7 @@ namespace BookingApp.Controllers
 
         // PUT: api/Countries/5
         [HttpPut]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [Route("Countries/{id}")]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutCountry(int id, Country country)
@@ -81,7 +81,7 @@ namespace BookingApp.Controllers
 
         // POST: api/Countries
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [Route("Countries")]
         [ResponseType(typeof(Country))]
         public IHttpActionResult PostCountry(Country country)
@@ -99,7 +99,7 @@ namespace BookingApp.Controllers
 
         // DELETE: api/Countries/5
         [HttpDelete]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [Route("Countries/{id}")]
         [ResponseType(typeof(Country))]
         public IHttpActionResult DeleteCountry(int id)

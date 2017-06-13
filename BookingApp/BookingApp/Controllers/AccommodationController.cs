@@ -1,4 +1,6 @@
 ﻿using BookingApp.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -16,6 +18,20 @@ namespace BookingApp.Controllers
     public class AccommodationController : ApiController
     {
         private BAContext db = new BAContext();
+
+        private ApplicationUserManager _userManager;
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
 
         [HttpGet]
         [Route("Accommodations")]
@@ -87,44 +103,66 @@ namespace BookingApp.Controllers
             return queryableAccommodation;
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPut]
         [Route("Accommodations/{id}")]
         [ResponseType(typeof(void))]
         public IHttpActionResult m3(int id, Accommodation accommodation)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+           // bool isManager = UserManager.IsInRole(User.Identity.Name, "Manager");
+            var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
 
-            if (id != accommodation.Id)
+            if (user != null)
             {
-                return BadRequest();
-            }
-
-            db.Entry(accommodation).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AccommodationExists(id))
+                BAContext BAContext = new BAContext();
+                var userRole = user.Roles.First().RoleId;
+                var role = BAContext.Roles.FirstOrDefault(r => r.Id == userRole);
+                bool isManager = role.Name.Equals("Manager");
+                if (isManager && (user != null && accommodation != null && accommodation.OwnerId == user.AppUserId))
                 {
-                    return NotFound();
+
+                    if (!ModelState.IsValid)
+                    {
+                        return BadRequest(ModelState);
+                    }
+
+                    if (id != accommodation.Id)
+                    {
+                        return BadRequest();
+                    }
+
+                    db.Entry(accommodation).State = EntityState.Modified;
+
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!AccommodationExists(id))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+
+                    return StatusCode(HttpStatusCode.NoContent);
                 }
                 else
                 {
-                    throw;
+                    return Unauthorized();
                 }
             }
-
-            return StatusCode(HttpStatusCode.NoContent);
+            else
+            {
+                return Unauthorized();
+            }
         }
 
-        [Authorize]
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         [Route("Accommodations")]
         [ResponseType(typeof(Accommodation))]
@@ -153,10 +191,31 @@ namespace BookingApp.Controllers
                 return NotFound();
             }
 
-            db.Accommodations.Remove(accommodation);
-            db.SaveChanges();
+            var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
 
-            return Ok(accommodation);
+            if (user != null)
+            {
+                BAContext BAContext = new BAContext();
+                var userRole = user.Roles.First().RoleId;
+                var role = BAContext.Roles.FirstOrDefault(r => r.Id == userRole);
+                bool isManager = role.Name.Equals("Manager");
+
+                if (isManager)
+                {
+                    db.Accommodations.Remove(accommodation);
+                    db.SaveChanges();
+
+                    return Ok(accommodation);
+                }
+                else
+                {
+                    return Unauthorized();
+                }
+            }
+            else
+            {
+                return Unauthorized();
+            }
         }
 
         protected override void Dispose(bool disposing)
