@@ -1,0 +1,1 @@
+back, accType, da ispisuje ko je ulogovan, dodati listu ocjena da moze da izracuna prosjecnu, dodati validaciju i za role (Authorize je vec dodato), upload slike
