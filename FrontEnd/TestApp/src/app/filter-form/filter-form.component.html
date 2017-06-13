@@ -1,0 +1,9 @@
+<h4> Filter accommodations </h4>
+
+<form #f = "ngForm" (ngSubmit)="onSubmit()">
+    <label for="Name"> Name: </label>
+    <input type="text" id="Name" name="Name" [(ngModel)]="Name"> <br/>
+    <label for="Place"> Place: </label>
+    <input type="text" id="PlaceName" name="PlaceName" [(ngModel)]="PlaceName"> <br/>
+    <input type="submit" value="Filter">
+</form>
