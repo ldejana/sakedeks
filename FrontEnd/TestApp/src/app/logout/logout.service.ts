@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { ConfigurationManager } from '../services/configuration-manager.service';
 
 @Injectable()
 export class LogoutService {
@@ -18,7 +19,8 @@ export class LogoutService {
 
         var body = ``;
 
-        return this.http.post(`http://localhost:54042/api/Account/Logout`, body, options);
+        let host = ConfigurationManager.Host;
+        return this.http.post(`http://${host}/api/Account/Logout`, body, options);
     }
 
 }

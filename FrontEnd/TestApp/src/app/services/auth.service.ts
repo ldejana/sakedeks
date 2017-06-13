@@ -21,7 +21,6 @@ export class AuthService {
         console.log(response);
         console.log('role: ' + role);
 
-
         localStorage.setItem("token", JSON.stringify(authdata));
     }
 

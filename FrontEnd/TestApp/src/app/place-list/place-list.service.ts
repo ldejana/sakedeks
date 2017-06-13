@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Region } from '../region/region.model';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { ConfigurationManager } from '../services/configuration-manager.service';
 
 @Injectable()
 export class PlaceListService {
@@ -11,7 +12,8 @@ export class PlaceListService {
     }
 
     getAll(regionId: number) {
-         return this.http.get("http://localhost:54042/api/Places?$filter=RegionId eq " + regionId);
+         let host = ConfigurationManager.Host;
+         return this.http.get(`http://${host}/api/Places?$filter=RegionId eq ` + regionId);
     }
 
     delete(id) {
@@ -23,7 +25,8 @@ export class PlaceListService {
         let options = new RequestOptions();
         options.headers = header;
         
-        let urlAddress = `http://localhost:54042/api/Places/` + id;
+        let host = ConfigurationManager.Host;
+        let urlAddress = `http://${host}/api/Places/` + id;
         return this.http.delete(urlAddress, options);
     }
 }

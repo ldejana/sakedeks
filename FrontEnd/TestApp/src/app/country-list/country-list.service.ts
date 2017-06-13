@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Country } from '../country/country.model';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { ConfigurationManager } from '../services/configuration-manager.service';
 
 @Injectable()
 export class CountryListService {
@@ -12,7 +13,8 @@ export class CountryListService {
     }
 
     getAll() : Observable<any> {
-        return this.http.get("http://localhost:54042/api/Countries");
+        let host = ConfigurationManager.Host;
+        return this.http.get(`http://${host}/api/Countries`);
     }
 
     create(country: Country) : Observable<any> {
@@ -22,7 +24,8 @@ export class CountryListService {
         let options = new RequestOptions();
         options.headers = header;
         
-        return this.http.post(`http://localhost:54042/api/Countries`, JSON.stringify(country), options);
+        let host = ConfigurationManager.Host;
+        return this.http.post(`http://${host}/api/Countries`, JSON.stringify(country), options);
     }
 
     update() {

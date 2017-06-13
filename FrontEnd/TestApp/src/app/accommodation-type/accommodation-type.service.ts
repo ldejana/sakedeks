@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AccommodationType } from '../accommodation-type/accommodation-type.model';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { ConfigurationManager } from '../services/configuration-manager.service';
 
 @Injectable()
 export class AccommodationTypeService {
@@ -12,7 +13,8 @@ export class AccommodationTypeService {
     }
 
     getAccommodationType(id: number): Observable<any> {
-        let urlAddress = "http://localhost:54042/api/AccommodationTypes?$filter=Id eq " + id;
+        let host = ConfigurationManager.Host;
+        let urlAddress = `http://${host}/api/AccommodationTypes?$filter=Id eq ` + id;
         return this.http.get(urlAddress);
     }
 
@@ -25,7 +27,8 @@ export class AccommodationTypeService {
         let options = new RequestOptions();
         options.headers = header;
         
-        let urlAddress = `http://localhost:54042/api/AccommodationTypes/` + id;
+        let host = ConfigurationManager.Host;
+        let urlAddress = `http://${host}/api/AccommodationTypes/` + id;
         return this.http.delete(urlAddress, options);
     }
 

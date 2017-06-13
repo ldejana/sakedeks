@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {RegisterData} from './register-data.model';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { ConfigurationManager } from '../services/configuration-manager.service';
 
 @Injectable()
 export class RegisterService {
@@ -18,7 +19,8 @@ export class RegisterService {
         let options = new RequestOptions();
         options.headers = header;
         
-        return this.http.post(`http://localhost:54042/api/Account/Register`, JSON.stringify(registerData), options);
+        let host = ConfigurationManager.Host;
+        return this.http.post(`http://${host}/api/Account/Register`, JSON.stringify(registerData), options);
     }
 
     update() {
