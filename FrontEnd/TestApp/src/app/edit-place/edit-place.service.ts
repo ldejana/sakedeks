@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Place } from '../place/place.model';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { ConfigurationManager } from '../services/configuration-manager.service';
 
 @Injectable()
 export class EditPlaceService {
@@ -20,11 +21,13 @@ export class EditPlaceService {
         let options = new RequestOptions();
         options.headers = header;
         
-        let urlAddress = `http://localhost:54042/api/Places/` + place.Id;
+        let host = ConfigurationManager.Host;
+        let urlAddress = `http://${host}/api/Places/` + place.Id;
         return this.http.put(urlAddress, JSON.stringify(place), options);
     }
 
     getById(id: number) : Observable<any> {
-       return this.http.get(`http://localhost:54042/api/Places/${id}`);
+       let host = ConfigurationManager.Host;
+       return this.http.get(`http://${host}/api/Places/${id}`);
     }
 }

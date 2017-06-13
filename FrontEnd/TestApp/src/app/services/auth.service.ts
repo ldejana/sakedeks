@@ -22,7 +22,6 @@ export class AuthService {
         console.log(response);
         console.log('role: ' + role);
 
-
         localStorage.setItem("token", JSON.stringify(authdata));
     }
 
@@ -40,8 +39,14 @@ export class AuthService {
     }
 
     getRole(): string {
-        let token=localStorage.getItem("token");
-        return JSON.parse(token).role;
+
+        if(this.isLoggedIn()) {
+            let token=localStorage.getItem("token");
+             return JSON.parse(token).role;
+        } 
+        else {
+            return undefined;
+        }
     }
 
     getOwnerId(): number {

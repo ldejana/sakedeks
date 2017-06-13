@@ -1,12 +1,20 @@
 <h4> Accommodation Types </h4>
-<add-acc-type (onAccommodationTypeAdded)="getAccommodationTypes($event)"> </add-acc-type>
+<div *ngIf="isLoggedIn() && isAdmin()">
+  <add-acc-type (onAccommodationTypeAdded)="getAccommodationTypes($event)"> </add-acc-type>
+</div>
+
+<div>
+  <ul>
+  <li *ngFor="let accType of accommodationTypes"> 
+    <a [routerLink]="['/accommodationList', accType.Id, accType.Name, Origin, '']"> {{accType.Name}} </a> 
+
+    &nbsp; <button *ngIf="isLoggedIn() && isAdmin()" (click)="deleteAccommodationType(accType.Id)"> <b> Delete </b> </button>
+    &nbsp; <button *ngIf="isLoggedIn() && isAdmin()" (click)="editAccommodationType(accType.Id, accType.Name)"> <b> Edit </b> </button>
+  </li>
+</ul>
+</div>
 
 <!--<button *ngIf="isLoggedIn() && isAdmin()" (click)="showAddAccTypeForm()"> Add Accommodation Type </button>
 -->
 
-<ul>
-  <li *ngFor="let accType of accommodationTypes"> 
-    <a [routerLink]="['/accommodationType', accType.Id, accType.Name]"> {{accType.Name}} </a> 
-  </li>
-</ul>
 {{Message}}

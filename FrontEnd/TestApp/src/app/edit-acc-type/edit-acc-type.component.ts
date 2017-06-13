@@ -25,7 +25,7 @@ export class EditAccTypeComponent implements OnInit {
   onSubmit() {
     this.Message = "";
     this.editAccTypeService.edit(new AccommodationType(this.Id, this.Name)).subscribe(
-      x => { this.Message="Accommodation type edited successfuly!"; this.router.navigate(['/accommodationType', this.Id, this.Name]); }, 
+      x => { this.Message="Accommodation type edited successfuly!"; this.router.navigate(['/accommodationTypeList']); }, 
       x => this.Message=x.json().Message);
   }
 

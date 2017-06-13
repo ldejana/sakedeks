@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AccommodationType } from '../accommodation-type/accommodation-type.model';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { ConfigurationManager } from '../services/configuration-manager.service';
 
 @Injectable()
 export class AddAccTypeService {
@@ -20,7 +21,8 @@ export class AddAccTypeService {
         let options = new RequestOptions();
         options.headers = header;
         
-        return this.http.post(`http://localhost:54042/api/AccommodationTypes`, JSON.stringify(accType), options);
+        let host = ConfigurationManager.Host;
+        return this.http.post(`http://${host}/api/AccommodationTypes`, JSON.stringify(accType), options);
     }
 
     update() {

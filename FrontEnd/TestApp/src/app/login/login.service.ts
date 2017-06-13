@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { LoginData } from './login-data.model';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { ConfigurationManager } from '../services/configuration-manager.service';
 
 @Injectable()
 export class LoginService {
@@ -17,7 +18,8 @@ export class LoginService {
         
         let data = `username=${loginData.username}&password=${loginData.password}&grant_type=${loginData.grant_type}`;
 
-        return this.http.post(`http://localhost:54042/oauth/token`, data, options);
+        let host = ConfigurationManager.Host;
+        return this.http.post(`http://${host}/oauth/token`, data, options);
     }
 
 }
