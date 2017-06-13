@@ -1,7 +1,8 @@
-<h4> AccommodationType: {{ AccommodationTypeName }} </h4>
+<h4> <a [routerLink]="['/accommodationList', Id, AccommodationTypeName, Origin, '']"> {{ AccommodationTypeName }} </a> </h4>
 
 &nbsp; <button *ngIf="isLoggedIn() && isAdmin()" (click)="deleteAccommodationType()"> <b> Delete </b> </button>
 &nbsp; <button *ngIf="isLoggedIn() && isAdmin()" (click)="editAccommodationType()"> <b> Edit </b> </button>
+
 
 <!--
 <ul>

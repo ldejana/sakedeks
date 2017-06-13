@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { CustomMaterialModule } from './ngmodules/custom-material.module';
+import { MaterialModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { CountryListComponent } from './country-list/country-list.component';
@@ -98,7 +99,8 @@ const Routes = [
     FormsModule,
     HttpModule,
     RouterModule.forRoot(Routes),
-    CustomMaterialModule
+    CustomMaterialModule,
+    MaterialModule
   ],
   providers: [AuthService, LoggedInGuard, IsAdminGuard],
   bootstrap: [AppComponent]

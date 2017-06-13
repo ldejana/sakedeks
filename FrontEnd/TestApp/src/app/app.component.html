@@ -3,12 +3,18 @@
 
   <div style="text-align:center">
     <h1>
-    Welcome to {{title}}!!
+      {{title}}
     </h1>
   </div>
+</header>
 
-  <span>
-    <div *ngIf="isLoggedIn()" style='display: inline-block'>
+
+<nav name="navigationBar">
+  <md-card>
+     <button md-button (click) = "showCountries()"> Countries </button>
+     <button md-button (click) = "showAccommodationTypes()"> Accommodation Types </button>
+
+     <div *ngIf="isLoggedIn()" style='display: inline-block'>
         <logout> </logout>
       </div>
       
@@ -16,15 +22,7 @@
         <button md-button (click)="showLoginPage()"> Sign In </button>
         <button md-button (click)="showRegistrationPage()"> Sign Up </button>
       </div>
-  </span>
 
-</header>
-
-
-<nav name="navigationBar">
-  <md-card>
-     <button md-button (click) = "showCountries()"> Countries </button>
-    <button md-button (click) = "showAccommodationTypes()"> Accommodation Types </button>
   </md-card>
 </nav>
 

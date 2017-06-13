@@ -15,7 +15,7 @@ export class AccommodationTypeComponent implements OnInit {
   
   Id: number = -1;
   AccommodationTypeName: string;
-  Origin: string;
+  Origin: Origins = "AccommodationType";
   Message: string;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, 
