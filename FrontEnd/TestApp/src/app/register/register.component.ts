@@ -21,8 +21,10 @@ export class RegisterComponent implements OnInit {
    Role: string;
    isManager: boolean = false;
    Message: string = "";
+   Manager: string;
 
-  constructor(private registerService: RegisterService, private router: Router) { 
+  constructor(private registerService: RegisterService, private router: Router, private activatedRoute: ActivatedRoute) { 
+    activatedRoute.params.subscribe(params => {this.Manager = params["Manager"];});
   }
 
   ngOnInit() {
@@ -30,7 +32,7 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.Message = "";
-    if (this.isManager){
+    if (this.Manager == "manager"){
       this.Role = "Manager";
     } else {
       this.Role = "AppUser";
@@ -45,23 +47,6 @@ export class RegisterComponent implements OnInit {
     this.ConfirmPassword = "";
     this.LastName = "";
     this.Role = "";
-  }
-
-  onChange () {
-    if (this.isManager){
-      this.isManager = false;
-    } else{
-      this.isManager = true;
-    }
-  }
-
-
-  mon(e){
-    if(e.target.checked){
-      this.isManager = true;
-    } else {
-      this.isManager = false;
-    }
   }
 
 }

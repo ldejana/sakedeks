@@ -16,6 +16,7 @@ import { AuthService } from './services/auth.service';
 
 import { LoggedInGuard } from './guards/logged-in.guard';
 import { IsAdminGuard} from './guards/is-admin.guard';
+import { IsManagerGuard} from './guards/is-manager.guard';
 
 import { LogoutComponent } from './logout/logout.component';
 import { HomeComponent } from './home/home.component';
@@ -37,6 +38,7 @@ import { RoomListComponent } from './room-list/room-list.component';
 import { EditRegionComponent } from './edit-region/edit-region.component';
 import { AddPlaceComponent } from './add-place/add-place.component';
 import { EditPlaceComponent } from './edit-place/edit-place.component';
+import { AddAccommodationComponent } from './add-accommodation/add-accommodation.component';
 
 const ChildRoutes = [
    
@@ -62,8 +64,10 @@ const Routes = [
   {path: "addRegion/:CountryId/:CountryName",  component: AddRegionComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
   {path: "login",  component: LoginComponent},
   {path: "register",  component: RegisterComponent},
+  {path: "register/:Manager",  component: RegisterComponent},
   {path: "editRegion/:Id/:Name/:CountryId/:CountryName",  component: EditRegionComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
-  {path: "editPlace/:Id/:PlaceName/:RegionId/:Path",  component: EditPlaceComponent, canActivate: [LoggedInGuard, IsAdminGuard]}
+  {path: "editPlace/:Id/:PlaceName/:RegionId/:Path",  component: EditPlaceComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
+  {path: "addAccommodation",  component: AddAccommodationComponent, canActivate: [LoggedInGuard, IsManagerGuard]}
 ]
 
 @NgModule({
@@ -92,7 +96,8 @@ const Routes = [
     RoomListComponent,
     EditRegionComponent,
     AddPlaceComponent,
-    EditPlaceComponent
+    EditPlaceComponent,
+    AddAccommodationComponent
   ],
   imports: [
     BrowserModule,
@@ -102,7 +107,7 @@ const Routes = [
     CustomMaterialModule,
     MaterialModule
   ],
-  providers: [AuthService, LoggedInGuard, IsAdminGuard],
+  providers: [AuthService, LoggedInGuard, IsAdminGuard, IsManagerGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

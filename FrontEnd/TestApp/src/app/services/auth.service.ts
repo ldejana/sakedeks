@@ -15,8 +15,9 @@ export class AuthService {
         let access_token = response_json['access_token'];
 
         let role = response.headers.get('Role');
+        let userId = response.headers.get('UserId');
         console.log(role);
-        let authdata = new AuthData(role, access_token);
+        let authdata = new AuthData(role, userId, access_token);
 
         console.log(response);
         console.log('role: ' + role);
@@ -41,6 +42,11 @@ export class AuthService {
     getRole(): string {
         let token=localStorage.getItem("token");
         return JSON.parse(token).role;
+    }
+
+    getOwnerId(): number {
+        let token=localStorage.getItem("token");
+        return JSON.parse(token).userId;
     }
 
 }

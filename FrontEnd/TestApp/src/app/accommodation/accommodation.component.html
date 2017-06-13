@@ -7,5 +7,6 @@
   Longitude: {{accommodation.Longitude}} <br/>
   Owner: {{ accommodation.Owner.Name + ' ' + accommodation.Owner.LastName}} <br/>
   Place: {{ accommodation.Place.Name }} <br/>
+  Accommodation type: {{ }}
   <a [routerLink]="['/rooms', accommodation.Id, accommodation.Name]"> Rooms </a>
 </div>

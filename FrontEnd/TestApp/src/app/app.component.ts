@@ -26,6 +26,10 @@ export class AppComponent {
     return this.authService.isLoggedIn();
   }
 
+  isManager() : boolean{
+    return this.authService.getRole() == "Manager";
+  }
+
   showLoginPage() {
     this.router.navigate(['/login']);
   }
@@ -40,5 +44,9 @@ export class AppComponent {
 
   showAccommodationTypes() {
     this.router.navigate(['/accommodationTypeList']);
+  }
+
+  addAccommodation() {
+    this.router.navigate(['/addAccommodation']);
   }
 }
