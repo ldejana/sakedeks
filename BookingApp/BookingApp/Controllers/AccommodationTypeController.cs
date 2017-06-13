@@ -38,7 +38,7 @@ namespace BookingApp.Controllers
             return Ok(accommodationType);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         [Route("AccommodationTypes/{id}")]
         [ResponseType(typeof(void))]
@@ -79,7 +79,7 @@ namespace BookingApp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [Route("AccommodationTypes")]
         [ResponseType(typeof(AccommodationType))]
@@ -99,7 +99,7 @@ namespace BookingApp.Controllers
             return CreatedAtRoute("DefaultApi", new {controller = "AccommodationType", id = accommodationType.Id }, accommodationType);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         [Route("AccommodationTypes/{id}")]
         [ResponseType(typeof(AccommodationType))]

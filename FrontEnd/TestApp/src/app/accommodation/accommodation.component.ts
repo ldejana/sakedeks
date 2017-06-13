@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Accommodation } from './accommodation.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AccommodationService } from './accommodation.service';
@@ -8,7 +8,7 @@ import { AuthService } from '../services/auth.service';
 import { AccommodationType } from '../accommodation-type/accommodation-type.model';
 
 @Component({
-  selector: 'app-accommodation',
+  selector: 'accommodation',
   templateUrl: './accommodation.component.html',
   styleUrls: ['./accommodation.component.css'],
   providers: [AccommodationService]
@@ -19,11 +19,13 @@ export class AccommodationComponent implements OnInit {
   accommodation: Accommodation;
   accommodations: Accommodation[];
   placeName: string;
+  @Input() accId: number;
 
   constructor(private accommodationService: AccommodationService, private router: Router, private activatedRoute: ActivatedRoute,
     private authService: AuthService) { 
 
     activatedRoute.params.subscribe(params => {this.accommodationId = params["Id"];});
+
     this.accommodation = new Accommodation();
     this.accommodation.Owner = new User();
     this.accommodation.Place = new Place();
@@ -31,8 +33,13 @@ export class AccommodationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.accommodationService.getById(this.accommodationId).subscribe(x => { this.accommodations = x.json();
-       this.accommodation = this.accommodations[0]});
+    if (this.accId != undefined){
+      this.accommodationService.getById(this.accId).subscribe(x => { this.accommodations = x.json();
+        this.accommodation = this.accommodations[0]});
+    } else if (this.accommodationId != undefined) {
+      this.accommodationService.getById(this.accommodationId).subscribe(x => { this.accommodations = x.json();
+        this.accommodation = this.accommodations[0]});
+    }
   }
 
   isLoggedIn(): boolean {

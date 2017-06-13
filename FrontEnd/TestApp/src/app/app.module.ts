@@ -42,6 +42,8 @@ import { AddAccommodationComponent } from './add-accommodation/add-accommodation
 import { AddRoomComponent } from './add-room/add-room.component';
 import { EditAccommodationComponent } from './edit-accommodation/edit-accommodation.component';
 import { EditRoomComponent } from './edit-room/edit-room.component';
+import { FilteredAccommodationsComponent } from './filtered-accommodations/filtered-accommodations.component';
+import { FilterFormComponent } from './filter-form/filter-form.component';
 
 
 const ChildRoutes = [
@@ -76,8 +78,9 @@ const Routes = [
   {path: "editAcc/:Id/:Name/:Description/:Address/:Latitude/:Longitude/:AverageGrade/:Approved/:AccommodationTypeId/:PlaceId/:OwnerId",  
     component: EditAccommodationComponent, canActivate: [LoggedInGuard, IsManagerGuard]},
   {path: "editRoom/:Id", component: EditRoomComponent, canActivate: [LoggedInGuard, IsManagerGuard]}
-  
-]
+  {path: "filterForm", component: FilterFormComponent},
+  {path: "filteredAccommodations/:Name/:PlaceName", component: FilteredAccommodationsComponent}
+
 
 @NgModule({
   declarations: [
@@ -109,7 +112,9 @@ const Routes = [
     AddAccommodationComponent,
     AddRoomComponent,
     EditAccommodationComponent,
-    EditRoomComponent
+    EditRoomComponent,
+    FilteredAccommodationsComponent,
+    FilterFormComponent
   ],
   imports: [
     BrowserModule,

@@ -16,7 +16,7 @@ import {
 })
 export class CountryListComponent implements OnInit {
 
-  countries: Country[]
+  countries: Country[];
   Name: string;
   Code: string;
   CountryId: number;

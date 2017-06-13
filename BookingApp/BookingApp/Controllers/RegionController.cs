@@ -42,6 +42,7 @@ namespace BookingApp.Controllers
             }
 
             // PUT: api/Regions/5
+            [Authorize(Roles = "Admin")]
             [HttpPut]
             [Route("Regions/{id}")]
             [ResponseType(typeof(void))]
@@ -79,6 +80,7 @@ namespace BookingApp.Controllers
             }
 
             // POST: api/Regions
+            [Authorize(Roles = "Admin")]
             [HttpPost]
             [Route("Regions")]
             [ResponseType(typeof(Place))]
@@ -96,6 +98,7 @@ namespace BookingApp.Controllers
             }
 
             // DELETE: api/Regions/5
+            [Authorize(Roles = "Admin")]
             [HttpDelete]
             [Route("Regions/{id}")]
             [ResponseType(typeof(Region))]

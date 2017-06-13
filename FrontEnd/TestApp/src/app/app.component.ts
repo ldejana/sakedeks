@@ -49,4 +49,8 @@ export class AppComponent {
   addAccommodation() {
     this.router.navigate(['/addAccommodation']);
   }
+
+  showFilterPage() {
+    this.router.navigate(['/filterForm']);
+  }
 }
