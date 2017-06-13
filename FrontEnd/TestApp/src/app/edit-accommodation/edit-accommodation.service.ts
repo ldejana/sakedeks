@@ -5,19 +5,14 @@ import { Observable } from 'rxjs/Observable';
 import { ConfigurationManager } from '../services/configuration-manager.service';
 
 @Injectable()
-export class AccommodationService {
+export class EditAccommodationService {
 
-    constructor(private http: Http) {}
-
-
-    getById(id: number) : Observable<any> {
-
-        let host = ConfigurationManager.Host;
-        let urlAddress = `http://${host}/api/Accommodations?$filter=Id eq ${id} &$expand=Place, Owner, AccommodationType`
-        return this.http.get(urlAddress);
+    constructor(private http: Http)
+    {
+       
     }
 
-    delete(id) {
+    edit(accommodation: Accommodation){
         let token=localStorage.getItem("token");
         let header = new Headers();
         header.append('Content-Type', 'application/json');
@@ -27,7 +22,12 @@ export class AccommodationService {
         options.headers = header;
         
         let host = ConfigurationManager.Host;
-        let urlAddress = `http://${host}/api/Accommodations/` + id;
-        return this.http.delete(urlAddress, options);
+        let urlAddress = `http://${host}/api/Accommodations/` + accommodation.Id;
+        return this.http.put(urlAddress, JSON.stringify(accommodation), options);
+    }
+
+    getById(id: number) : Observable<any> {
+       let host = ConfigurationManager.Host;
+       return this.http.get(`http://${host}/api/Accommodations/${id}`);
     }
 }
