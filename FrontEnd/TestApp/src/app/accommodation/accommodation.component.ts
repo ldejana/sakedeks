@@ -37,14 +37,23 @@ export class AccommodationComponent implements OnInit {
   ngOnInit() {
     if (this.accId != undefined){
       this.accommodationService.getById(this.accId).subscribe(x => { this.accommodations = x.json();
-        this.accommodation = this.accommodations[0]});
+        this.accommodation = this.accommodations[0];
+        
+        
+      let host = ConfigurationManager.Host;
+      let imgurl = this.accommodation.ImageUrl;
+      this.ImageUrl = `http://${host}/${imgurl}`;
+      });
     } else if (this.accommodationId != undefined) {
       this.accommodationService.getById(this.accommodationId).subscribe(x => { this.accommodations = x.json();
-        this.accommodation = this.accommodations[0]});
+        this.accommodation = this.accommodations[0];
+        
+    let host = ConfigurationManager.Host;
+    let imgurl = this.accommodation.ImageUrl;
+    this.ImageUrl = `http://${host}/${imgurl}`;
+    });
     }
 
-    let host = ConfigurationManager.Host;
-    this.ImageUrl = `http://${host}/` + this.accommodation.ImageUrl;
   }
 
   isLoggedIn(): boolean {
