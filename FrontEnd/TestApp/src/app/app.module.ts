@@ -80,7 +80,7 @@ const Routes = [
   {path: "editRegion/:Id/:Name/:CountryId/:CountryName",  component: EditRegionComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
   {path: "editPlace/:Id/:PlaceName/:RegionId/:Path",  component: EditPlaceComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
   {path: "addAccommodation",  component: AddAccommodationComponent, canActivate: [LoggedInGuard, IsManagerGuard]},
-  {path: "editAcc/:Id/:Name/:Description/:Address/:Latitude/:Longitude/:AverageGrade/:Approved/:AccommodationTypeId/:PlaceId/:OwnerId",  
+  {path: "editAcc/:Id/:Name/:Description/:Address/:Latitude/:Longitude/:AverageGrade/:Approved/:AccommodationTypeId/:PlaceId/:OwnerId/:ImageUrl",  
     component: EditAccommodationComponent, canActivate: [LoggedInGuard, IsManagerGuard]},
   {path: "editRoom/:Id", component: EditRoomComponent, canActivate: [LoggedInGuard, IsManagerGuard]},
   {path: "filterForm", component: FilterFormComponent},

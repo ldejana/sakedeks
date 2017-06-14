@@ -74,8 +74,8 @@ export class AccommodationComponent implements OnInit {
       x => alert(x.json().Message));
   }
 
-  editAcc(id, name, desc, address, latitude, longitude, averageGr, /*imageUrl, dodaj kasnije*/ approved, accTypeId, placeId,ownerId) {
-    this.router.navigate(['/editAcc', id, name, desc, address, latitude, longitude, averageGr, /*imageUrl,*/ approved, accTypeId, placeId, ownerId]);
+  editAcc(id, name, desc, address, latitude, longitude, averageGr, approved, accTypeId, placeId,ownerId, imageUrl) {
+    this.router.navigate(['/editAcc', id, name, desc, address, latitude, longitude, averageGr, approved, accTypeId, placeId, ownerId, imageUrl]);
   }
 
 }

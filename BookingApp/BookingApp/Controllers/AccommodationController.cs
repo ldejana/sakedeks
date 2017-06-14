@@ -105,14 +105,76 @@ namespace BookingApp.Controllers
             return queryableAccommodation;
         }
 
+        ////[Authorize]
+        //[HttpPut]
+        //[Route("Accommodations/{id}")]
+        //[ResponseType(typeof(void))]
+        //public IHttpActionResult m3(int id, Accommodation accommodation)
+        //{
+        //   // bool isManager = UserManager.IsInRole(User.Identity.Name, "Manager");
+        //    var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+
+        //    if (user != null)
+        //    {
+        //        BAContext BAContext = new BAContext();
+        //        var userRole = user.Roles.First().RoleId;
+        //        var role = BAContext.Roles.FirstOrDefault(r => r.Id == userRole);
+        //        bool isManager = role.Name.Equals("Manager");
+        //        if (isManager && (user != null && accommodation != null && accommodation.OwnerId == user.AppUserId))
+        //        {
+
+        //            if (!ModelState.IsValid)
+        //            {
+        //                return BadRequest(ModelState);
+        //            }
+
+        //            if (id != accommodation.Id)
+        //            {
+        //                return BadRequest();
+        //            }
+
+        //            db.Entry(accommodation).State = EntityState.Modified;
+
+        //            try
+        //            {
+        //                db.SaveChanges();
+        //            }
+        //            catch (DbUpdateConcurrencyException)
+        //            {
+        //                if (!AccommodationExists(id))
+        //                {
+        //                    return NotFound();
+        //                }
+        //                else
+        //                {
+        //                    throw;
+        //                }
+        //            }
+
+        //            return StatusCode(HttpStatusCode.NoContent);
+        //        }
+        //        else
+        //        {
+        //            return Unauthorized();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return Unauthorized();
+        //    }
+        //}
+
         //[Authorize]
         [HttpPut]
         [Route("Accommodations/{id}")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult m3(int id, Accommodation accommodation)
+        public IHttpActionResult m3(int id)
         {
-           // bool isManager = UserManager.IsInRole(User.Identity.Name, "Manager");
+            // bool isManager = UserManager.IsInRole(User.Identity.Name, "Manager");
             var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            Accommodation accommodation;
+            var httpRequest = HttpContext.Current.Request;
+            accommodation = JsonConvert.DeserializeObject<Accommodation>(httpRequest.Form[0]);
 
             if (user != null)
             {
@@ -122,6 +184,29 @@ namespace BookingApp.Controllers
                 bool isManager = role.Name.Equals("Manager");
                 if (isManager && (user != null && accommodation != null && accommodation.OwnerId == user.AppUserId))
                 {
+                    foreach (string file in httpRequest.Files)
+                    {
+                        HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created);
+
+                        var postedFile = httpRequest.Files[file];
+                        if (postedFile != null && postedFile.ContentLength > 0)
+                        {
+
+                            IList<string> AllowedFileExtensions = new List<string> { ".jpg", ".gif", ".png" };
+                            var ext = postedFile.FileName.Substring(postedFile.FileName.LastIndexOf('.'));
+                            var extension = ext.ToLower();
+                            if (!AllowedFileExtensions.Contains(extension))
+                            {
+                                return BadRequest();
+                            }
+                            else
+                            {
+                                var filePath = HttpContext.Current.Server.MapPath("~/Content/AccommodationPictures/" + postedFile.FileName);
+                                accommodation.ImageUrl = "Content/AccommodationPictures/" + postedFile.FileName;
+                                postedFile.SaveAs(filePath);
+                            }
+                        }
+                    }
 
                     if (!ModelState.IsValid)
                     {

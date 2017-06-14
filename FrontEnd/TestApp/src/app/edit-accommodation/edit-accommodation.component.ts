@@ -21,16 +21,17 @@ export class EditAccommodationComponent implements OnInit {
   Latitude: number;
   Longitude: number;
   AverageGrade: number;
-  ImageUrl: string="";
+  ImageUrl: string;
   Approved: boolean;
   AccommodationTypeId: number;
   PlaceId: number;
   OwnerId: number;
+  file: File;
 
   constructor(private editAccommodationService: EditAccommodationService, private activatedRoute: ActivatedRoute, private router: Router) { 
       activatedRoute.params.subscribe(params => {this.Id = params["Id"]; this.Name = params["Name"];
       this.Description = params["Description"]; this.Address = params["Address"]; this.Latitude = params["Latitude"];
-      this.Longitude = params["Longitude"]; this.AverageGrade = params["AverageGrade"]; /*this.ImageUrl = params["ImageUrl"];*/
+      this.Longitude = params["Longitude"]; this.AverageGrade = params["AverageGrade"]; this.ImageUrl = params["ImageUrl"];
       this.Approved = params["Approved"]; this.AccommodationTypeId = params["AccommodationTypeId"]; this.PlaceId = params["PlaceId"];
       this.OwnerId = params["OwnerId"];});
   }
@@ -41,9 +42,16 @@ export class EditAccommodationComponent implements OnInit {
   onSubmit() {
     let newAcc = new Accommodation(this.Id, this.Name, this.Description, this.Address, this.AverageGrade, this.Latitude, this.Longitude,
     this.ImageUrl, this.Approved, this.AccommodationTypeId, this.PlaceId, this.OwnerId);
-    this.editAccommodationService.edit(newAcc).subscribe(x => 
+    this.editAccommodationService.edit(newAcc, this.file).subscribe(x => 
       {this.router.navigate(['/accommodation', this.Id])}, 
       x => alert(x.json().Message));
+  }
+
+  onImageChange(event: EventTarget) {
+    let eventObj: MSInputMethodContext = <MSInputMethodContext> event;
+    let target: HTMLInputElement = <HTMLInputElement> eventObj.target;
+    let files: FileList = target.files;
+    this.file = files[0];
   }
 
 }

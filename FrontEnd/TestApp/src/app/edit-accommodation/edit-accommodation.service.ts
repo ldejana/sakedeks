@@ -12,18 +12,23 @@ export class EditAccommodationService {
        
     }
 
-    edit(accommodation: Accommodation){
+    edit(accommodation: Accommodation, file: File){
+        let formData: FormData = new FormData();
+        formData.append('accommodation', JSON.stringify(accommodation));
+        formData.append('uploadFile', file, file.name);
+
         let token=localStorage.getItem("token");
         let header = new Headers();
-        header.append('Content-Type', 'application/json');
+        header.append('Accept', 'application/json');
         header.append('Authorization', 'Bearer '+ JSON.parse(token).token);
+        header.append('enctype', 'multipart/form-data');
 
         let options = new RequestOptions();
         options.headers = header;
         
         let host = ConfigurationManager.Host;
-        let urlAddress = `http://${host}/api/Accommodations/` + accommodation.Id;
-        return this.http.put(urlAddress, JSON.stringify(accommodation), options);
+        let urlAddress = `http://${host}/api/Accommodations/${accommodation.Id}`;
+        return this.http.put(urlAddress, formData, options);
     }
 
     getById(id: number) : Observable<any> {
