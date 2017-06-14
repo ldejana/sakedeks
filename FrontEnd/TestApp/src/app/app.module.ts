@@ -47,6 +47,8 @@ import { FilterFormComponent } from './filter-form/filter-form.component';
 import { RoomReservationsComponent } from './room-reservations/room-reservations.component';
 import { AddReservationComponent } from './add-reservation/add-reservation.component';
 import { RoomReservationComponent } from './room-reservation/room-reservation.component';
+import { MapComponent } from './map/map.component';
+
 
 
 const ChildRoutes = [
@@ -84,7 +86,9 @@ const Routes = [
   {path: "filterForm", component: FilterFormComponent},
   {path: "filteredAccommodations/:Name/:PlaceName", component: FilteredAccommodationsComponent},
   {path: "roomReservations/:UserId", component: RoomReservationsComponent},
-  {path: "addReservation/:roomId/:AccommodationName", component: AddReservationComponent}
+  {path: "addReservation/:roomId/:AccommodationName", component: AddReservationComponent},
+  {path: "filteredAccommodations/:Name/:PlaceName/:RegionName/:CountryName/:AverageGrade/:BedCount/:MinPrice/:MaxPrice", component: FilteredAccommodationsComponent}
+
 ]
 
 
@@ -123,7 +127,8 @@ const Routes = [
     FilterFormComponent,
     RoomReservationsComponent,
     AddReservationComponent,
-    RoomReservationComponent
+    RoomReservationComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,

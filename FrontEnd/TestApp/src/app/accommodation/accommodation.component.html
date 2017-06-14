@@ -12,6 +12,10 @@
 </div>
 
 <div>
+  <img src="ImageUrl" height="42" width="42" />
+</div>
+
+<div>
   <button *ngIf="isLoggedIn() && isManager() && isMyAcc(accommodation.Owner.Id)" (click)="deleteAcc(accommodation.Id)"> 
       <b> Delete Accommodation </b> 
     </button>

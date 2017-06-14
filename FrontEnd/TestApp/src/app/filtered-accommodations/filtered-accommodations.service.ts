@@ -11,7 +11,8 @@ export class FilteredAccommodationsService {
        
     }
 
-    getAccommodations(name: string, placeName: string): Observable<any> {
+    getAccommodations(name: string, placeName: string, regionName: string, countryName: string,
+                        averageGrade: number, bedCount: number, minPrice: number, maxPrice: number): Observable<any> {
         let host = ConfigurationManager.Host;
         let filterPredicates = "";
 
@@ -20,6 +21,55 @@ export class FilteredAccommodationsService {
                 filterPredicates = filterPredicates + " and ";
             }
             filterPredicates = filterPredicates + "Name eq '" + name + "'";
+        }
+
+        if (placeName!=undefined && placeName!="undefined"){
+            if (filterPredicates!=""){
+                filterPredicates = filterPredicates + " and ";
+            }
+            filterPredicates = filterPredicates + "Place/Name eq '" + placeName + "'";
+        }
+
+        if (regionName!=undefined && regionName!="undefined"){
+            if (filterPredicates!=""){
+                filterPredicates = filterPredicates + " and ";
+            }
+            filterPredicates = filterPredicates + "Place/Region/Name eq '" + regionName + "'";
+        }
+
+        if (countryName!=undefined && countryName!="undefined"){
+            if (filterPredicates!=""){
+                filterPredicates = filterPredicates + " and ";
+            }
+            filterPredicates = filterPredicates + "Place/Region/Country/Name eq '" + countryName + "'";
+        }
+
+        if (averageGrade!=undefined && averageGrade!=-1) {
+            if (filterPredicates!=""){
+                filterPredicates = filterPredicates + " and ";
+            }
+            filterPredicates = filterPredicates + "AverageGrade ge " + averageGrade;
+        }
+
+        if (bedCount!=undefined && bedCount!=-1) {
+            if (filterPredicates!=""){
+                filterPredicates = filterPredicates + " and ";
+            }
+            filterPredicates = filterPredicates + "Rooms/any(c: c/BedCount eq "+ bedCount +")";
+        }
+
+        if (minPrice!=undefined && minPrice!=-1) {
+            if (filterPredicates!=""){
+                filterPredicates = filterPredicates + " and ";
+            }
+            filterPredicates = filterPredicates + "Rooms/any(c: c/PricePerNight ge "+ minPrice +")";
+        }
+
+        if (maxPrice!=undefined && maxPrice!=-1) {
+            if (filterPredicates!=""){
+                filterPredicates = filterPredicates + " and ";
+            }
+            filterPredicates = filterPredicates + "Rooms/any(c: c/PricePerNight le "+ maxPrice +")";
         }
 
         let urlAddress = `http://${host}/api/Accommodations?$filter=${filterPredicates} &$expand=Place, Owner, AccommodationType`
