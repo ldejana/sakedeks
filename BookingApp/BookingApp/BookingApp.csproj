@@ -336,6 +336,14 @@
     <Compile Include="Migrations\201706081927253_m.Designer.cs">
       <DependentUpon>201706081927253_m.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706140909139_RoomReservation_TimeStamp_Removed.cs" />
+    <Compile Include="Migrations\201706140909139_RoomReservation_TimeStamp_Removed.Designer.cs">
+      <DependentUpon>201706140909139_RoomReservation_TimeStamp_Removed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706140916377_RoomReservation_TimeStamp_IsCanceled.cs" />
+    <Compile Include="Migrations\201706140916377_RoomReservation_TimeStamp_IsCanceled.Designer.cs">
+      <DependentUpon>201706140916377_RoomReservation_TimeStamp_IsCanceled.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Accommodation.cs" />
     <Compile Include="Models\AccommodationType.cs" />
@@ -467,6 +475,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706081927253_m.resx">
       <DependentUpon>201706081927253_m.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706140909139_RoomReservation_TimeStamp_Removed.resx">
+      <DependentUpon>201706140909139_RoomReservation_TimeStamp_Removed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706140916377_RoomReservation_TimeStamp_IsCanceled.resx">
+      <DependentUpon>201706140916377_RoomReservation_TimeStamp_IsCanceled.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

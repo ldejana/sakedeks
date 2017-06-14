@@ -9,3 +9,7 @@
     <button (click) = 'editRoom()'> Edit </button>
     <button (click) = 'deleteRoom()'> Delete </button>
 </div>
+
+<div *ngIf="isLoggedIn() && isUser()">
+    <button (click) = "makeReservation()"> Make reservation </button>
+</div>

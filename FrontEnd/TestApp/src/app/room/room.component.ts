@@ -3,7 +3,7 @@ import { Room } from '../room/room.model';
 import {RoomService} from './room.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from "app/services/auth.service";
-
+import { Accommodation } from '../accommodation/accommodation.model';
 
 @Component({
   selector: 'room',
@@ -24,6 +24,7 @@ export class RoomComponent implements OnInit, OnChanges {
     //activatedRoute.params.subscribe(params => {this.Id = params["Id"]; this.AccommodationName = params["AccName"];});
     this.Room = new Room();
     this.onDeletedRoom = new EventEmitter();
+    this.Room.Accommodation = new Accommodation();
    }
 
   ngOnInit() {
@@ -55,9 +56,24 @@ export class RoomComponent implements OnInit, OnChanges {
 
     isManager() : boolean{
         return this.authService.getRole() == "Manager";
-     }
+    }
+
+    isAdmin(): boolean {
+      return this.authService.getRole() == "Admin";
+    }
+
+    isUser(): boolean {
+      return this.authService.getRole() == "User";
+    }
 
     isMyAcc(ownerId: number): boolean {
         return this.authService.getOwnerId() == ownerId;
+    }
+
+    makeReservation() {
+        let roomId = this.Room.Id;
+        let AccommodationName = this.Room.Accommodation.Name;
+
+        this.router.navigate(['/addReservation', roomId, AccommodationName]);
     }
 }

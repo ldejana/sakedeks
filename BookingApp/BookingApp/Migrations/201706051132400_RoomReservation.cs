@@ -14,7 +14,6 @@ namespace BookingApp.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         StartDate = c.DateTime(nullable: false),
                         EndData = c.DateTime(nullable: false),
-                        TimeStamp = c.DateTime(nullable: false),
                         AppUserId = c.Int(nullable: false),
                         RoomId = c.Int(nullable: false),
                     })

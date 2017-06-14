@@ -5,6 +5,6 @@
 
 <div *ngFor="let c of countries"> 
     <a [routerLink]="['/country', c.Id]"> {{c.Name}} </a> 
-    &nbsp; <button *ngIf="isLoggedIn() && isAdmin()" (click)="addRegion(c.Id, c.Name)"> <b> Add region </b> </button>
+    <!--&nbsp; <button *ngIf="isLoggedIn() && isAdmin()" (click)="addRegion(c.Id, c.Name)"> <b> Add region </b> </button>-->
 </div>
 

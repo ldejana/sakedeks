@@ -20,7 +20,7 @@ export class RoomService {
 
     getById(id: number): Observable<any> {
         let host = ConfigurationManager.Host;
-        let urlAddress = `http://${host}/api/Rooms?$filter=Id eq ` + id;
+        let urlAddress = `http://${host}/api/Rooms?$filter=Id eq ${id} &$expand=Accommodation`;
         return this.http.get(urlAddress);
     }
 

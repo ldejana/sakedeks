@@ -17,8 +17,11 @@ namespace BookingApp.Models
         [Required]
         public DateTime EndData { get; set; }
 
+        [Timestamp]
+        public byte[] Timestamp { get; set; }
+
         [Required]
-        public DateTime TimeStamp { get; set; }
+        public bool IsCanceled { get; set; }
 
         [Required]
         [ForeignKey("AppUser")]

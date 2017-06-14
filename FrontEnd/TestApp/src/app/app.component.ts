@@ -30,6 +30,10 @@ export class AppComponent {
     return this.authService.getRole() == "Manager";
   }
 
+  isAdmin(): boolean {
+    return this.authService.getRole() == "Admin";
+  }
+
   showLoginPage() {
     this.router.navigate(['/login']);
   }
@@ -52,5 +56,10 @@ export class AppComponent {
 
   showFilterPage() {
     this.router.navigate(['/filterForm']);
+  }
+
+  showReservations() {
+    let userId = this.authService.getUserId();
+    this.router.navigate(['/roomReservations', userId]);
   }
 }

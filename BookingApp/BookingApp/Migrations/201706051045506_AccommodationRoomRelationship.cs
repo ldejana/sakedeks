@@ -17,7 +17,7 @@ namespace BookingApp.Migrations
         {
             DropForeignKey("dbo.Rooms", "AccomodationId", "dbo.Accommodations");
             DropIndex("dbo.Rooms", new[] { "AccomodationId" });
-            AlterColumn("dbo.Accommodations", "AverageGrade", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("dbo.Accommodations", "AverageGrade", c => c.Decimal(nullable: true, precision: 18, scale: 2));
             DropColumn("dbo.Rooms", "AccomodationId");
         }
     }

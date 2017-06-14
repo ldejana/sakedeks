@@ -1,0 +1,11 @@
+<h3> Make reservation  </h3>
+
+<form #f = "ngForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="Username"> Email: </label>
+    <input type="text" id="Username" name="Username" [(ngModel)]="Username"> <br/>
+    <label for="Password"> Password: </label>
+    <input type="password" id="Password" name="Password" [(ngModel)] = "Password"> <br/>
+    <input type="submit" value="Log in">
+  </div>
+</form>

@@ -44,6 +44,9 @@ import { EditAccommodationComponent } from './edit-accommodation/edit-accommodat
 import { EditRoomComponent } from './edit-room/edit-room.component';
 import { FilteredAccommodationsComponent } from './filtered-accommodations/filtered-accommodations.component';
 import { FilterFormComponent } from './filter-form/filter-form.component';
+import { RoomReservationsComponent } from './room-reservations/room-reservations.component';
+import { AddReservationComponent } from './add-reservation/add-reservation.component';
+import { RoomReservationComponent } from './room-reservation/room-reservation.component';
 
 
 const ChildRoutes = [
@@ -77,9 +80,12 @@ const Routes = [
   {path: "addAccommodation",  component: AddAccommodationComponent, canActivate: [LoggedInGuard, IsManagerGuard]},
   {path: "editAcc/:Id/:Name/:Description/:Address/:Latitude/:Longitude/:AverageGrade/:Approved/:AccommodationTypeId/:PlaceId/:OwnerId",  
     component: EditAccommodationComponent, canActivate: [LoggedInGuard, IsManagerGuard]},
-  {path: "editRoom/:Id", component: EditRoomComponent, canActivate: [LoggedInGuard, IsManagerGuard]}
+  {path: "editRoom/:Id", component: EditRoomComponent, canActivate: [LoggedInGuard, IsManagerGuard]},
   {path: "filterForm", component: FilterFormComponent},
-  {path: "filteredAccommodations/:Name/:PlaceName", component: FilteredAccommodationsComponent}
+  {path: "filteredAccommodations/:Name/:PlaceName", component: FilteredAccommodationsComponent},
+  {path: "roomReservations/:UserId", component: RoomReservationsComponent},
+  {path: "addReservation/:roomId/:AccommodationName", component: AddReservationComponent}
+]
 
 
 @NgModule({
@@ -114,7 +120,10 @@ const Routes = [
     EditAccommodationComponent,
     EditRoomComponent,
     FilteredAccommodationsComponent,
-    FilterFormComponent
+    FilterFormComponent,
+    RoomReservationsComponent,
+    AddReservationComponent,
+    RoomReservationComponent
   ],
   imports: [
     BrowserModule,

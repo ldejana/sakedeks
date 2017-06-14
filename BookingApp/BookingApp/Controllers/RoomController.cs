@@ -127,8 +127,9 @@ namespace BookingApp.Controllers
                 var userRole = user.Roles.First().RoleId;
                 var role = BAContext.Roles.FirstOrDefault(r => r.Id == userRole);
                 bool isManager = role.Name.Equals("Manager");
+                Accommodation accommodation = db.Accommodations.FirstOrDefault(x => x.Id == room.AccomodationId);
 
-                if (isManager && (user != null && room.Accommodation != null && room.Accommodation.OwnerId == user.AppUserId))
+                if (isManager && (user != null && accommodation != null && accommodation.OwnerId == user.AppUserId))
                 {
                     if (!ModelState.IsValid)
                     {
@@ -171,7 +172,9 @@ namespace BookingApp.Controllers
                 var role = BAContext.Roles.FirstOrDefault(r => r.Id == userRole);
                 bool isManager = role.Name.Equals("Manager");
 
-                if (isManager && (user != null && room.Accommodation != null && room.Accommodation.OwnerId == user.AppUserId))
+                Accommodation accommodation = db.Accommodations.FirstOrDefault(x => x.Id == room.AccomodationId);
+
+                if (isManager && (user != null && accommodation != null && accommodation.OwnerId == user.AppUserId))
                 {
 
                     //IQueryable<RoomReservation> roomReservations = db.RoomReservations.Where(rr => rr.RoomId == room.Id);
