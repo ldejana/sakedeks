@@ -1,3 +1,20 @@
 <p>
-  map works!
+  <!-- Kreiramo mapu -->
+  <agm-map [latitude]="mapInfo.centerLat" [longitude]="mapInfo.centerLong" [zoom]="18">
+   
+    <!-- Postavljamo markere -->
+    <agm-marker [latitude]="mapInfo.centerLat" [longitude]="mapInfo.centerLong" [title]="mapInfo.title"
+    [label]="mapInfo.label">
+
+      <!-- Svakom markeru dodajemo info-window (Nije obavezno!)-->
+      <agm-info-window [latitude]="mapInfo.centerLat" [longitude]="mapInfo.centerLong" >
+
+        <!-- U info-window stavljamo html -->
+        <span style="font-size: 16px;font-family:'Times New Roman'"> {{accName}} </span>
+        <br/>
+        <span style="font-family:'Times New Roman'; color:gray;"><strong> {{accAddress}} </strong></span>
+      </agm-info-window>
+
+    </agm-marker>
+  </agm-map>
 </p>

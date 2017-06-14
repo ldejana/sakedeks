@@ -1,6 +1,6 @@
 <h4> Edit accommodation </h4>
 
-<form #f = "ngForm" (ngSubmit)="onSubmit()">
+<form #f = "ngForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
   <div>
     <label for="Id"> Id: </label>
     <input type="text" id="Id" name="Id" [(ngModel)]="Id" disabled> <br/>

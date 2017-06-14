@@ -48,6 +48,7 @@ import { RoomReservationsComponent } from './room-reservations/room-reservations
 import { AddReservationComponent } from './add-reservation/add-reservation.component';
 import { RoomReservationComponent } from './room-reservation/room-reservation.component';
 import { MapComponent } from './map/map.component';
+import { AgmCoreModule } from '@agm/core';
 
 
 
@@ -136,7 +137,8 @@ const Routes = [
     HttpModule,
     RouterModule.forRoot(Routes),
     CustomMaterialModule,
-    MaterialModule
+    MaterialModule,
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyBdcQVMzmZIlCfKbbFLxA4btbu1HD5pZTs'})
   ],
   providers: [AuthService, LoggedInGuard, IsAdminGuard, IsManagerGuard],
   bootstrap: [AppComponent]
