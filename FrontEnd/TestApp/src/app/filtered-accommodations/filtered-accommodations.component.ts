@@ -13,16 +13,29 @@ export class FilteredAccommodationsComponent implements OnInit {
 
   Name: string;
   PlaceName: string;
+  RegionName: string;
   Accommodations: Accommodation[];
+  CountryName: string;
+  AverageGrade: number;
+  BedCount: number;
+  MinPrice: number;
+  MaxPrice: number;
 
   constructor(private activatedRoute: ActivatedRoute, private filteredAccService: FilteredAccommodationsService) {
     activatedRoute.params.subscribe(params => {this.Name = params["Name"];
-                                               this.PlaceName = params["PlaceName"]});
+                                               this.PlaceName = params["PlaceName"];
+                                               this.RegionName = params["RegionName"];
+                                               this.CountryName = params["CountryName"];
+                                               this.AverageGrade = params["AverageGrade"];
+                                               this.BedCount = params["BedCount"];
+                                               this.MinPrice = params["MinPrice"];
+                                               this.MaxPrice = params["MaxPrice"]});
     this.Accommodations = [];
    }
 
   ngOnInit() {
-      this.filteredAccService.getAccommodations(this.Name, this.PlaceName).subscribe(x => this.Accommodations = x.json())
+      this.filteredAccService.getAccommodations(this.Name, this.PlaceName, this.RegionName, 
+      this.CountryName, this.AverageGrade, this.BedCount, this.MinPrice, this.MaxPrice).subscribe(x => this.Accommodations = x.json())
   }
 
 }

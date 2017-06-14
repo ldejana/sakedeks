@@ -37,6 +37,8 @@ export class AddAccommodationComponent implements OnInit {
   accTypes: AccommodationType[];
   AccommodationTypeId: number;
   placeName: string;
+  ImageURL: File;
+  file: File;
 
   constructor(private countryListService: CountryListService, private regionListService: RegionListService,
     private placeListService: PlaceListService, private accTypeListService: AccommodationTypeListService, private authService: AuthService,
@@ -76,7 +78,7 @@ export class AddAccommodationComponent implements OnInit {
     let newAccommodation = new Accommodation(1, this.Name, this.Description, this.Address, 0, this.Latitude, this.Longitude, "", false,
       this.AccommodationTypeId, this.PlaceId, userId);
 
-    this.addAccommodationService.create(newAccommodation).subscribe(x => 
+    this.addAccommodationService.create(newAccommodation, this.file).subscribe(x => 
     {this.router.navigate(['/accommodationList', this.PlaceId, "Place", "Place", placeName])}, 
       x => alert(x.json().Message));
   }
@@ -90,6 +92,13 @@ export class AddAccommodationComponent implements OnInit {
           break;
         }
       }
+  }
+
+  onImageChange(event: EventTarget) {
+    let eventObj: MSInputMethodContext = <MSInputMethodContext> event;
+    let target: HTMLInputElement = <HTMLInputElement> eventObj.target;
+    let files: FileList = target.files;
+    this.file = files[0];
   }
 
 }

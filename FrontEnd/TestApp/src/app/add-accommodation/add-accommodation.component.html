@@ -33,6 +33,12 @@
       <option md-option *ngFor = "let accType of accTypes" value={{accType.Id}}> {{accType.Name}} </option>
     </select> <br/>
 
+    <div>
+        <label for="image1"> Image File </label>
+        <br/>
+        <input type="file" name="ImageURL" id="ImageURL" (change)="onImageChange($event)" />
+    </div>
+
     <input type="submit" value="Create">
 </form>
 

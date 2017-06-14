@@ -6,6 +6,7 @@ import { User } from '../models/user.model';
 import { Place } from '../place/place.model';
 import { AuthService } from '../services/auth.service';
 import { AccommodationType } from '../accommodation-type/accommodation-type.model';
+import { ConfigurationManager } from '../services/configuration-manager.service';
 
 @Component({
   selector: 'accommodation',
@@ -20,6 +21,7 @@ export class AccommodationComponent implements OnInit {
   accommodations: Accommodation[];
   placeName: string;
   @Input() accId: number;
+  ImageUrl: string;
 
   constructor(private accommodationService: AccommodationService, private router: Router, private activatedRoute: ActivatedRoute,
     private authService: AuthService) { 
@@ -40,6 +42,9 @@ export class AccommodationComponent implements OnInit {
       this.accommodationService.getById(this.accommodationId).subscribe(x => { this.accommodations = x.json();
         this.accommodation = this.accommodations[0]});
     }
+
+    let host = ConfigurationManager.Host;
+    this.ImageUrl = `http://${host}/` + this.accommodation.ImageUrl;
   }
 
   isLoggedIn(): boolean {
