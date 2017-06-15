@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Http.OData;
 
 namespace BookingApp.Controllers
 {
@@ -17,8 +18,9 @@ namespace BookingApp.Controllers
         private BAContext db = new BAContext();
 
         [HttpGet]
+        [EnableQuery]
         [Route("RoomReservations")]
-        public IQueryable<RoomReservation> GetRoomReservationss()
+        public IQueryable<RoomReservation> GetRoomReservations()
         {
             return db.RoomReservations;
         }
@@ -78,17 +80,72 @@ namespace BookingApp.Controllers
         [HttpPost]
         [Route("RoomReservations")]
         [ResponseType(typeof(RoomReservation))]
-        public IHttpActionResult PostRoomReservation(RoomReservation roomReservation)
+        public IHttpActionResult PostRoomReservation(RoomReservation newRoomReservation)
         {
-            if (!ModelState.IsValid)
+            var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+
+            if (user != null)
             {
-                return BadRequest(ModelState);
+                BAContext BAContext = new BAContext();
+                var userRole = user.Roles.First().RoleId;
+                var role = BAContext.Roles.FirstOrDefault(r => r.Id == userRole);
+                bool isUser = role.Name.Equals("AppUser");
+
+                if (isUser)
+                {
+                    if (!ModelState.IsValid)
+                    {
+                        return BadRequest(ModelState);
+                    }
+
+                    bool exist = false;
+                    using (var context = new BAContext())
+                    {
+                        // Query for all blogs with names starting with B 
+                        var reservations = from b in context.RoomReservations
+                                           where b.RoomId == newRoomReservation.RoomId
+                                           select b;
+
+                        foreach (var item in reservations)
+                        {
+                            if (!((newRoomReservation.StartDate < item.StartDate &&
+                                newRoomReservation.EndData <= item.StartDate) ||
+                               (newRoomReservation.StartDate >= item.EndData &&
+                                newRoomReservation.EndData > item.EndData)))
+                            {
+                                exist = true;
+                                break;
+                            }
+                        }
+
+                    }
+
+                   
+                    //IQueryable<RoomReservation> reservations = db.RoomReservations.Where(x => x.RoomId == newRoomReservation.Id);
+                   
+
+                    if (!exist)
+                    {
+                        db.RoomReservations.Add(newRoomReservation);
+                        db.SaveChanges();
+
+                        return CreatedAtRoute("DefaultApi", new { controller = "RoomReservation", id = newRoomReservation.Id }, newRoomReservation);
+                    } 
+                    else
+                    {
+                        return BadRequest("Room is not available at that time.");
+                    }
+
+                }
+                else
+                {
+                    return Unauthorized();
+                }
             }
-
-            db.RoomReservations.Add(roomReservation);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { controller = "RoomReservation", id = roomReservation.Id }, roomReservation);
+            else
+            {
+                return Unauthorized();
+            }
         }
 
         [Authorize]

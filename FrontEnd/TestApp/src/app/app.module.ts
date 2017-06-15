@@ -86,7 +86,7 @@ const Routes = [
   {path: "filterForm", component: FilterFormComponent},
   {path: "filteredAccommodations/:Name/:PlaceName", component: FilteredAccommodationsComponent},
   {path: "roomReservations/:UserId", component: RoomReservationsComponent},
-  {path: "addReservation/:roomId/:AccommodationName", component: AddReservationComponent},
+  {path: "addReservation/:RoomId/:AccommodationName", component: AddReservationComponent},
   {path: "filteredAccommodations/:Name/:PlaceName/:RegionName/:CountryName/:AverageGrade/:BedCount/:MinPrice/:MaxPrice", component: FilteredAccommodationsComponent}
 
 ]
