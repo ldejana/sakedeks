@@ -7,6 +7,7 @@ import { Place } from '../place/place.model';
 import { AuthService } from '../services/auth.service';
 import { AccommodationType } from '../accommodation-type/accommodation-type.model';
 import { ConfigurationManager } from '../services/configuration-manager.service';
+import {MapInfo} from "../map/map-info.model"
 
 @Component({
   selector: 'accommodation',
@@ -20,8 +21,8 @@ export class AccommodationComponent implements OnInit {
   accommodation: Accommodation;
   accommodations: Accommodation[];
   placeName: string;
-  @Input() accId: number;
   ImageUrl: string;
+  mapInfo: MapInfo
 
   constructor(private accommodationService: AccommodationService, private router: Router, private activatedRoute: ActivatedRoute,
     private authService: AuthService) { 
@@ -32,27 +33,20 @@ export class AccommodationComponent implements OnInit {
     this.accommodation.Owner = new User();
     this.accommodation.Place = new Place();
     this.accommodation.AccommodationType = new AccommodationType();
+    this.mapInfo = new MapInfo(0, 0, "", "" , "" , "");
   }
 
   ngOnInit() {
-    if (this.accId != undefined){
-      this.accommodationService.getById(this.accId).subscribe(x => { this.accommodations = x.json();
-        this.accommodation = this.accommodations[0];
-        
-        
-      let host = ConfigurationManager.Host;
-      let imgurl = this.accommodation.ImageUrl;
-      this.ImageUrl = `http://${host}/${imgurl}`;
-      });
-    } else if (this.accommodationId != undefined) {
       this.accommodationService.getById(this.accommodationId).subscribe(x => { this.accommodations = x.json();
         this.accommodation = this.accommodations[0];
+
+        this.mapInfo = new MapInfo(this.accommodation.Latitude, this.accommodation.Longitude, "",
+                      this.accommodation.Name, "" , "");
         
-    let host = ConfigurationManager.Host;
-    let imgurl = this.accommodation.ImageUrl;
-    this.ImageUrl = `http://${host}/${imgurl}`;
+        let host = ConfigurationManager.Host;
+        let imgurl = this.accommodation.ImageUrl;
+        this.ImageUrl = `http://${host}/${imgurl}`;
     });
-    }
 
   }
 
@@ -74,8 +68,8 @@ export class AccommodationComponent implements OnInit {
       x => alert(x.json().Message));
   }
 
-  editAcc(id, name, desc, address, latitude, longitude, averageGr, /*imageUrl, dodaj kasnije*/ approved, accTypeId, placeId,ownerId) {
-    this.router.navigate(['/editAcc', id, name, desc, address, latitude, longitude, averageGr, /*imageUrl,*/ approved, accTypeId, placeId, ownerId]);
+  editAcc(id, name, desc, address, latitude, longitude, averageGr, approved, accTypeId, placeId,ownerId, imageUrl) {
+    this.router.navigate(['/editAcc', id, name, desc, address, latitude, longitude, averageGr, approved, accTypeId, placeId, ownerId, imageUrl]);
   }
 
 }

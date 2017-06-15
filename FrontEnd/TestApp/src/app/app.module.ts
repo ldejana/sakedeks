@@ -48,6 +48,7 @@ import { RoomReservationsComponent } from './room-reservations/room-reservations
 import { AddReservationComponent } from './add-reservation/add-reservation.component';
 import { RoomReservationComponent } from './room-reservation/room-reservation.component';
 import { MapComponent } from './map/map.component';
+import { AgmCoreModule } from '@agm/core';
 
 
 
@@ -80,7 +81,7 @@ const Routes = [
   {path: "editRegion/:Id/:Name/:CountryId/:CountryName",  component: EditRegionComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
   {path: "editPlace/:Id/:PlaceName/:RegionId/:Path",  component: EditPlaceComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
   {path: "addAccommodation",  component: AddAccommodationComponent, canActivate: [LoggedInGuard, IsManagerGuard]},
-  {path: "editAcc/:Id/:Name/:Description/:Address/:Latitude/:Longitude/:AverageGrade/:Approved/:AccommodationTypeId/:PlaceId/:OwnerId",  
+  {path: "editAcc/:Id/:Name/:Description/:Address/:Latitude/:Longitude/:AverageGrade/:Approved/:AccommodationTypeId/:PlaceId/:OwnerId/:ImageUrl",  
     component: EditAccommodationComponent, canActivate: [LoggedInGuard, IsManagerGuard]},
   {path: "editRoom/:Id", component: EditRoomComponent, canActivate: [LoggedInGuard, IsManagerGuard]},
   {path: "filterForm", component: FilterFormComponent},
@@ -136,7 +137,8 @@ const Routes = [
     HttpModule,
     RouterModule.forRoot(Routes),
     CustomMaterialModule,
-    MaterialModule
+    MaterialModule,
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyBdcQVMzmZIlCfKbbFLxA4btbu1HD5pZTs'})
   ],
   providers: [AuthService, LoggedInGuard, IsAdminGuard, IsManagerGuard],
   bootstrap: [AppComponent]

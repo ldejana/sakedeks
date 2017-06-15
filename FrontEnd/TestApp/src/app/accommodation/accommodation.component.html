@@ -12,8 +12,12 @@
 </div>
 
 <div>
-  <img [src]=ImageUrl height="42" width="42" />
+  <img [src]=ImageUrl height="150" width="150" />
 </div>
+
+<div style="width:50%; margin: 0 auto">
+    <map [mapInfo]="mapInfo" [accAddress]="accommodation.Address" [accName]="accommodation.Name"></map>
+  </div>
 
 <div>
   <button *ngIf="isLoggedIn() && isManager() && isMyAcc(accommodation.Owner.Id)" (click)="deleteAcc(accommodation.Id)"> 
@@ -22,7 +26,7 @@
 
     <button *ngIf="isLoggedIn() && isManager() && isMyAcc(accommodation.Owner.Id)" 
       (click)="editAcc(accommodation.Id, accommodation.Name, accommodation.Description, accommodation.Address, accommodation.Latitude, accommodation.Longitude,
-      accommodation.AverageGrade, accommodation.Approved, accommodation.AccommodationTypeId, accommodation.PlaceId, accommodation.OwnerId)"> 
+      accommodation.AverageGrade, accommodation.Approved, accommodation.AccommodationTypeId, accommodation.PlaceId, accommodation.OwnerId, accommodation.ImageUrl)"> 
       <b> Edit Accommodation </b> 
     </button>
 </div>  
