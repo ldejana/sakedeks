@@ -20,6 +20,7 @@ export class AddReservationComponent implements OnInit {
   EndDate: Date;
   Message: string;
   Room: Room;
+  CurrentDate: string;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, 
               private authService: AuthService, private addReservationService: AddReservationService,
@@ -29,6 +30,7 @@ export class AddReservationComponent implements OnInit {
     this.StartDate = new Date();
     this.EndDate = new Date();
     this.Room = new Room();
+    this.CurrentDate = new Date().toJSON().split('T')[0]
 }
 
   ngOnInit() {

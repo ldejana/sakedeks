@@ -1,2 +1,24 @@
 <h4> My room reservations </h4>
 
+<div *ngIf = "Count > 0">
+    <div *ngFor="let reservation of RoomReservations">
+        <div>
+            Room reserved from {{ reservation.StartDate }} to {{ reservation.EndData }}
+        </div>
+
+        <div>
+            Room number: {{reservation.Room.RoomNumber}} <br/>
+            Bed count: {{reservation.Room.BedCount}} <br />
+            Description: {{reservation.Room.Description}} <br/> 
+            Price per night: {{reservation.Room.PricePerNight}} <br/>  
+        </div>
+
+        <div *ngIf="reservation.IsCanceled">
+            <h4> Reservation is canceled </h4>
+        </div>
+
+        <div *ngIf="!reservation.IsCanceled">
+            <button (click) = "CancelReservation(reservation)"> Cancel reservation </button>
+        </div>
+    </div>
+</div>
