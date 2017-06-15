@@ -46,9 +46,10 @@ import { FilteredAccommodationsComponent } from './filtered-accommodations/filte
 import { FilterFormComponent } from './filter-form/filter-form.component';
 import { RoomReservationsComponent } from './room-reservations/room-reservations.component';
 import { AddReservationComponent } from './add-reservation/add-reservation.component';
-import { RoomReservationComponent } from './room-reservation/room-reservation.component';
 import { MapComponent } from './map/map.component';
 import { AgmCoreModule } from '@agm/core';
+import { CommentComponent } from './comment/comment.component';
+import { CommentListComponent } from './comment-list/comment-list.component';
 
 
 
@@ -128,8 +129,9 @@ const Routes = [
     FilterFormComponent,
     RoomReservationsComponent,
     AddReservationComponent,
-    RoomReservationComponent,
-    MapComponent
+    MapComponent,
+    CommentComponent,
+    CommentListComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 import { AddReservationService } from './add-reservation.service';
-import { RoomReservation } from '../room-reservation/room-reservation.model';
+import { RoomReservation } from '../room-reservations/room-reservation.model';
 import { AuthService } from '../services/auth.service';
 import { Room } from "app/room/room.model";
 import { ErrorHandlerService } from '../services/error-handler.service';

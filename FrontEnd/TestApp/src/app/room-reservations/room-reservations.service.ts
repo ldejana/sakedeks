@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { RoomReservation } from '../room-reservation/room-reservation.model';
+import { RoomReservation } from './room-reservation.model';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { ConfigurationManager } from '../services/configuration-manager.service';
@@ -15,7 +15,7 @@ export class RoomReservationsService {
     getAllUserReservations(): Observable<any> {
         let userId = this.authService.getUserId();
         let host = ConfigurationManager.Host;
-        return this.http.get(`http://${host}/api/RoomReservations?$filter=AppUserId eq ${userId} &$expand=Room`);
+        return this.http.get(`http://${host}/api/RoomReservations?$filter=AppUserId eq ${userId} &$expand=Room, Room/Accommodation`);
     }
 
     cancelReservation(reservation: RoomReservation): Observable<any> {

@@ -3,6 +3,7 @@
 <div *ngIf = "Count > 0">
     <div *ngFor="let reservation of RoomReservations">
         <div>
+            <h5> {{ reservation.Room.Accommodation.Name }} </h5>
             Room reserved from {{ reservation.StartDate }} to {{ reservation.EndData }}
         </div>
 
