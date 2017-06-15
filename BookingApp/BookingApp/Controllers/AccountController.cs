@@ -16,6 +16,7 @@ using Microsoft.Owin.Security.OAuth;
 using BookingApp.Models;
 using BookingApp.Providers;
 using BookingApp.Results;
+using System.Web.Http.Results;
 
 namespace BookingApp.Controllers
 {
@@ -339,7 +340,8 @@ namespace BookingApp.Controllers
 
             if (!result.Succeeded)
             {
-                return GetErrorResult(result);
+                return BadRequest("Username is already taken by another user.");
+                //return GetErrorResult(result);
             }
 
             UserManager.AddToRole(BaIdentityUserId, model.Role);
@@ -384,7 +386,7 @@ namespace BookingApp.Controllers
             result = await UserManager.AddLoginAsync(user.Id, info.Login);
             if (!result.Succeeded)
             {
-                return GetErrorResult(result); 
+                return GetErrorResult(result);
             }
             return Ok();
         }

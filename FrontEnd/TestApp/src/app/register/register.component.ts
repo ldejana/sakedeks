@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {RegisterData} from './register-data.model';
 import { RegisterService } from './register.service';
-import {
-  Router,
-  ActivatedRoute
-} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ErrorHandlerService } from '../services/error-handler.service';
 
 @Component({
   selector: 'register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
-  providers: [RegisterService]
+  providers: [ RegisterService, ErrorHandlerService ]
 })
 export class RegisterComponent implements OnInit {
    Email: string;
@@ -23,7 +21,8 @@ export class RegisterComponent implements OnInit {
    Message: string = "";
    Manager: string;
 
-  constructor(private registerService: RegisterService, private router: Router, private activatedRoute: ActivatedRoute) { 
+  constructor(private registerService: RegisterService, private router: Router, 
+              private activatedRoute: ActivatedRoute, private errorHandlerService: ErrorHandlerService) { 
     activatedRoute.params.subscribe(params => {this.Manager = params["Manager"];});
   }
 
@@ -38,8 +37,9 @@ export class RegisterComponent implements OnInit {
       this.Role = "AppUser";
     }
     this.registerService.register(new RegisterData(this.Email, this.Password, this.ConfirmPassword,
-      this.Name, this.LastName, this.Role)).subscribe(x => {this.Message="Successful registration";
-      this.router.navigate(['login'])}, x => this.Message=x.json().Message);
+      this.Name, this.LastName, this.Role)).subscribe(
+        x => {this.Message="Successful registration"; this.router.navigate(['login'])},
+        x => { this.Message = this.errorHandlerService.parseError(x); });
 
     this.Name = "";
     this.Email = "";

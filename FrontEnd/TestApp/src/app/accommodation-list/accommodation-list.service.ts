@@ -16,9 +16,14 @@ export class AccommodationListService {
         return this.http.get(`http://${host}/api/Accommodations`);
     }
 
+    getAllOData() : Observable<any> {
+        let host = ConfigurationManager.Host;
+        return this.http.get(`http://${host}/odata/AccOData`);
+    }
+
     getByAccTypeId(id: number): Observable<any> {
         let host = ConfigurationManager.Host;
-        let urlAddress = `http://${host}/api/Accommodations?$filter=AccommodationTypeId eq ` + id;
+        let urlAddress = `http://${host}/odata/AccOData?$filter=AccommodationTypeId eq ` + id;
         return this.http.get(urlAddress);
     }
 
@@ -34,9 +39,11 @@ export class AccommodationListService {
         return this.http.get(urlAddress);
     }
 
-    getByPlaceId(id: number): Observable<any> {
+    getByPlaceId(id: number, pageNumber: number, pageSize: number): Observable<any> {
         let host = ConfigurationManager.Host;
-        let urlAddress = `http://${host}/api/Accommodations/PlaceId/${id}?filter=Id eq ${id} &$expand=Place, Owner, AccommodationType`;
+        let skip = (pageNumber - 1) * pageSize;
+        let urlAddress = `http://${host}/odata/AccOData?$top=${pageSize}&$skip=${skip} &$filter=Place/Id eq ${id} 
+        &$expand=Place, Owner, AccommodationType &$inlinecount=allpages`;
         return this.http.get(urlAddress);
     }
 

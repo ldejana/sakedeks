@@ -1,11 +1,22 @@
-<h3> Make reservation  </h3>
+<h3> Make room reservation in {{ AccommodationName }} </h3>
+
+<div>
+   Room number: {{Room.RoomNumber}} <br/>
+   Bed count: {{Room.BedCount}} <br />
+   Description: {{Room.Description}} <br/> 
+   Price per night: {{Room.PricePerNight}} <br/>
+</div>
 
 <form #f = "ngForm" (ngSubmit)="onSubmit()">
   <div>
-    <label for="Username"> Email: </label>
-    <input type="text" id="Username" name="Username" [(ngModel)]="Username"> <br/>
-    <label for="Password"> Password: </label>
-    <input type="password" id="Password" name="Password" [(ngModel)] = "Password"> <br/>
-    <input type="submit" value="Log in">
+    <label for="StartDate"> From: </label>
+    <input type="date" id="StartDate" name="StartDate" [(ngModel)]="StartDate" [min]="CurrentDate" (change) = "selectedDate()"> <br/>
+  
+    <label for="EndDate"> To: </label>
+    <input type="date" id="EndDate" name="EndDate" [(ngModel)]="EndDate" [min]="CurrentDate" (change) = "selectedDate()"> <br/>
+
+    <input type="submit" value="Done">
   </div>
 </form>
+
+{{ Message }}
