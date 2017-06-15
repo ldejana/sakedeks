@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { ConfigurationManager } from '../services/configuration-manager.service';
-import { RoomReservation } from '../room-reservation/room-reservation.model';
+import { RoomReservation } from '../room-reservations/room-reservation.model';
 
 @Injectable()
 export class AddReservationService {

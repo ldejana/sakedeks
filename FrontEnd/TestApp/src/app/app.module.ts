@@ -140,7 +140,7 @@ const Routes = [
     RouterModule.forRoot(Routes),
     CustomMaterialModule,
     MaterialModule,
-    AgmCoreModule.forRoot({apiKey: 'AIzaSyBdcQVMzmZIlCfKbbFLxA4btbu1HD5pZTs'})
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyDPzFIyF8ITAqwIIw_fJi8NEXxMMdjm8sA'})
   ],
   providers: [AuthService, LoggedInGuard, IsAdminGuard, IsManagerGuard],
   bootstrap: [AppComponent]

@@ -23,6 +23,7 @@ export class AccommodationComponent implements OnInit {
   placeName: string;
   ImageUrl: string;
   mapInfo: MapInfo
+  
 
   constructor(private accommodationService: AccommodationService, private router: Router, private activatedRoute: ActivatedRoute,
     private authService: AuthService) { 

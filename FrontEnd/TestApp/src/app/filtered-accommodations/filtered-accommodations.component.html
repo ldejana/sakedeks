@@ -3,3 +3,15 @@
 <div *ngFor="let accommodation of Accommodations"> 
     <a [routerLink]="['/accommodation', accommodation.Id]"> {{accommodation.Name}} </a>
 </div>
+
+<div *ngFor="let c of counter; let i=index">
+    <button (click)="changePage((PageSet -1)*2 + i + 1)"> {{ (PageSet -1)*2 + i + 1 }}  </button>
+</div>
+
+<div *ngIf="showNext()"> 
+    <button (click)="nextPageSet()"> Next </button> 
+</div>
+
+<div *ngIf="showPrevious()"> 
+    <button (click)="previousPageSet()"> Previous </button> 
+</div>
