@@ -103,7 +103,7 @@ namespace BookingApp.Controllers
                     {
                         // Query for all blogs with names starting with B 
                         var reservations = from b in context.RoomReservations
-                                           where b.RoomId == newRoomReservation.RoomId
+                                           where (b.RoomId == newRoomReservation.RoomId && b.IsCanceled == false)
                                            select b;
 
                         foreach (var item in reservations)
@@ -119,10 +119,6 @@ namespace BookingApp.Controllers
                         }
 
                     }
-
-                   
-                    //IQueryable<RoomReservation> reservations = db.RoomReservations.Where(x => x.RoomId == newRoomReservation.Id);
-                   
 
                     if (!exist)
                     {

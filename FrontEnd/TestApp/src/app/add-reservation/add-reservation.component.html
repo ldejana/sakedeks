@@ -10,10 +10,10 @@
 <form #f = "ngForm" (ngSubmit)="onSubmit()">
   <div>
     <label for="StartDate"> From: </label>
-    <input type="date" id="StartDate" name="StartDate" [(ngModel)]="StartDate" (change) = "selectedDate()"> <br/>
+    <input type="date" id="StartDate" name="StartDate" [(ngModel)]="StartDate" [min]="CurrentDate" (change) = "selectedDate()"> <br/>
   
     <label for="EndDate"> To: </label>
-    <input type="date" id="EndDate" name="EndDate" [(ngModel)]="EndDate" (change) = "selectedDate()"> <br/>
+    <input type="date" id="EndDate" name="EndDate" [(ngModel)]="EndDate" [min]="CurrentDate" (change) = "selectedDate()"> <br/>
 
     <input type="submit" value="Done">
   </div>

@@ -15,7 +15,23 @@ export class RoomReservationsService {
     getAllUserReservations(): Observable<any> {
         let userId = this.authService.getUserId();
         let host = ConfigurationManager.Host;
-        return this.http.get(`http://${host}/api/RoomReservations?$filter=AppUserId eq ` + userId);
+        return this.http.get(`http://${host}/api/RoomReservations?$filter=AppUserId eq ${userId} &$expand=Room`);
+    }
+
+    cancelReservation(reservation: RoomReservation): Observable<any> {
+        let token=localStorage.getItem("token");
+        let header = new Headers();
+        header.append('Content-Type', 'application/json');
+        header.append('Authorization', 'Bearer '+ JSON.parse(token).token);
+
+        let options = new RequestOptions();
+        options.headers = header;
+        
+        reservation.IsCanceled = true;
+
+        let host = ConfigurationManager.Host;
+        let urlAddress = `http://${host}/api/RoomReservations/` + reservation.Id;
+        return this.http.put(urlAddress, JSON.stringify(reservation), options);
     }
 
 }
