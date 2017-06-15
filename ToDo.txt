@@ -1,2 +1,2 @@
-back, accType, da ispisuje ko je ulogovan, dodati listu ocjena da moze da izracuna prosjecnu, upload slike
+back, accType, da ispisuje ko je ulogovan, dodati listu ocjena da moze da izracuna prosjecnu,
 razmisli da li prikazivati sve usere, Comment Controller i Room Reservation uraditi autorizaciju na serveru
