@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class PagingService {
 
-    public static TempPage: number=0;
+    public static PageSet: number = 1;
     public static PageNumber: number;
     public static PageSize: number = 5;
 

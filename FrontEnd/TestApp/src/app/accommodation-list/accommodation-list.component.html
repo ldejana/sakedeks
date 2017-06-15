@@ -5,5 +5,5 @@
 </div>
 
 <div *ngFor="let c of counter; let i=index">
-    <button (click)="changePage(i+1)"> {{ i + 1 }} </button>
+    <button (click)="changePage(i+1)"> {{ i + 1 }} {{PagingService.PageSet}} </button>
 </div>
