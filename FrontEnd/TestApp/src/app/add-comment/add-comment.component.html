@@ -1,0 +1,17 @@
+<h4> Leave a comment: </h4>
+
+<form #f = "ngForm" (ngSubmit)="onSubmit()">
+
+    <textarea id="Comment" name="Comment" [(ngModel)]="Text"> </textarea> <br/>
+    
+    <input type="radio" name="grade" [value]="1" [(ngModel)] = 'Grade'> 1 <br>
+    <input type="radio" name="grade" [value]="2" [(ngModel)] = 'Grade'> 2 <br>
+    <input type="radio" name="grade" [value]="3" [(ngModel)] = 'Grade'> 3 <br>
+    <input type="radio" name="grade" [value]="4" [(ngModel)] = 'Grade'> 4 <br>
+    <input type="radio" name="grade" [value]="5" [(ngModel)] = 'Grade'> 5 <br>
+
+    <input type="submit" value="Send">
+
+</form>
+
+<!-- [checked]="model.options==1" -->

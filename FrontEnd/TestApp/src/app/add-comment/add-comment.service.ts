@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
+import { Comment } from '../comment-list/comment.model';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { ConfigurationManager } from '../services/configuration-manager.service';
-import { RoomReservation } from '../room-reservations/room-reservation.model';
 
 @Injectable()
-export class AddReservationService {
+export class AddCommentService {
 
     constructor(private http: Http)
     {
        
     }
 
-    create(roomReservation: RoomReservation): Observable<any> {
+    create(comment: Comment) : Observable<any> {
         let token=localStorage.getItem("token");
         let header = new Headers();
         header.append('Content-Type', 'application/json');
@@ -22,11 +22,6 @@ export class AddReservationService {
         options.headers = header;
         
         let host = ConfigurationManager.Host;
-        return this.http.post(`http://${host}/api/RoomReservations`, JSON.stringify(roomReservation), options);
-    }
-
-    getRoomById(roomId: number): Observable<any> {
-        let host = ConfigurationManager.Host;
-        return this.http.get(`http://${host}/api/Rooms/${roomId}`);
+        return this.http.post(`http://${host}/api/Comments`, JSON.stringify(comment), options);
     }
 }

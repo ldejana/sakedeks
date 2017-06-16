@@ -34,4 +34,10 @@ export class RoomReservationsService {
         return this.http.put(urlAddress, JSON.stringify(reservation), options);
     }
 
+    getReservations(userId: number, accommodationId: number): Observable<any> {
+        let host = ConfigurationManager.Host;
+        let url = `http://${host}/api/RoomReservations?$filter=AppUserId eq ${userId} and Room/AccomodationId eq ${accommodationId} and IsCanceled eq false &$expand=Room`;
+        return this.http.get(url);
+    }
+
 }

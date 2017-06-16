@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Http.OData;
 
 namespace BookingApp.Controllers
 {
@@ -18,14 +19,16 @@ namespace BookingApp.Controllers
 
         // GET: api/Comments
         [HttpGet]
+        [EnableQuery]
         [Route("Comments")]
         public IQueryable<Comment> GetComments()
         {
             return db.Comments;
         }
 
-        // GET: api/Comments/5
+        // GET: api/Comments/5/3
         [HttpGet]
+        [EnableQuery]
         [Route("Comments/{id1}/{id2}")]
         [ResponseType(typeof(Comment))]
         public IHttpActionResult GetComment(int id1, int id2)
@@ -89,10 +92,32 @@ namespace BookingApp.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Comments.Add(comment);
-            db.SaveChanges();
+            using (var context = new BAContext())
+            {
+                var reservations = from b in context.RoomReservations
+                                   where (b.AppUserId == comment.AppUserId && b.IsCanceled == false &&
+                                          b.Room.AccomodationId == comment.AccommodationId)
+                                   select b;
 
-            return CreatedAtRoute("DefaultApi", new { controller = "Comment" /*, Id = place.Id*/ }, comment);
+                foreach (var item in reservations)
+                {
+                    if (item.StartDate < DateTime.Now)
+                    {
+                        try
+                        {
+                            db.Comments.Add(comment);
+                            db.SaveChanges();
+                        }
+                       catch(Exception e)
+                        {
+                            return BadRequest("Cannot add comment.");
+                        }
+
+                        return CreatedAtRoute("DefaultApi", new { controller = "Comment" /*, Id = place.Id*/ }, comment);
+                    }
+                }
+            }
+            return Unauthorized();
         }
 
         // DELETE: api/Comments/5

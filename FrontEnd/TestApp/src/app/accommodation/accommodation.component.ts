@@ -7,7 +7,8 @@ import { Place } from '../place/place.model';
 import { AuthService } from '../services/auth.service';
 import { AccommodationType } from '../accommodation-type/accommodation-type.model';
 import { ConfigurationManager } from '../services/configuration-manager.service';
-import {MapInfo} from "../map/map-info.model"
+import {MapInfo} from "../map/map-info.model";
+
 
 @Component({
   selector: 'accommodation',
@@ -22,8 +23,8 @@ export class AccommodationComponent implements OnInit {
   accommodations: Accommodation[];
   placeName: string;
   ImageUrl: string;
-  mapInfo: MapInfo
-
+  mapInfo: MapInfo;
+ 
   constructor(private accommodationService: AccommodationService, private router: Router, private activatedRoute: ActivatedRoute,
     private authService: AuthService) { 
 
@@ -34,9 +35,12 @@ export class AccommodationComponent implements OnInit {
     this.accommodation.Place = new Place();
     this.accommodation.AccommodationType = new AccommodationType();
     this.mapInfo = new MapInfo(0, 0, "", "" , "" , "");
+
   }
 
   ngOnInit() {
+      
+     
       this.accommodationService.getById(this.accommodationId).subscribe(x => { this.accommodations = x.json();
         this.accommodation = this.accommodations[0];
 
@@ -71,5 +75,7 @@ export class AccommodationComponent implements OnInit {
   editAcc(id, name, desc, address, latitude, longitude, averageGr, approved, accTypeId, placeId,ownerId, imageUrl) {
     this.router.navigate(['/editAcc', id, name, desc, address, latitude, longitude, averageGr, approved, accTypeId, placeId, ownerId, imageUrl]);
   }
+
+  
 
 }

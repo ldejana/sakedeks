@@ -1,3 +1,23 @@
 <h4> Comments: </h4>
 
-<
+<div *ngIf = "CommentsCount == 0">
+    No comments for this accommodation.
+</div>
+
+<div *ngIf = "CommentsCount > 0">
+    <div *ngFor = "let comment of Comments">
+        <p name="userName"> {{ comment.AppUser.Name }} says: </p>
+        <div>
+            Grade: {{ comment.Grade }}
+        </div>
+        <blockquote>
+            {{comment.Text}}
+        </blockquote>
+    </div>
+</div>
+
+<add-comment *ngIf="CanUserLeaveComment" 
+             [AccommodationId] = 'AccommodationId' 
+             (OnCommentAdded) = "commentAdded($event)" > 
+
+</add-comment>

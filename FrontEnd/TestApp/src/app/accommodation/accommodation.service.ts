@@ -3,12 +3,17 @@ import { Accommodation } from '../accommodation/accommodation.model';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { ConfigurationManager } from '../services/configuration-manager.service';
+import { AuthService } from '../services/auth.service';
+
+
 
 @Injectable()
 export class AccommodationService {
 
-    constructor(private http: Http) {}
+    constructor(private http: Http, private authService: AuthService) {
 
+         
+    }
 
     getById(id: number) : Observable<any> {
 
