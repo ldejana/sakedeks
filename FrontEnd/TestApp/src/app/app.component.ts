@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Origins } from './enumerations/origins.model';
 
 
 @Component({
@@ -10,9 +11,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class AppComponent {
   title = 'booking.com';
+  disapproved: Origins = 'Disapproved';
 
   constructor(private authService: AuthService, private router: Router){
-    
   }
 
   ngOnInit() {
@@ -58,5 +59,10 @@ export class AppComponent {
   showReservations() {
     let userId = this.authService.getUserId();
     this.router.navigate(['/roomReservations', userId]);
+  }
+
+  showDisapprovedAcc() {
+    let self = this.disapproved;
+    this.router.navigate(['/accommodationList', 1, self, self, self]);
   }
 }

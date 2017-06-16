@@ -58,6 +58,19 @@ export class AccommodationListComponent implements OnInit {
             this.path = this.path + " >> " + this.placeName;
             break;
         }
+        case 'Disapproved' : {
+          this.accListService.getDisapprovedAccs(1, PagingService.PageSize).subscribe(x => {
+              this.Accommodations = (x.json()).value;
+              this.pagingService.initPagingService(x);
+
+              let counterLength = 2;
+              if (this.PageSet * 2 > PagingService.PageNumber) {
+                  counterLength = PagingService.PageNumber - ((this.PageSet-1)*2);
+              } 
+              this.counter = new Array(counterLength);
+            });
+          break;
+        }
         default: break;
       }
   }
@@ -71,6 +84,12 @@ export class AccommodationListComponent implements OnInit {
         break;
         case 'Place': {
           this.accListService.getByPlaceId(this.Id, pageNumber, PagingService.PageSize).subscribe(x => {
+              this.Accommodations = (x.json()).value; 
+            });
+          break;
+        }
+        case 'Disapproved': {
+          this.accListService.getDisapprovedAccs(pageNumber, PagingService.PageSize).subscribe(x => {
               this.Accommodations = (x.json()).value; 
             });
           break;

@@ -36,5 +36,13 @@ export class AccommodationListService {
         return this.http.get(urlAddress);
     }
 
+    getDisapprovedAccs(pageNumber: number, pageSize: number): Observable<any> {
+        let host = ConfigurationManager.Host;
+        let skip = (pageNumber - 1) * pageSize;
+        let urlAddress = `http://${host}/odata/AccOData?$top=${pageSize}&$skip=${skip} &$filter=Approved eq false 
+        &$expand=Place, Owner, AccommodationType &$inlinecount=allpages`;
+        return this.http.get(urlAddress);
+    }
+
 }
 
