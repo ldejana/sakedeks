@@ -8,6 +8,9 @@
   </div>
 </header>
 
+<div>
+    <notifications> </notifications>
+  </div>
 
 <nav name="navigationBar">
   <md-card>
@@ -35,11 +38,13 @@
           <button md-button (click)="showFilterPage()"> Filter </button>
       </div>
 
+
   </md-card>
 </nav>
 
 
 <main>
+
   <div style='float: right; position: relative; left: -50%;'>
       <router-outlet ></router-outlet>
   </div>
