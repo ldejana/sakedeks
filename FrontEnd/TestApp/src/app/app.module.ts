@@ -50,6 +50,7 @@ import { MapComponent } from './map/map.component';
 import { AgmCoreModule } from '@agm/core';
 import { CommentListComponent } from './comment-list/comment-list.component';
 import { AddCommentComponent } from './add-comment/add-comment.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 
 
@@ -131,7 +132,8 @@ const Routes = [
     AddReservationComponent,
     MapComponent,
     CommentListComponent,
-    AddCommentComponent
+    AddCommentComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,
