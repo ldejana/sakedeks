@@ -38,6 +38,10 @@
           <button md-button (click)="showFilterPage()"> Filter </button>
       </div>
 
+      <div *ngIf="isLoggedIn() && isAdmin()" style='display: inline-block'>
+          <button md-button (click)="showDisapprovedAcc()"> Disapproved Accommodations </button>
+      </div>
+
 
   </md-card>
 </nav>
