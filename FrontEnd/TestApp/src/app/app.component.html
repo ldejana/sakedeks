@@ -38,6 +38,9 @@
           <button md-button (click)="showFilterPage()"> Filter </button>
       </div>
 
+      <div *ngIf="isLoggedIn() && isManager()">
+        <notification-manager> </notification-manager>
+      </div>
 
   </md-card>
 </nav>

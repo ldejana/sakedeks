@@ -51,6 +51,7 @@ import { AgmCoreModule } from '@agm/core';
 import { CommentListComponent } from './comment-list/comment-list.component';
 import { AddCommentComponent } from './add-comment/add-comment.component';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { NotificationManagerComponent } from './notification-manager/notification-manager.component';
 
 
 
@@ -133,7 +134,8 @@ const Routes = [
     MapComponent,
     CommentListComponent,
     AddCommentComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    NotificationManagerComponent
   ],
   imports: [
     BrowserModule,

@@ -32,8 +32,7 @@ export class AccommodationListService {
     getByPlaceId(id: number, pageNumber: number, pageSize: number): Observable<any> {
         let host = ConfigurationManager.Host;
         let skip = (pageNumber - 1) * pageSize;
-        let urlAddress = `http://${host}/odata/AccOData?$top=${pageSize}&$skip=${skip} &$filter=Place/Id eq ${id} 
-        &$expand=Place, Owner, AccommodationType &$inlinecount=allpages`;
+        let urlAddress = `http://${host}/odata/AccOData?$top=${pageSize}&$skip=${skip} &$filter=Place/Id eq ${id} and Approved eq true &$expand=Place, Owner, AccommodationType &$inlinecount=allpages`;
         return this.http.get(urlAddress);
     }
 

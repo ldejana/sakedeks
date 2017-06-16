@@ -18,4 +18,13 @@ export class HttpService{
         
         return this.http.post("http://localhost:54042/api/WSClick", "", opts);
     }
+
+    notifyAdmin(): Observable<any> {
+        const headers: Headers = new Headers();
+        headers.append("Accept", "text/plain")
+        const opts: RequestOptions = new RequestOptions();
+        opts.headers = headers;
+        
+        return this.http.post("http://localhost:54042/api/NotifyAdmin", "", opts);
+    }
 }

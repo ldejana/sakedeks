@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Country } from '../country/country.model';
 import { Region } from '../region/region.model';
 import { Place } from '../place/place.model';
@@ -14,12 +14,15 @@ import {
   Router,
   ActivatedRoute
 } from '@angular/router';
+import { NotificationService } from "app/services/notification.service";
+import { HttpService } from "app/services/http.service";
 
 @Component({
   selector: 'add-accommodation',
   templateUrl: './add-accommodation.component.html',
   styleUrls: ['./add-accommodation.component.css'],
-  providers: [CountryListService, RegionListService, PlaceListService, AccommodationTypeListService, AddAccommodationService]
+  providers: [CountryListService, RegionListService, PlaceListService,
+              AccommodationTypeListService, AddAccommodationService, HttpService]
 })
 export class AddAccommodationComponent implements OnInit {
 
@@ -42,11 +45,12 @@ export class AddAccommodationComponent implements OnInit {
 
   constructor(private countryListService: CountryListService, private regionListService: RegionListService,
     private placeListService: PlaceListService, private accTypeListService: AccommodationTypeListService, private authService: AuthService,
-    private addAccommodationService: AddAccommodationService, private router: Router) {
+    private addAccommodationService: AddAccommodationService, private router: Router, private httpService: HttpService) {
     this.countries = [];
     this.regions = [];
     this.places = [];
     this.accTypes = [];
+
    }
 
   ngOnInit() {
@@ -79,7 +83,8 @@ export class AddAccommodationComponent implements OnInit {
       this.AccommodationTypeId, this.PlaceId, userId);
 
     this.addAccommodationService.create(newAccommodation, this.file).subscribe(x => 
-    {this.router.navigate(['/accommodationList', this.PlaceId, "Place", "Place", placeName])}, 
+    { this.httpService.notifyAdmin();
+      this.router.navigate(['/accommodationList', this.PlaceId, "Place", "Place", placeName]);}, 
       x => alert(x.json().Message));
   }
 

@@ -73,6 +73,7 @@ export class FilteredAccommodationsService {
             }
             filterPredicates = filterPredicates + "Rooms/any(c: c/PricePerNight le "+ maxPrice +")";
         }
+        filterPredicates = filterPredicates + " and Approved eq true"; 
 
         let urlAddress = `http://${host}/odata/AccOData?$top=${pageSize}&$skip=${skip} &$filter=${filterPredicates} 
         &$expand=Place, Owner, AccommodationType &$inlinecount=allpages`;
