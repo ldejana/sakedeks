@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class PagingService {
 
-    public static TempPage: number=0;
     public static PageNumber: number;
     public static PageSize: number = 5;
 
@@ -16,7 +15,6 @@ export class PagingService {
         let response_json = response.json();
         let elementsCount = response_json["odata.count"];
 
-        PagingService.PageNumber = Math.ceil(elementsCount/PagingService.PageSize);
-        
+        PagingService.PageNumber = Math.ceil(elementsCount/PagingService.PageSize);    
     }
 }

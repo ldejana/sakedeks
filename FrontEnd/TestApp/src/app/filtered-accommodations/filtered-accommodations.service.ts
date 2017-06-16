@@ -12,8 +12,10 @@ export class FilteredAccommodationsService {
     }
 
     getAccommodations(name: string, placeName: string, regionName: string, countryName: string,
-                        averageGrade: number, bedCount: number, minPrice: number, maxPrice: number): Observable<any> {
+                        averageGrade: number, bedCount: number, minPrice: number, maxPrice: number,
+                        pageNumber: number, pageSize: number): Observable<any> {
         let host = ConfigurationManager.Host;
+        let skip = (pageNumber - 1) * pageSize;
         let filterPredicates = "";
 
         if (name!=undefined && name!="undefined"){
@@ -72,7 +74,8 @@ export class FilteredAccommodationsService {
             filterPredicates = filterPredicates + "Rooms/any(c: c/PricePerNight le "+ maxPrice +")";
         }
 
-        let urlAddress = `http://${host}/api/Accommodations?$filter=${filterPredicates} &$expand=Place, Owner, AccommodationType`
+        let urlAddress = `http://${host}/odata/AccOData?$top=${pageSize}&$skip=${skip} &$filter=${filterPredicates} 
+        &$expand=Place, Owner, AccommodationType &$inlinecount=allpages`;
         return this.http.get(urlAddress);
     }
 }

@@ -19,6 +19,7 @@ export class AccommodationListComponent implements OnInit {
   Accommodations: Accommodation[];
   placeName: string;
   counter: Array<number>;
+  PageSet: number = 1;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private accListService: AccommodationListService,
       private pagingService: PagingService) {
@@ -33,17 +34,26 @@ export class AccommodationListComponent implements OnInit {
 
       switch(this.origin) {
         case 'AccommodationType': 
-            this.accListService.getByAccTypeId(this.Id).subscribe(x => this.Accommodations = x.json()); break;
-        case 'Country': 
-            this.accListService.getByCountryId(this.Id).subscribe(x => this.Accommodations = x.json()); break;
-        case 'Region':
-            this.accListService.getByRegionId(this.Id).subscribe(x => this.Accommodations = x.json()); break;
+            this.accListService.getByAccTypeId(this.Id, 1, PagingService.PageSize).subscribe(x => {
+              this.Accommodations = (x.json()).value;
+              this.pagingService.initPagingService(x);
+
+              let counterLength = 2;
+              if (this.PageSet * 2 > PagingService.PageNumber) {
+                  counterLength = PagingService.PageNumber - ((this.PageSet-1)*2);
+              } 
+              this.counter = new Array(counterLength);
+          }); break;
         case 'Place': {
             this.accListService.getByPlaceId(this.Id, 1, PagingService.PageSize).subscribe(x => {
               this.Accommodations = (x.json()).value;
               this.pagingService.initPagingService(x);
 
-               this.counter = new Array(PagingService.PageNumber);
+              let counterLength = 2;
+              if (this.PageSet * 2 > PagingService.PageNumber) {
+                  counterLength = PagingService.PageNumber - ((this.PageSet-1)*2);
+              } 
+              this.counter = new Array(counterLength);
             });
             this.path = this.path + " >> " + this.placeName;
             break;
@@ -53,9 +63,46 @@ export class AccommodationListComponent implements OnInit {
   }
 
   changePage(pageNumber: number){
-    this.accListService.getByPlaceId(this.Id, pageNumber, PagingService.PageSize).subscribe(x => {
+    switch(this.origin) {
+        case 'AccommodationType':
+          this.accListService.getByAccTypeId(this.Id, pageNumber, PagingService.PageSize).subscribe(x => {
               this.Accommodations = (x.json()).value; 
             });
+        break;
+        case 'Place': {
+          this.accListService.getByPlaceId(this.Id, pageNumber, PagingService.PageSize).subscribe(x => {
+              this.Accommodations = (x.json()).value; 
+            });
+          break;
+        }
+        default: break;
+      }
+  }
+
+  showNext():boolean {
+        return (this.PageSet * 2) < PagingService.PageNumber;
+    }
+
+  showPrevious():boolean {
+        return this.PageSet > 1;
+  }
+
+  nextPageSet() {
+      this.PageSet = this.PageSet + 1;
+      let counterLength = 2;
+      if (this.PageSet * 2 > PagingService.PageNumber) {
+          counterLength = PagingService.PageNumber - ((this.PageSet-1)*2);
+      } 
+      this.counter = new Array(counterLength);
+  }
+
+  previousPageSet() {
+    this.PageSet = this.PageSet - 1;
+      let counterLength = 2;
+      if (this.PageSet * 2 > PagingService.PageNumber) {
+          counterLength = PagingService.PageNumber - ((this.PageSet-1)*2);
+      } 
+      this.counter = new Array(counterLength);
   }
 
 }

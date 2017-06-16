@@ -5,5 +5,13 @@
 </div>
 
 <div *ngFor="let c of counter; let i=index">
-    <button (click)="changePage(i+1)"> {{ i + 1 }} </button>
+    <button (click)="changePage((PageSet -1)*2 + i + 1)"> {{ (PageSet -1)*2 + i + 1 }}  </button>
+</div>
+
+<div *ngIf="showNext()"> 
+    <button (click)="nextPageSet()"> Next </button> 
+</div>
+
+<div *ngIf="showPrevious()"> 
+    <button (click)="previousPageSet()"> Previous </button> 
 </div>

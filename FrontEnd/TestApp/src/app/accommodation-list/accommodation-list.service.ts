@@ -21,21 +21,11 @@ export class AccommodationListService {
         return this.http.get(`http://${host}/odata/AccOData`);
     }
 
-    getByAccTypeId(id: number): Observable<any> {
+    getByAccTypeId(id: number, pageNumber: number, pageSize: number): Observable<any> {
         let host = ConfigurationManager.Host;
-        let urlAddress = `http://${host}/odata/AccOData?$filter=AccommodationTypeId eq ` + id;
-        return this.http.get(urlAddress);
-    }
-
-    getByCountryId(id: number): Observable<any> {
-        let host = ConfigurationManager.Host
-        let urlAddress =  `http://${host}/api/Accommodations/CountryId/${id}?filter=Id eq ${id} &$expand=Place, Owner, AccommodationType`;
-        return this.http.get(urlAddress);
-    }
-
-    getByRegionId(id: number): Observable<any> {
-        let host = ConfigurationManager.Host;
-        let urlAddress =  `http://${host}/api/Accommodations/RegionId/${id}?filter=Id eq ${id} &$expand=Place, Owner, AccommodationType`; 
+        let skip = (pageNumber - 1) * pageSize;
+        let urlAddress = `http://${host}/odata/AccOData?$top=${pageSize}&$skip=${skip} &$filter=AccommodationTypeId eq ${id} 
+        &$expand=Place, Owner, AccommodationType &$inlinecount=allpages`;
         return this.http.get(urlAddress);
     }
 
