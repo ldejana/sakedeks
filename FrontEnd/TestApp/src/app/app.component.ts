@@ -2,22 +2,25 @@ import { Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Origins } from './enumerations/origins.model';
+import { UserBan } from './services/user-ban.service';
+
 
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [UserBan]
 })
 export class AppComponent {
   title = 'booking.com';
   disapproved: Origins = 'Disapproved';
+  
 
   constructor(private authService: AuthService, private router: Router){
   }
 
   ngOnInit() {
-    
   }
 
   isLoggedIn() : boolean{
@@ -64,5 +67,14 @@ export class AppComponent {
   showDisapprovedAcc() {
     let self = this.disapproved;
     this.router.navigate(['/accommodationList', 1, self, self, self]);
+  }
+
+  showManagers() {
+    let role = "Manager";
+    this.router.navigate(['users', role]);
+  }
+
+  isUserBanned() {
+    return UserBan.isBanned;
   }
 }

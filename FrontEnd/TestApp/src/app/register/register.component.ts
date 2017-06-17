@@ -37,7 +37,7 @@ export class RegisterComponent implements OnInit {
       this.Role = "AppUser";
     }
     this.registerService.register(new RegisterData(this.Email, this.Password, this.ConfirmPassword,
-      this.Name, this.LastName, this.Role)).subscribe(
+      this.Name, this.LastName, this.Role, false)).subscribe(
         x => {this.Message="Successful registration"; this.router.navigate(['login'])},
         x => { this.Message = this.errorHandlerService.parseError(x); });
 

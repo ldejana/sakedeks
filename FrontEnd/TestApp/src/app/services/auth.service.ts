@@ -1,11 +1,13 @@
-import { Response } from '@angular/http'
 import { AuthData } from './auth-data.model';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { ConfigurationManager } from '../services/configuration-manager.service';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 @Injectable()
 export class AuthService {
 
-    constructor() {
+    constructor(private http: Http) {
 
     }
 
@@ -57,5 +59,11 @@ export class AuthService {
     getUserId(): number {
         let token=localStorage.getItem("token");
         return JSON.parse(token).userId;
+    }
+
+    getUserById() : Observable<any> {
+       let id = this.getUserId();
+       let host = ConfigurationManager.Host; 
+       return this.http.get(`http://${host}/api/Users/${id}`);
     }
 }

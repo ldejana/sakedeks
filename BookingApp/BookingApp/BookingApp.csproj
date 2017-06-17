@@ -367,6 +367,10 @@
     <Compile Include="Migrations\201706141353564_myMigr.Designer.cs">
       <DependentUpon>201706141353564_myMigr.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706172148290_Manager IsBanned.cs" />
+    <Compile Include="Migrations\201706172148290_Manager IsBanned.Designer.cs">
+      <DependentUpon>201706172148290_Manager IsBanned.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Accommodation.cs" />
     <Compile Include="Models\AccommodationType.cs" />
@@ -510,6 +514,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706141353564_myMigr.resx">
       <DependentUpon>201706141353564_myMigr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706172148290_Manager IsBanned.resx">
+      <DependentUpon>201706172148290_Manager IsBanned.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

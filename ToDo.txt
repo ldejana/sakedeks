@@ -1,4 +1,4 @@
-back, accType, da ispisuje ko je ulogovan, dodati listu ocjena da moze da izracuna prosjecnu,
-razmisli da li prikazivati sve usere, Comment Controller i Room Reservation uraditi autorizaciju na serveru, prebaci kod paginga
-sa 2 na 10 brojeva za odabir stranice, pogledaj upload slike kod editovanja, lock kod rezervacije, lock kod odobravanja smjestaja
-brisanje kom, zabraniti da 2 puta isti korisnik komentarise, autorizacija kod ws
+back, accType, da ispisuje ko je ulogovan, razmisli da li prikazivati sve usere, Comment Controller i Room Reservation uraditi autorizaciju na serveru, prebaci kod paginga
+sa 2 na 10 brojeva za odabir stranice, lock kod rezervacije, lock kod odobravanja smjestaja
+brisanje kom, zabraniti da 2 puta isti korisnik komentarise, autorizacija kod ws, dodati zabranu na servisu da banovani 
+menadzer dodaje acc, prikazati trenutnu stranicu kod paginacije i kod next da promijeni stranicu

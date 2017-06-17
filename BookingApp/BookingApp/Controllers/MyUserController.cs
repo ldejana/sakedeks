@@ -4,6 +4,8 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -19,26 +21,22 @@ namespace BookingApp.Controllers
     {
         private BAContext db = new BAContext();
 
-        private ApplicationUserManager _userManager;
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
-
         [HttpGet]
         [Route("Users")]
-        [EnableQuery]
-        public IQueryable<AppUser> GetUsers()
+        //[EnableQuery]
+        public List<AppUser> GetUsers()
         {
-            return db.AppUsers;
+            List<AppUser> appUsers = new List<AppUser>();
+
+            var role = db.Roles.Where(r => r.Name.Equals("Manager")).FirstOrDefault();
+            var users = role.Users.Join(db.Users, u1 => u1.UserId, u2 => u2.Id, (u1, u2)
+            => new { UserRole = u1, User = u2 }).Select(x => x.User.AppUserId).Join(db.AppUsers, u3 => u3, u4 => u4.Id, (u3, u4) => new { AppUser = u4 }).ToList();
+            foreach (var user in users)
+            {
+                appUsers.Add(user.AppUser);
+            }
+
+            return appUsers;
         }
 
         [HttpGet]
@@ -58,7 +56,7 @@ namespace BookingApp.Controllers
 
         [HttpPut]
         //[Authorize(Roles = "Admin")]
-        [Route("Users/{id}")]
+        [Route("UserBan/{id}")]
         [ResponseType(typeof(void))]
         public IHttpActionResult BanUser(int id)
         {
@@ -68,42 +66,88 @@ namespace BookingApp.Controllers
             }
 
             AppUser appUser = db.AppUsers.Where(au => au.Id == id).FirstOrDefault();
-            BAIdentityUser baUser = null;
-            var context = new IdentityDbContext();
-            var users = context.Users.ToList();
-            foreach (BAIdentityUser user in context.Users.ToList())
+            bool isManager = false;
+
+            var role = db.Roles.Where(r => r.Name.Equals("Manager")).FirstOrDefault();
+            var users = role.Users.Join(db.Users, u1 => u1.UserId, u2 => u2.Id, (u1, u2)
+            => new { UserRole = u1, User = u2 }).Select(x => x.User.AppUserId).Join(db.AppUsers, u3 => u3, u4 => u4.Id, (u3, u4) => new { AppUser = u4 }).ToList();
+            foreach (var user in users)
             {
-                if (user.AppUserId == appUser.Id)
+                if (user.AppUser.Id == id)
                 {
-                    baUser = user;
+                    isManager = true;
                     break;
                 }
             }
-            bool isManager = UserManager.IsInRole(baUser.UserName, "Manager");
+
 
             if (appUser == null || !isManager)
             {
                 return BadRequest();
             }
 
+            appUser.IsBanned = true;
 
-            //db.Entry(country).State = EntityState.Modified;
 
-            //try
-            //{
-            //    db.SaveChanges();
-            //}
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    if (!CountryExists(id))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
+            db.Entry(appUser).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return BadRequest();
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        [HttpPut]
+        //[Authorize(Roles = "Admin")]
+        [Route("UserUnban/{id}")]
+        [ResponseType(typeof(void))]
+        public IHttpActionResult UnbanUser(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            AppUser appUser = db.AppUsers.Where(au => au.Id == id).FirstOrDefault();
+            bool isManager = false;
+
+            var role = db.Roles.Where(r => r.Name.Equals("Manager")).FirstOrDefault();
+            var users = role.Users.Join(db.Users, u1 => u1.UserId, u2 => u2.Id, (u1, u2)
+            => new { UserRole = u1, User = u2 }).Select(x => x.User.AppUserId).Join(db.AppUsers, u3 => u3, u4 => u4.Id, (u3, u4) => new { AppUser = u4 }).ToList();
+            foreach (var user in users)
+            {
+                if (user.AppUser.Id == id)
+                {
+                    isManager = true;
+                    break;
+                }
+            }
+
+
+            if (appUser == null || !isManager)
+            {
+                return BadRequest();
+            }
+
+            appUser.IsBanned = false;
+
+
+            db.Entry(appUser).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return BadRequest();
+            }
 
             return StatusCode(HttpStatusCode.NoContent);
         }

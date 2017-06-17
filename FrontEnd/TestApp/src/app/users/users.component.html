@@ -1,3 +1,7 @@
-<p>
-  users works!
-</p>
+<h4> Managers </h4>
+
+<div *ngFor="let user of users"> 
+     {{user.Name}} &nbsp;  {{user.LastName}}
+    <button *ngIf="isManagerPage() && !user.IsBanned" (click)="ban(user.Id)"> Ban </button>
+    <button *ngIf="isManagerPage() && user.IsBanned" (click)="unban(user.Id)"> Unban </button>
+</div>

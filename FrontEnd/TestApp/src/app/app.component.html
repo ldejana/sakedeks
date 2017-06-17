@@ -21,7 +21,7 @@
           <button md-button (click) = "showReservations()"> My reservations </button>
      </div> 
 
-     <div *ngIf="isLoggedIn() && isManager()" style='display: inline-block'>
+     <div *ngIf="isLoggedIn() && isManager() && !isUserBanned()" style='display: inline-block'>
           <button md-button (click)="addAccommodation()"> Add Accommodation </button>
       </div>
 
