@@ -44,7 +44,10 @@ export class AddCommentComponent implements OnInit {
     this.Comment.Text = this.Text;
 
     this.addCommentService.create(this.Comment).subscribe(
-        x => { this.OnCommentAdded.emit(); },
+        x => { 
+          this.OnCommentAdded.emit(); 
+          this.router.navigate(['/home', this.Comment.AccommodationId]);
+        },
         x => { this.Message = this.errorHandlerService.parseError(x); }
     );
 

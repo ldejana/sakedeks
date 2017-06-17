@@ -13,9 +13,21 @@ namespace BookingApp.Hubs
     {
         private static IHubContext hubContext = GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();
 
-        public static void Notify(int clickCount)
+        public static void NotifyManager(int managerId, string accName)
         {
-            hubContext.Clients.Group("Admins").clickNotification($"Clicks: {clickCount}");
+            hubContext.Clients.Group(managerId.ToString()).approveNotification($"Approved: {accName}");
+        }
+
+        public void AddToGroup(string role, string userId)
+        {
+            if (role == "Admin")
+            {
+                Groups.Add(Context.ConnectionId, "Admins");
+            }
+            else if (role == "Manager")
+            {
+                Groups.Add(Context.ConnectionId, userId);
+            }
         }
 
         public override Task OnConnected()
@@ -23,7 +35,7 @@ namespace BookingApp.Hubs
             //Ako vam treba pojedinacni User
             //var identityName = Context.User.Identity.Name;
 
-            Groups.Add(Context.ConnectionId, "Admins");
+            //Groups.Add(Context.ConnectionId, "Admins");
 
             //if (Context.User.IsInRole("Admin"))
             //{
@@ -35,7 +47,7 @@ namespace BookingApp.Hubs
 
         public override Task OnDisconnected(bool stopCalled)
         {
-            Groups.Remove(Context.ConnectionId, "Admins");
+            //Groups.Remove(Context.ConnectionId, "Admins");
 
             //if (Context.User.IsInRole("Admin"))
             //{

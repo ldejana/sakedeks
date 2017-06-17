@@ -27,4 +27,12 @@ export class HttpService{
         
         return this.http.post("http://localhost:54042/api/NotifyAdmin", "", opts);
     }
+
+    approveAccommodation(id: number) {
+        const headers: Headers = new Headers();
+        const opts: RequestOptions = new RequestOptions();
+        opts.headers = headers;
+        
+        return this.http.put(`http://localhost:54042/api/NotifyManager/${id}`, "", opts);
+    }
 }

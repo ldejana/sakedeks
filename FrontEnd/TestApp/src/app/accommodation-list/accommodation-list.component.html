@@ -1,7 +1,10 @@
 <h4> {{path}} Accommodations </h4>
 
 <div *ngFor="let accommodation of Accommodations"> 
-    <a [routerLink]="['/accommodation', accommodation.Id]"> {{accommodation.Name}} </a>
+    <a [routerLink]="['/accommodation', accommodation.Id]"> {{accommodation.Name}} </a> &nbsp;
+    <button *ngIf="isLoggedIn() && isAdmin() && isDisapprovedOrigin()" (click)="approve(accommodation.Id)"> 
+        Approve 
+    </button> 
 </div>
 
 <div *ngFor="let c of counter; let i=index">

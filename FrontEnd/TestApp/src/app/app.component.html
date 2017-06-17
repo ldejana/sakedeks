@@ -8,7 +8,7 @@
   </div>
 </header>
 
-<div>
+<div *ngIf="isLoggedIn()">
     <notifications> </notifications>
   </div>
 
@@ -45,6 +45,10 @@
 
       <div *ngIf="isLoggedIn() && isAdmin()" style='display: inline-block'>
           <button md-button (click)="showDisapprovedAcc()"> Disapproved Accommodations </button>
+      </div>
+
+      <div *ngIf="isLoggedIn() && isAdmin()" style='display: inline-block'>
+          <button md-button (click)="showManagers()"> Managers </button>
       </div>
 
   </md-card>

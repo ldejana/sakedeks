@@ -1,6 +1,7 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { NotificationService } from '../services/notification.service';
-import { HttpService } from '../services/http.service'
+import { HttpService } from '../services/http.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'notifications',
@@ -13,7 +14,8 @@ export class NotificationsComponent implements OnInit {
   isConnected: Boolean;
   notifications: string[];
 
-  constructor(private notifService: NotificationService, private ngZone: NgZone, private http: HttpService) { 
+  constructor(private notifService: NotificationService, private ngZone: NgZone, private http: HttpService,
+  private authService: AuthService) { 
     this.isConnected = false;
     this.notifications = [];
   }
@@ -42,6 +44,18 @@ export class NotificationsComponent implements OnInit {
     if (this.isConnected) {
       this.http.click().subscribe(data => console.log(data));
     }
+  }
+
+  isLoggedIn() : boolean{
+    return this.authService.isLoggedIn();
+  }
+
+  isManager() : boolean{
+    return this.authService.getRole() == "Manager";
+  }
+
+  clearNotifications() {
+    this.notifications = [];
   }
 
 }

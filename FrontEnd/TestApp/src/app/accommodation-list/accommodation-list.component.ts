@@ -4,12 +4,14 @@ import {AccommodationListService} from './accommodation-list.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Origins } from '../enumerations/origins.model';
 import { PagingService } from '../services/paging.service';
+import { AuthService } from '../services/auth.service';
+import { HttpService } from '../services/http.service';
 
 @Component({
   selector: 'app-accommodation-list',
   templateUrl: './accommodation-list.component.html',
   styleUrls: ['./accommodation-list.component.css'],
-  providers: [AccommodationListService, PagingService]
+  providers: [AccommodationListService, PagingService, HttpService]
 })
 export class AccommodationListComponent implements OnInit {
 
@@ -22,7 +24,7 @@ export class AccommodationListComponent implements OnInit {
   PageSet: number = 1;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private accListService: AccommodationListService,
-      private pagingService: PagingService) {
+      private pagingService: PagingService, private authService: AuthService, private http: HttpService) {
     activatedRoute.params.subscribe(params => {this.Id = params["Id"]; 
                                                this.path = params["Name"]; 
                                                this.origin = params["Origin"];
@@ -122,6 +124,35 @@ export class AccommodationListComponent implements OnInit {
           counterLength = PagingService.PageNumber - ((this.PageSet-1)*2);
       } 
       this.counter = new Array(counterLength);
+  }
+
+  isLoggedIn() : boolean{
+    return this.authService.isLoggedIn();
+  }
+
+  isAdmin(): boolean {
+    return this.authService.getRole() == "Admin";
+  }
+
+  isDisapprovedOrigin(): boolean {
+    return this.origin == 'Disapproved';
+  }
+
+  approve(id: number){
+    this.http.approveAccommodation(id).subscribe( x => {
+      let index: number = -1;
+      let i: number = 0;
+      for (let acc of this.Accommodations) {
+        if (acc.Id == id){
+          index = i;
+          break;
+        }
+        i = i+1;
+      }
+      if (index !== -1) {
+        this.Accommodations.splice(index, 1);
+      }
+    });
   }
 
 }

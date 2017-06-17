@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { LoginService } from './login.service'
 import { LoginData } from './login-data.model'
 import { AuthService } from '../services/auth.service';
@@ -17,7 +17,8 @@ export class LoginComponent implements OnInit {
   Message: string;
 
   constructor(private loginService: LoginService, private authService: AuthService, 
-              private router: Router, private errorHandlerService: ErrorHandlerService) {
+              private router: Router, private errorHandlerService: ErrorHandlerService,) {
+
    }
 
   ngOnInit() {
@@ -29,8 +30,9 @@ export class LoginComponent implements OnInit {
   onSubmit() {
 
     let userName = this.Username;
-    this.loginService.login(new LoginData(this.Username, this.Password)).subscribe(
-      x => {this.authService.logIn(x); this.router.navigate(['/']);}, 
+    this.loginService.login(new LoginData(this.Username, this.Password)).subscribe( 
+      x => {this.authService.logIn(x); this.router.navigate(['/']);
+  }, 
       x => { this.Message = this.errorHandlerService.parseError(x); });
 
     //this.Username = "";

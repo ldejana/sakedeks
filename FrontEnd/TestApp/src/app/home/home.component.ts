@@ -12,15 +12,13 @@ import {
 export class HomeComponent implements OnInit {
 
   Id: number;
-  Name: string;
-  Origin: string;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {
-    activatedRoute.params.subscribe(params => {this.Id = params["Id"]; this.Name = params["Name"]; this.Origin = params["Origin"]});
+    activatedRoute.params.subscribe(params => {this.Id = params["Id"]; });
    }
 
   ngOnInit() {
-      this.router.navigate(['/accommodationShow', this.Id, this.Name, this.Origin]);
+      this.router.navigate(['/accommodation', this.Id]);
   }
 
 }

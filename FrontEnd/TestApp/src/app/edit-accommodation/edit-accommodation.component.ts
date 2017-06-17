@@ -40,11 +40,16 @@ export class EditAccommodationComponent implements OnInit {
   }
 
   onSubmit() {
-    let newAcc = new Accommodation(this.Id, this.Name, this.Description, this.Address, this.AverageGrade, this.Latitude, this.Longitude,
-    this.ImageUrl, this.Approved, this.AccommodationTypeId, this.PlaceId, this.OwnerId);
-    this.editAccommodationService.edit(newAcc, this.file).subscribe(x => 
-      {this.router.navigate(['/accommodation', this.Id])}, 
-      x => alert(x.json().Message));
+    if (this.file == undefined) {
+      alert ("Choose picture!");
+    }
+    else {
+      let newAcc = new Accommodation(this.Id, this.Name, this.Description, this.Address, this.AverageGrade, this.Latitude, this.Longitude,
+      this.ImageUrl, this.Approved, this.AccommodationTypeId, this.PlaceId, this.OwnerId);
+      this.editAccommodationService.edit(newAcc, this.file).subscribe(x => 
+        {this.router.navigate(['/accommodation', this.Id])}, 
+        x => alert(x.json().Message));
+    }
   }
 
   onImageChange(event: EventTarget) {

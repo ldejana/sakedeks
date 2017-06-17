@@ -31,7 +31,7 @@ export class CommentListComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if(this.AccommodationId != undefined) {
 
-      if(this.isLoggedIn()) {
+      if(this.isLoggedIn() && !this.isAdmin() && !this.isManager()) {
          this.checkIfUserCanLeaveComment();
       } 
       else {
@@ -50,6 +50,14 @@ export class CommentListComponent implements OnInit, OnChanges {
   isLoggedIn(): boolean {
       return this.authService.isLoggedIn();
     }
+
+  isManager() : boolean{
+    return this.authService.getRole() == "Manager";
+  }
+
+  isAdmin(): boolean {
+    return this.authService.getRole() == "Admin";
+  }
 
   checkIfUserCanLeaveComment() {
     this.commentListService.getReservations(this.AccommodationId).subscribe(

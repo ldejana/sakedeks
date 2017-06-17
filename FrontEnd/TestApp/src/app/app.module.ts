@@ -52,6 +52,7 @@ import { CommentListComponent } from './comment-list/comment-list.component';
 import { AddCommentComponent } from './add-comment/add-comment.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { NotificationManagerComponent } from './notification-manager/notification-manager.component';
+import { UsersComponent } from './users/users.component';
 
 
 
@@ -60,7 +61,7 @@ const ChildRoutes = [
   ]
 
 const Routes = [
-  {path: "home/:Id/:Name/:Origin", component: HomeComponent},
+  {path: "home/:Id", component: HomeComponent},
   {path: "countryList", component: CountryListComponent},
   {path: "accommodation/:Id", component: AccommodationComponent},
   {path: "accommodationList/:Id/:Name/:Origin/:PlaceName", component: AccommodationListComponent},
@@ -91,7 +92,8 @@ const Routes = [
   {path: "filteredAccommodations/:Name/:PlaceName", component: FilteredAccommodationsComponent},
   {path: "roomReservations/:UserId", component: RoomReservationsComponent},
   {path: "addReservation/:RoomId/:AccommodationName", component: AddReservationComponent},
-  {path: "filteredAccommodations/:Name/:PlaceName/:RegionName/:CountryName/:AverageGrade/:BedCount/:MinPrice/:MaxPrice", component: FilteredAccommodationsComponent}
+  {path: "filteredAccommodations/:Name/:PlaceName/:RegionName/:CountryName/:AverageGrade/:BedCount/:MinPrice/:MaxPrice", component: FilteredAccommodationsComponent},
+  {path: "users/:Role",  component: UsersComponent, canActivate: [LoggedInGuard, IsAdminGuard]}
 
 ]
 
@@ -135,7 +137,8 @@ const Routes = [
     CommentListComponent,
     AddCommentComponent,
     NotificationsComponent,
-    NotificationManagerComponent
+    NotificationManagerComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
@@ -144,7 +147,7 @@ const Routes = [
     RouterModule.forRoot(Routes),
     CustomMaterialModule,
     MaterialModule,
-    AgmCoreModule.forRoot({apiKey: 'AIzaSyDPzFIyF8ITAqwIIw_fJi8NEXxMMdjm8sA'})
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyAU6QHvTs4XnC-JIroKFeQwDS46FPCE_ho'})
   ],
   providers: [AuthService, LoggedInGuard, IsAdminGuard, IsManagerGuard],
   bootstrap: [AppComponent]

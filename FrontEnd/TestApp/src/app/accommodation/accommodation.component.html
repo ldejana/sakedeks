@@ -8,6 +8,7 @@
   Owner: {{ accommodation.Owner.Name + ' ' + accommodation.Owner.LastName}} <br/>
   Place: {{ accommodation.Place.Name }} <br/>
   Accommodation type: {{ accommodation.AccommodationType.Name }} <br/>
+  Approved: {{accommodation.Approved}} <br/>
   <a [routerLink]="['/roomList', accommodation.Id, accommodation.Name, accommodation.Owner.Id]"> Rooms </a>
 </div>
 

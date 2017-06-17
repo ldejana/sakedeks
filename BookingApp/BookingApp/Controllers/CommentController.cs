@@ -107,10 +107,40 @@ namespace BookingApp.Controllers
                         {
                             db.Comments.Add(comment);
                             db.SaveChanges();
+
                         }
                        catch(Exception e)
                         {
                             return BadRequest("Cannot add comment.");
+                        }
+
+                        List<Comment> allComments = db.Comments.Where(cm => cm.AccommodationId == comment.AccommodationId).ToList();
+                        decimal sum = 0;
+                        decimal averageGrade;
+
+                        foreach (Comment comm in allComments)
+                        {
+                            sum += (decimal)comm.Grade;
+                        }
+
+                        averageGrade = sum / allComments.Count;
+
+                        Accommodation acc = db.Accommodations.Where(accomm => accomm.Id == comment.AccommodationId).FirstOrDefault();
+                        if (acc == null)
+                        {
+                            return BadRequest("Cannot refresh average grade.");
+                        }
+                        acc.AverageGrade = averageGrade;
+
+                        db.Entry(acc).State = EntityState.Modified;
+
+                        try
+                        {
+                            db.SaveChanges();
+                        }
+                        catch (DbUpdateConcurrencyException)
+                        {
+                            return BadRequest("Cannot refresh average grade.");
                         }
 
                         return CreatedAtRoute("DefaultApi", new { controller = "Comment" /*, Id = place.Id*/ }, comment);

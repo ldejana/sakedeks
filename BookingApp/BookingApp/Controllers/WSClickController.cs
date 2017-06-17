@@ -14,7 +14,7 @@ namespace BookingApp.Controllers
         // GET: api/WSClick
         public IHttpActionResult Post()
         {
-            NotificationHub.Notify(++ClickCount);
+            //NotificationHub.Notify(++ClickCount);
             return Ok("Hello");
         }
     }

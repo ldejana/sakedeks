@@ -1,5 +1,6 @@
 // import the packages 
 import { Injectable, EventEmitter } from '@angular/core';
+import { AuthService} from './auth.service';
 
 // declare the global variables  
 declare var $: any;
@@ -16,7 +17,10 @@ export class NotificationService {
     public connectionEstablished: EventEmitter < Boolean >;  
     public connectionExists: Boolean;
 
+    public authService: AuthService;
+
     constructor() {  
+        this.authService = new AuthService();
         // Constructor initialization  
         this.connectionEstablished = new EventEmitter < Boolean > ();  
         this.notificationReceived = new EventEmitter < string > (); 
@@ -34,7 +38,7 @@ export class NotificationService {
 
     private registerOnServerEvents(): void {  
         
-        this.proxy.on('clickNotification', (data: string) => {  
+        this.proxy.on('approveNotification', (data: string) => {  
             console.log('received notification: ' + data);  
             this.notificationReceived.emit(data);  
         }); 
@@ -44,7 +48,10 @@ export class NotificationService {
         this.connection.start().done((data: any) => {  
             console.log('Now connected ' + data.transport.name + ', connection ID= ' + data.id);  
             this.connectionEstablished.emit(true);  
-            this.connectionExists = true;  
+            this.connectionExists = true;
+            let role = this.authService.getRole();
+            let userId = this.authService.getUserId();  
+            this.proxy.invoke('AddToGroup', role, userId);
         }).fail((error: any) => {  
             console.log('Could not connect ' + error);  
             this.connectionEstablished.emit(false);  
