@@ -29,7 +29,9 @@ export class HttpService{
     }
 
     approveAccommodation(id: number) {
-        const headers: Headers = new Headers();
+        let token=localStorage.getItem("token");
+        let headers: Headers = new Headers();
+        headers.append('Authorization', 'Bearer '+ JSON.parse(token).token);
         const opts: RequestOptions = new RequestOptions();
         opts.headers = headers;
         

@@ -266,50 +266,67 @@ namespace BookingApp.Controllers
         //    return CreatedAtRoute("DefaultApi", new { controller = "Accommodation", id = accommodation.Id }, accommodation);
         //}
 
-        [Authorize(Roles = "Manager")]
+        //[Authorize(Roles = "Manager")]
         [HttpPost]
         [Route("Accommodations")]
         [ResponseType(typeof(Accommodation))]
         public IHttpActionResult PostAccommodation()
         {
-            Accommodation accommodation = new Accommodation();
+            var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
 
-            if (!ModelState.IsValid)
+            if (user == null)
             {
-                return BadRequest(ModelState);
+                return Unauthorized();
             }
 
-            var httpRequest = HttpContext.Current.Request;
-            accommodation = JsonConvert.DeserializeObject<Accommodation>(httpRequest.Form[0]);
-
-            foreach (string file in httpRequest.Files)
+            BAContext BAContext = new BAContext();
+            var userRole = user.Roles.First().RoleId;
+            var role = BAContext.Roles.FirstOrDefault(r => r.Id == userRole);
+            bool isManager = role.Name.Equals("Manager");
+            AppUser appUser = BAContext.AppUsers.Where(au => au.Id == user.AppUserId).FirstOrDefault();
+            if (isManager && (user != null && !appUser.IsBanned))
             {
-                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created);
 
-                var postedFile = httpRequest.Files[file];
-                if (postedFile != null && postedFile.ContentLength > 0)
+                Accommodation accommodation = new Accommodation();
+
+                if (!ModelState.IsValid)
                 {
+                    return BadRequest(ModelState);
+                }
 
-                    IList<string> AllowedFileExtensions = new List<string> { ".jpg", ".gif", ".png" };
-                    var ext = postedFile.FileName.Substring(postedFile.FileName.LastIndexOf('.'));
-                    var extension = ext.ToLower();
-                    if (!AllowedFileExtensions.Contains(extension))
+                var httpRequest = HttpContext.Current.Request;
+                accommodation = JsonConvert.DeserializeObject<Accommodation>(httpRequest.Form[0]);
+
+                foreach (string file in httpRequest.Files)
+                {
+                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created);
+
+                    var postedFile = httpRequest.Files[file];
+                    if (postedFile != null && postedFile.ContentLength > 0)
                     {
-                        return BadRequest();
-                    }
-                    else
-                    {
-                        var filePath = HttpContext.Current.Server.MapPath("~/Content/AccommodationPictures/" + postedFile.FileName);
-                        accommodation.ImageUrl = "Content/AccommodationPictures/" + postedFile.FileName;
-                        postedFile.SaveAs(filePath);
+
+                        IList<string> AllowedFileExtensions = new List<string> { ".jpg", ".gif", ".png" };
+                        var ext = postedFile.FileName.Substring(postedFile.FileName.LastIndexOf('.'));
+                        var extension = ext.ToLower();
+                        if (!AllowedFileExtensions.Contains(extension))
+                        {
+                            return BadRequest();
+                        }
+                        else
+                        {
+                            var filePath = HttpContext.Current.Server.MapPath("~/Content/AccommodationPictures/" + postedFile.FileName);
+                            accommodation.ImageUrl = "Content/AccommodationPictures/" + postedFile.FileName;
+                            postedFile.SaveAs(filePath);
+                        }
                     }
                 }
+
+                db.Accommodations.Add(accommodation);
+                db.SaveChanges();
+
+                return CreatedAtRoute("DefaultApi", new { controller = "Accommodation", id = accommodation.Id }, accommodation);
             }
-
-            db.Accommodations.Add(accommodation);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { controller = "Accommodation", id = accommodation.Id }, accommodation);
+            return Unauthorized();
         }
 
         [Authorize]
@@ -333,7 +350,7 @@ namespace BookingApp.Controllers
                 var role = BAContext.Roles.FirstOrDefault(r => r.Id == userRole);
                 bool isManager = role.Name.Equals("Manager");
 
-                if (isManager)
+                if (isManager && (user != null && accommodation != null && accommodation.OwnerId == user.AppUserId))
                 {
                     db.Accommodations.Remove(accommodation);
                     db.SaveChanges();

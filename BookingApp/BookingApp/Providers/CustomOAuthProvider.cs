@@ -32,7 +32,8 @@ namespace BookingApp.Providers
 
             var roleHeader = "Role";
             var userIdHeader = "UserId";
-            context.OwinContext.Response.Headers.Add("Access-Control-Expose-Headers", new[] { roleHeader, userIdHeader });
+            var userNameHeader = "UserName";
+            context.OwinContext.Response.Headers.Add("Access-Control-Expose-Headers", new[] { roleHeader, userIdHeader, userNameHeader });
 
             ApplicationUserManager userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
@@ -67,6 +68,18 @@ namespace BookingApp.Providers
             }
 
             context.OwinContext.Response.Headers.Add("UserId", new[] { user.AppUserId.ToString() });
+
+            if (role.Name.Equals("Admin"))
+            {
+                string username = "Admin: " + user.Email;
+                context.OwinContext.Response.Headers.Add("UserName", new[] { username });
+            }
+            else
+            {
+                AppUser appUser = BAContext.AppUsers.Where(au => au.Id == user.AppUserId).FirstOrDefault();
+                string username = role.Name + ": " + appUser.Name + " " + appUser.LastName;
+                context.OwinContext.Response.Headers.Add("UserName", new[] { username });
+            }
            
 
             //if (!user.EmailConfirmed)

@@ -15,16 +15,23 @@ import { UserBan } from './services/user-ban.service';
 export class AppComponent {
   title = 'booking.com';
   disapproved: Origins = 'Disapproved';
-  
+  userName: string = "";
 
   constructor(private authService: AuthService, private router: Router){
   }
 
   ngOnInit() {
+    this.isLoggedIn();
   }
 
   isLoggedIn() : boolean{
-    return this.authService.isLoggedIn();
+    let retValue = this.authService.isLoggedIn();
+
+    if (retValue) {
+      this.userName = this.authService.getUserName();
+    }
+
+    return retValue;
   }
 
   isManager() : boolean{

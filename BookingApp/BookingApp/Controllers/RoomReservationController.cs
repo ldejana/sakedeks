@@ -16,6 +16,7 @@ namespace BookingApp.Controllers
     public class RoomReservationController : ApiController
     {
         private BAContext db = new BAContext();
+        private object lockObject = new object();
 
         [HttpGet]
         [EnableQuery]
@@ -93,43 +94,46 @@ namespace BookingApp.Controllers
 
                 if (isUser)
                 {
-                    if (!ModelState.IsValid)
+                    lock (lockObject)
                     {
-                        return BadRequest(ModelState);
-                    }
-
-                    bool exist = false;
-                    using (var context = new BAContext())
-                    {
-                        // Query for all blogs with names starting with B 
-                        var reservations = from b in context.RoomReservations
-                                           where (b.RoomId == newRoomReservation.RoomId && b.IsCanceled == false)
-                                           select b;
-
-                        foreach (var item in reservations)
+                        if (!ModelState.IsValid)
                         {
-                            if (!((newRoomReservation.StartDate < item.StartDate &&
-                                newRoomReservation.EndData <= item.StartDate) ||
-                               (newRoomReservation.StartDate >= item.EndData &&
-                                newRoomReservation.EndData > item.EndData)))
-                            {
-                                exist = true;
-                                break;
-                            }
+                            return BadRequest(ModelState);
                         }
 
-                    }
+                        bool exist = false;
+                        using (var context = new BAContext())
+                        {
+                            // Query for all blogs with names starting with B 
+                            var reservations = from b in context.RoomReservations
+                                               where (b.RoomId == newRoomReservation.RoomId && b.IsCanceled == false)
+                                               select b;
 
-                    if (!exist)
-                    {
-                        db.RoomReservations.Add(newRoomReservation);
-                        db.SaveChanges();
+                            foreach (var item in reservations)
+                            {
+                                if (!((newRoomReservation.StartDate < item.StartDate &&
+                                    newRoomReservation.EndData <= item.StartDate) ||
+                                   (newRoomReservation.StartDate >= item.EndData &&
+                                    newRoomReservation.EndData > item.EndData)))
+                                {
+                                    exist = true;
+                                    break;
+                                }
+                            }
 
-                        return CreatedAtRoute("DefaultApi", new { controller = "RoomReservation", id = newRoomReservation.Id }, newRoomReservation);
-                    } 
-                    else
-                    {
-                        return BadRequest("Room is not available at that time.");
+                        }
+
+                        if (!exist)
+                        {
+                            db.RoomReservations.Add(newRoomReservation);
+                            db.SaveChanges();
+
+                            return CreatedAtRoute("DefaultApi", new { controller = "RoomReservation", id = newRoomReservation.Id }, newRoomReservation);
+                        }
+                        else
+                        {
+                            return BadRequest("Room is not available at that time.");
+                        }
                     }
 
                 }
