@@ -51,6 +51,10 @@
           <button md-button (click)="showManagers()"> Managers </button>
       </div>
 
+      <div *ngIf="isLoggedIn() && isAdmin()" style='display: inline-block'>
+          <button md-button (click)="showAppUsers()"> App Users </button>
+      </div>
+
   </md-card>
 </nav>
 

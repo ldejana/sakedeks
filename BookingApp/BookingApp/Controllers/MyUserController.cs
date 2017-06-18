@@ -40,6 +40,24 @@ namespace BookingApp.Controllers
         }
 
         [HttpGet]
+        [Route("AppUsers")]
+        //[EnableQuery]
+        public List<AppUser> GetAppUsers()
+        {
+            List<AppUser> appUsers = new List<AppUser>();
+
+            var role = db.Roles.Where(r => r.Name.Equals("AppUser")).FirstOrDefault();
+            var users = role.Users.Join(db.Users, u1 => u1.UserId, u2 => u2.Id, (u1, u2)
+            => new { UserRole = u1, User = u2 }).Select(x => x.User.AppUserId).Join(db.AppUsers, u3 => u3, u4 => u4.Id, (u3, u4) => new { AppUser = u4 }).ToList();
+            foreach (var user in users)
+            {
+                appUsers.Add(user.AppUser);
+            }
+
+            return appUsers;
+        }
+
+        [HttpGet]
         [Route("Users/{id}")]
         [ResponseType(typeof(AppUser))]
         public IHttpActionResult GetUser(int id)

@@ -22,6 +22,7 @@ export class AccommodationListComponent implements OnInit {
   placeName: string;
   counter: Array<number>;
   PageSet: number = 1;
+  selectedButton: number = 1;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private accListService: AccommodationListService,
       private pagingService: PagingService, private authService: AuthService, private http: HttpService) {
@@ -78,6 +79,8 @@ export class AccommodationListComponent implements OnInit {
   }
 
   changePage(pageNumber: number){
+    this.selectedButton = pageNumber;
+
     switch(this.origin) {
         case 'AccommodationType':
           this.accListService.getByAccTypeId(this.Id, pageNumber, PagingService.PageSize).subscribe(x => {
@@ -115,6 +118,8 @@ export class AccommodationListComponent implements OnInit {
           counterLength = PagingService.PageNumber - ((this.PageSet-1)*2);
       } 
       this.counter = new Array(counterLength);
+
+      this.changePage((this.PageSet -1)*2 + 1);
   }
 
   previousPageSet() {
@@ -124,6 +129,8 @@ export class AccommodationListComponent implements OnInit {
           counterLength = PagingService.PageNumber - ((this.PageSet-1)*2);
       } 
       this.counter = new Array(counterLength);
+
+      this.changePage((this.PageSet -1)*2 + 1);
   }
 
   isLoggedIn() : boolean{

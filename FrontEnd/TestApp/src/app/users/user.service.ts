@@ -12,9 +12,14 @@ export class UserService {
        
     }
 
-    getAll() : Observable<any> {
+    getAllManagers() : Observable<any> {
         let host = ConfigurationManager.Host;
         return this.http.get(`http://${host}/api/Users`);
+    }
+
+    getAllAppUsers() : Observable<any> {
+        let host = ConfigurationManager.Host;
+        return this.http.get(`http://${host}/api/AppUsers`);
     }
 
     ban(id: number) {

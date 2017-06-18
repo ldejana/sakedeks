@@ -46,7 +46,7 @@ export class AddCommentComponent implements OnInit {
     this.addCommentService.create(this.Comment).subscribe(
         x => { 
           this.OnCommentAdded.emit(); 
-          this.router.navigate(['/home', this.Comment.AccommodationId]);
+          this.router.navigate(['/home', "addComm", this.Comment.AccommodationId]);
         },
         x => { this.Message = this.errorHandlerService.parseError(x); }
     );

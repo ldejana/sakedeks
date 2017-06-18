@@ -71,10 +71,15 @@ export class AppComponent {
 
   showManagers() {
     let role = "Manager";
-    this.router.navigate(['users', role]);
+    this.router.navigate(['/home', "showUsers", role]);
   }
 
   isUserBanned() {
     return UserBan.isBanned;
+  }
+
+  showAppUsers() {
+    let role = "AppUser";
+    this.router.navigate(['/home', "showUsers", role]);
   }
 }
