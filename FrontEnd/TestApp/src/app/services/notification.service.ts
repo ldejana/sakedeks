@@ -17,7 +17,10 @@ export class NotificationService {
     public connectionEstablished: EventEmitter < Boolean >;  
     public connectionExists: Boolean;
 
-    constructor(private authService: AuthService) { 
+    //public authService: AuthService;
+
+    constructor(private authService: AuthService) {  
+        //this.authService = new AuthService();
         // Constructor initialization  
         this.connectionEstablished = new EventEmitter < Boolean > ();  
         this.notificationReceived = new EventEmitter < string > (); 

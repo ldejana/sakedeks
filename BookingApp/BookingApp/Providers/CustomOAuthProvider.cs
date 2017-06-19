@@ -26,73 +26,74 @@ namespace BookingApp.Providers
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-
-            var allowedOrigin = "*";
-            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
-
-            var roleHeader = "Role";
-            var userIdHeader = "UserId";
-            var userNameHeader = "UserName";
-            context.OwinContext.Response.Headers.Add("Access-Control-Expose-Headers", new[] { roleHeader, userIdHeader, userNameHeader });
-
-            ApplicationUserManager userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
-
-            BAIdentityUser user = await userManager.FindAsync(context.UserName, context.Password);
-
-            if (user == null)
+            try
             {
-                context.SetError("invalid_grant", "The user name or password is incorrect.!!!!");
-                return;
-            }
+                var allowedOrigin = "*";
+                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
 
-            BAContext BAContext = new BAContext();
-            var userRole = user.Roles.First().RoleId;
-            var role = BAContext.Roles.FirstOrDefault(r => r.Id == userRole);
+                var roleHeader = "Role";
+                var userIdHeader = "UserId";
+                var userNameHeader = "UserName";
+                context.OwinContext.Response.Headers.Add("Access-Control-Expose-Headers", new[] { roleHeader, userIdHeader, userNameHeader });
 
-            //BAContext.Roles.Where(x => 
-            //bool isAdmin = await userManager.IsInRoleAsync(user.UserName, "Admin");
+                ApplicationUserManager userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
+
+                BAIdentityUser user = await userManager.FindAsync(context.UserName, context.Password);
+
+
+                if (user == null)
+                {
+                    context.SetError("invalid_grant", "The user name or password is incorrect.!!!!");
+                    return;
+                }
+
+                BAContext BAContext = new BAContext();
+                var userRole = user.Roles.First().RoleId;
+                var role = BAContext.Roles.FirstOrDefault(r => r.Id == userRole);
+
+                //BAContext.Roles.Where(x => 
+                //bool isAdmin = await userManager.IsInRoleAsync(user.UserName, "Admin");
 
 
 
-            if (role.Name.Equals("Admin"))
-            {
-                context.OwinContext.Response.Headers.Add("Role", new[] { "Admin" });
-            }
-            else if (role.Name.Equals("Manager"))
-            {
-                context.OwinContext.Response.Headers.Add("Role", new[] { "Manager" });
-            }
-            else
-            {
-                context.OwinContext.Response.Headers.Add("Role", new[] { "User" });
-            }
+                if (role.Name.Equals("Admin"))
+                {
+                    context.OwinContext.Response.Headers.Add("Role", new[] { "Admin" });
+                }
+                else if (role.Name.Equals("Manager"))
+                {
+                    context.OwinContext.Response.Headers.Add("Role", new[] { "Manager" });
+                }
+                else
+                {
+                    context.OwinContext.Response.Headers.Add("Role", new[] { "User" });
+                }
 
-            context.OwinContext.Response.Headers.Add("UserId", new[] { user.AppUserId.ToString() });
+                context.OwinContext.Response.Headers.Add("UserId", new[] { user.AppUserId.ToString() });
 
-            if (role.Name.Equals("Admin"))
-            {
-                string username = "Admin: " + user.Email;
-                context.OwinContext.Response.Headers.Add("UserName", new[] { username });
-            }
-            else
-            {
-                AppUser appUser = BAContext.AppUsers.Where(au => au.Id == user.AppUserId).FirstOrDefault();
-                string username = role.Name + ": " + appUser.Name + " " + appUser.LastName;
-                context.OwinContext.Response.Headers.Add("UserName", new[] { username });
-            }
+
+                if (role.Name.Equals("Admin"))
+                {
+                    string username = "Admin: " + user.Email;
+                    context.OwinContext.Response.Headers.Add("UserName", new[] { username });
+                }
+                else
+                {
+                    AppUser appUser = BAContext.AppUsers.Where(au => au.Id == user.AppUserId).FirstOrDefault();
+                    string username = role.Name + ": " + appUser.Name + " " + appUser.LastName;
+                    context.OwinContext.Response.Headers.Add("UserName", new[] { username });
+                }
            
+                ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, "JWT");
 
-            //if (!user.EmailConfirmed)
-            //{
-            //    context.SetError("invalid_grant", "AppUser did not confirm email.");
-            //    return;
-            //}
+                var ticket = new AuthenticationTicket(oAuthIdentity, null);
 
-            ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, "JWT");
-
-            var ticket = new AuthenticationTicket(oAuthIdentity, null);
-
-            context.Validated(ticket);
+                context.Validated(ticket);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+            }
 
         }
     }
