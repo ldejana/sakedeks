@@ -17,10 +17,10 @@ export class NotificationService {
     public connectionEstablished: EventEmitter < Boolean >;  
     public connectionExists: Boolean;
 
-    public authService: AuthService;
+    //public authService: AuthService;
 
-    constructor() {  
-        this.authService = new AuthService();
+    constructor(private authService: AuthService) {  
+        //this.authService = new AuthService();
         // Constructor initialization  
         this.connectionEstablished = new EventEmitter < Boolean > ();  
         this.notificationReceived = new EventEmitter < string > (); 

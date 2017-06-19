@@ -26,60 +26,70 @@ namespace BookingApp.Providers
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-
-            var allowedOrigin = "*";
-            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
-
-            var roleHeader = "Role";
-            var userIdHeader = "UserId";
-            context.OwinContext.Response.Headers.Add("Access-Control-Expose-Headers", new[] { roleHeader, userIdHeader });
-
-            ApplicationUserManager userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
-
-            BAIdentityUser user = await userManager.FindAsync(context.UserName, context.Password);
-
-            if (user == null)
+            try
             {
-                context.SetError("invalid_grant", "The user name or password is incorrect.!!!!");
-                return;
+                var allowedOrigin = "*";
+                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
+
+                var roleHeader = "Role";
+                var userIdHeader = "UserId";
+                context.OwinContext.Response.Headers.Add("Access-Control-Expose-Headers", new[] { roleHeader, userIdHeader });
+
+                ApplicationUserManager userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
+
+
+                BAIdentityUser user = await userManager.FindAsync(context.UserName, context.Password);
+
+
+                if (user == null)
+                {
+                    context.SetError("invalid_grant", "The user name or password is incorrect.!!!!");
+                    return;
+                }
+
+                BAContext BAContext = new BAContext();
+                var userRole = user.Roles.First().RoleId;
+                var role = BAContext.Roles.FirstOrDefault(r => r.Id == userRole);
+
+                //BAContext.Roles.Where(x => 
+                //bool isAdmin = await userManager.IsInRoleAsync(user.UserName, "Admin");
+
+
+
+                if (role.Name.Equals("Admin"))
+                {
+                    context.OwinContext.Response.Headers.Add("Role", new[] { "Admin" });
+                }
+                else if (role.Name.Equals("Manager"))
+                {
+                    context.OwinContext.Response.Headers.Add("Role", new[] { "Manager" });
+                }
+                else
+                {
+                    context.OwinContext.Response.Headers.Add("Role", new[] { "User" });
+                }
+
+                context.OwinContext.Response.Headers.Add("UserId", new[] { user.AppUserId.ToString() });
+
+
+                //if (!user.EmailConfirmed)
+                //{
+                //    context.SetError("invalid_grant", "AppUser did not confirm email.");
+                //    return;
+                //}
+
+                ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, "JWT");
+
+                var ticket = new AuthenticationTicket(oAuthIdentity, null);
+
+                context.Validated(ticket);
             }
-
-            BAContext BAContext = new BAContext();
-            var userRole = user.Roles.First().RoleId;
-            var role = BAContext.Roles.FirstOrDefault(r => r.Id == userRole);
-
-            //BAContext.Roles.Where(x => 
-            //bool isAdmin = await userManager.IsInRoleAsync(user.UserName, "Admin");
-
-
-
-            if (role.Name.Equals("Admin"))
+            catch(Exception e)
             {
-                context.OwinContext.Response.Headers.Add("Role", new[] { "Admin" });
+                Console.WriteLine(e);
             }
-            else if (role.Name.Equals("Manager"))
-            {
-                context.OwinContext.Response.Headers.Add("Role", new[] { "Manager" });
-            }
-            else
-            {
-                context.OwinContext.Response.Headers.Add("Role", new[] { "User" });
-            }
-
-            context.OwinContext.Response.Headers.Add("UserId", new[] { user.AppUserId.ToString() });
            
 
-            //if (!user.EmailConfirmed)
-            //{
-            //    context.SetError("invalid_grant", "AppUser did not confirm email.");
-            //    return;
-            //}
-
-            ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, "JWT");
-
-            var ticket = new AuthenticationTicket(oAuthIdentity, null);
-
-            context.Validated(ticket);
 
         }
     }
