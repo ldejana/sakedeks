@@ -3,7 +3,7 @@ import { AuthService } from './services/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Origins } from './enumerations/origins.model';
 import { UserBan } from './services/user-ban.service';
-
+import { User } from './users/user.model';
 
 @Component({
   selector: 'app-root',
@@ -18,8 +18,10 @@ export class AppComponent {
   origin: Origins = 'Manager';
   buttonColor: string = "red";
   isConnected: Boolean = false;
+  user: User;
 
   constructor(private authService: AuthService, private router: Router){
+    this.user = new User();
   }
 
   ngOnInit() {
@@ -65,7 +67,10 @@ export class AppComponent {
   }
 
   addAccommodation() {
-    this.router.navigate(['/addAccommodation']);
+    this.authService.getUserById().subscribe(x => { 
+          this.user = x.json(); UserBan.isBanned = this.user.IsBanned; 
+          this.router.navigate(['/addAccommodation']);
+        });
   }
 
   showFilterPage() {

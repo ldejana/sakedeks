@@ -1,6 +1,6 @@
 <h4> Create accommodation </h4>
 
-<form #f = "ngForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+<form *ngIf="!isBanned()" #f = "ngForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
     <label for="Name"> Name: </label>
     <input type="text" id="Name" name="Name" [(ngModel)]="Name"> <br/>
     <label for="Description"> Description: </label>
@@ -43,3 +43,7 @@
 </form>
 
 <div> {{Message}} </div>
+
+<div *ngIf="isBanned()">
+  Sorry, you are banned!
+</div>
