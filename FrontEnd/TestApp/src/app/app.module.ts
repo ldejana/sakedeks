@@ -61,7 +61,7 @@ const ChildRoutes = [
   ]
 
 const Routes = [
-  {path: "home/:Id", component: HomeComponent},
+  {path: "home/:Origin/:Param", component: HomeComponent},
   {path: "countryList", component: CountryListComponent},
   {path: "accommodation/:Id", component: AccommodationComponent},
   {path: "accommodationList/:Id/:Name/:Origin/:PlaceName", component: AccommodationListComponent},

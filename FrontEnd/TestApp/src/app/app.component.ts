@@ -15,16 +15,23 @@ import { UserBan } from './services/user-ban.service';
 export class AppComponent {
   title = 'booking.com';
   disapproved: Origins = 'Disapproved';
-  
+  userName: string = "";
 
   constructor(private authService: AuthService, private router: Router){
   }
 
   ngOnInit() {
+    this.isLoggedIn();
   }
 
   isLoggedIn() : boolean{
-    return this.authService.isLoggedIn();
+    let retValue = this.authService.isLoggedIn();
+
+    if (retValue) {
+      this.userName = this.authService.getUserName();
+    }
+
+    return retValue;
   }
 
   isManager() : boolean{
@@ -71,10 +78,15 @@ export class AppComponent {
 
   showManagers() {
     let role = "Manager";
-    this.router.navigate(['users', role]);
+    this.router.navigate(['/home', "showUsers", role]);
   }
 
   isUserBanned() {
     return UserBan.isBanned;
+  }
+
+  showAppUsers() {
+    let role = "AppUser";
+    this.router.navigate(['/home', "showUsers", role]);
   }
 }

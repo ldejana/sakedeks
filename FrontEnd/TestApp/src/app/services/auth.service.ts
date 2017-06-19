@@ -18,8 +18,10 @@ export class AuthService {
 
         let role = response.headers.get('Role');
         let userId = response.headers.get('UserId');
+        let userName = response.headers.get('UserName');
         console.log(role);
-        let authdata = new AuthData(role, userId, access_token);
+        console.log(userName);
+        let authdata = new AuthData(role, userId, access_token, userName);
 
         console.log(response);
         console.log('role: ' + role);
@@ -65,5 +67,11 @@ export class AuthService {
        let id = this.getUserId();
        let host = ConfigurationManager.Host; 
        return this.http.get(`http://${host}/api/Users/${id}`);
+    }
+
+    getUserName() : string {
+        let token=localStorage.getItem("token");
+        let username = JSON.parse(token).username;
+        return username;
     }
 }

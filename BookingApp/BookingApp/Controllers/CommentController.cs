@@ -92,6 +92,17 @@ namespace BookingApp.Controllers
                 return BadRequest(ModelState);
             }
 
+            var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            BAContext BAContext = new BAContext();
+            var userRole = user.Roles.First().RoleId;
+            var role = BAContext.Roles.FirstOrDefault(r => r.Id == userRole);
+            bool isAppUser = role.Name.Equals("AppUser");
+
+            if (!isAppUser)
+            {
+                return Unauthorized();
+            }
+
             using (var context = new BAContext())
             {
                 var reservations = from b in context.RoomReservations
@@ -157,6 +168,17 @@ namespace BookingApp.Controllers
         [ResponseType(typeof(Comment))]
         public IHttpActionResult DeleteComment(int id1, int id2)
         {
+            var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            BAContext BAContext = new BAContext();
+            var userRole = user.Roles.First().RoleId;
+            var role = BAContext.Roles.FirstOrDefault(r => r.Id == userRole);
+            bool isAppUser = role.Name.Equals("AppUser");
+
+            if (!isAppUser)
+            {
+                return Unauthorized();
+            }
+
             Comment comment = db.Comments.Find(new { AppUserId = id1, AccommodationId = id2 });
             if (comment == null)
             {

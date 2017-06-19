@@ -12,13 +12,26 @@ import {
 export class HomeComponent implements OnInit {
 
   Id: number;
+  Origin: string;
+  Role: string;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {
-    activatedRoute.params.subscribe(params => {this.Id = params["Id"]; });
+    activatedRoute.params.subscribe(params => {
+       this.Origin = params["Origin"];
+       if (this.Origin == "addComm") {
+         this.Id = params["Param"];
+       } else if (this.Origin == "showUsers") {
+          this.Role = params["Param"];
+      }
+    });
    }
 
   ngOnInit() {
+    if (this.Origin == "addComm") {
       this.router.navigate(['/accommodation', this.Id]);
+    } else if (this.Origin == "showUsers") {
+      this.router.navigate(['users', this.Role]);
+    }
   }
 
 }

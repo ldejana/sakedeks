@@ -14,39 +14,62 @@ namespace BookingApp.Controllers
     [RoutePrefix("api")]
     public class ManagerNotificationController : ApiController
     {
+        private object lockObject = new object();
         private BAContext db = new BAContext();
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         [Route("NotifyManager/{id}")]
         public IHttpActionResult Put(int id)
         {
-            //int accId = 0;
-            //bool isInt = Int32.TryParse(id, out accId);
-            Accommodation accommodation = db.Accommodations.Where(acc => acc.Id == id).FirstOrDefault();
+            bool isBadRequest = false;
+            Accommodation accommodation;
+            bool alreadyApproved = false;
 
-            if (accommodation == null)
+            lock (lockObject)
+            {
+                accommodation = db.Accommodations.Where(acc => acc.Id == id).FirstOrDefault();
+
+                if (accommodation == null)
+                {
+                    isBadRequest = true;
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    isBadRequest = true;
+                }
+
+                if (accommodation.Approved)
+                {
+                    alreadyApproved = true;
+                }
+                else
+                {
+
+                    accommodation.Approved = true;
+                    db.Entry(accommodation).State = EntityState.Modified;
+
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        isBadRequest = true;
+                    }
+                }
+            }
+
+            if (isBadRequest)
             {
                 return BadRequest();
             }
-            accommodation.Approved = true;
 
-            if (!ModelState.IsValid)
+            if (!alreadyApproved)
             {
-                return BadRequest(ModelState);
+                NotificationHub.NotifyManager(accommodation.OwnerId, accommodation.Name);
             }
-
-            db.Entry(accommodation).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                return BadRequest();
-            }
-
-            NotificationHub.NotifyManager(accommodation.OwnerId, accommodation.Name);
             
             // NotificationHub.Notify(++ClickCount);
             return Ok("Hello");

@@ -17,31 +17,35 @@ import { UserBan } from '../services/user-ban.service';
 export class UsersComponent implements OnInit {
 
   users: User[];
-  origin: string;
+  role: string;
 
   constructor(private userService: UserService, private router: Router, private authService: AuthService,
               private activatedRoute: ActivatedRoute) {
     this.users = [];
-    activatedRoute.params.subscribe(params => {this.origin = params["Role"];});
+    activatedRoute.params.subscribe(params => {this.role = params["Role"];});
    }
 
   ngOnInit() {
-    this.userService.getAll().subscribe(x => this.users = x.json());
+    if (this.role == "Manager") {
+      this.userService.getAllManagers().subscribe(x => this.users = x.json());
+    } else if (this.role == "AppUser") {
+      this.userService.getAllAppUsers().subscribe(x => this.users = x.json());
+    }
   }
 
   isManagerPage() {
-    return this.origin == "Manager";
+    return this.role == "Manager";
   }
 
   ban(id) {
     this.userService.ban(id).subscribe( x => {
-      this.userService.getAll().subscribe(x => this.users = x.json());
+      this.userService.getAllManagers().subscribe(x => this.users = x.json());
     } );
   }
 
   unban(id) {
     this.userService.unban(id).subscribe( x => {
-      this.userService.getAll().subscribe(x => this.users = x.json());
+      this.userService.getAllManagers().subscribe(x => this.users = x.json());
     });
   }
 

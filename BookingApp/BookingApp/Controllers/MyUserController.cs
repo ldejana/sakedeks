@@ -23,6 +23,7 @@ namespace BookingApp.Controllers
 
         [HttpGet]
         [Route("Users")]
+        [Authorize(Roles = "Admin")]
         //[EnableQuery]
         public List<AppUser> GetUsers()
         {
@@ -37,6 +38,55 @@ namespace BookingApp.Controllers
             }
 
             return appUsers;
+        }
+
+        [HttpGet]
+        [Route("AppUsers")]
+        [Authorize(Roles = "Admin")]
+        //[EnableQuery]
+        public List<AppUser> GetAppUsers()
+        {
+            List<AppUser> appUsers = new List<AppUser>();
+
+            var role = db.Roles.Where(r => r.Name.Equals("AppUser")).FirstOrDefault();
+            var users = role.Users.Join(db.Users, u1 => u1.UserId, u2 => u2.Id, (u1, u2)
+            => new { UserRole = u1, User = u2 }).Select(x => x.User.AppUserId).Join(db.AppUsers, u3 => u3, u4 => u4.Id, (u3, u4) => new { AppUser = u4 }).ToList();
+            foreach (var user in users)
+            {
+                appUsers.Add(user.AppUser);
+            }
+
+            return appUsers;
+        }
+
+        [HttpGet]
+        [Route("UserName/{id}/{role}")]
+        //[EnableQuery]
+        public string GetUserName(int id, string roleParam)
+        {
+            string retValue = "";
+            List<AppUser> appUsers = new List<AppUser>();
+
+            var role = db.Roles.Where(r => r.Name.Equals(roleParam)).FirstOrDefault();
+            var users = role.Users.Join(db.Users, u1 => u1.UserId, u2 => u2.Id, (u1, u2)
+            => new { UserRole = u1, User = u2 }).Select(x => x.User.AppUserId).Join(db.AppUsers, u3 => u3, u4 => u4.Id, (u3, u4) => new { AppUser = u4 }).ToList();
+            foreach (var user in users)
+            {
+                if (user.AppUser.Id == id)
+                {
+                    if (roleParam == "Admin")
+                    {
+                        retValue = roleParam + ": " + User.Identity.Name;
+                    }
+                    else
+                    {
+                        retValue = roleParam + ": " + user.AppUser.Name + " " + user.AppUser.LastName;
+                    }
+                    break;
+                }
+            }
+
+            return retValue;
         }
 
         [HttpGet]
@@ -55,7 +105,7 @@ namespace BookingApp.Controllers
 
 
         [HttpPut]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [Route("UserBan/{id}")]
         [ResponseType(typeof(void))]
         public IHttpActionResult BanUser(int id)
@@ -104,7 +154,7 @@ namespace BookingApp.Controllers
         }
 
         [HttpPut]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [Route("UserUnban/{id}")]
         [ResponseType(typeof(void))]
         public IHttpActionResult UnbanUser(int id)
@@ -150,6 +200,15 @@ namespace BookingApp.Controllers
             }
 
             return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

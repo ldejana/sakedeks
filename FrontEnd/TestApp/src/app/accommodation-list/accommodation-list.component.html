@@ -8,7 +8,9 @@
 </div>
 
 <div *ngFor="let c of counter; let i=index">
-    <button (click)="changePage((PageSet -1)*2 + i + 1)"> {{ (PageSet -1)*2 + i + 1 }}  </button>
+    <button [ngClass]="{'fill-data-btn': selectedButton == ((PageSet -1)*2 + i + 1) }" (click)="changePage((PageSet -1)*2 + i + 1)" md-button> 
+        {{ (PageSet -1)*2 + i + 1 }}  
+    </button>
 </div>
 
 <div *ngIf="showNext()"> 
