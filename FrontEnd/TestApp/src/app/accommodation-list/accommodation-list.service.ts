@@ -45,5 +45,13 @@ export class AccommodationListService {
         return this.http.get(urlAddress);
     }
 
+    getByManagerId(id: number, pageNumber: number, pageSize: number): Observable<any> {
+        let host = ConfigurationManager.Host;
+        let skip = (pageNumber - 1) * pageSize;
+        let urlAddress = `http://${host}/odata/AccOData?$top=${pageSize}&$skip=${skip} &$filter=OwnerId eq ${id} 
+        &$expand=Place, Owner, AccommodationType &$inlinecount=allpages`;
+        return this.http.get(urlAddress);
+    }
+
 }
 

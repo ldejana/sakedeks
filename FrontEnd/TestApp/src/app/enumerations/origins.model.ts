@@ -3,5 +3,6 @@ export type Origins =
     | 'Region' 
     | 'Place'
     | 'AccommodationType'
-    | 'Disapproved';
+    | 'Disapproved'
+    | 'Manager'
 

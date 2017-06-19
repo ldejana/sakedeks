@@ -1,4 +1,5 @@
-<h4> Managers </h4>
+<h4 *ngIf="role == 'Manager'"> Managers </h4>
+<h4 *ngIf="role == 'AppUser'"> App Users </h4>
 
 <div *ngFor="let user of users"> 
      {{user.Name}} &nbsp;  {{user.LastName}}
