@@ -3,6 +3,7 @@ import { CommentListService } from './comment-list.service';
 import { Comment } from './comment.model';
 import { RoomReservation } from '../room-reservations/room-reservation.model';
 import { AuthService } from "app/services/auth.service";
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'comment-list',
@@ -19,18 +20,29 @@ export class CommentListComponent implements OnInit, OnChanges {
   CanUserLeaveComment: boolean = false;
   Reservations: RoomReservation[];
   CurrentDate: Date;
+  UserId: number;
 
-  constructor(private commentListService: CommentListService, private authService: AuthService) {
+  constructor(private commentListService: CommentListService, private authService: AuthService, 
+              private router: Router, private activatedRoute: ActivatedRoute) {
         this.CurrentDate = new Date();
    }
 
   ngOnInit() {
-    
+    if(this.AccommodationId != undefined) {
+      this.getComments();
+      if(this.isLoggedIn() && !this.isAdmin() && !this.isManager()) {
+         this.checkIfUserCanLeaveComment();
+      } 
+      else {
+        this.CanUserLeaveComment = false;
+      }
+      this.UserId = this.authService.getUserId();
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if(this.AccommodationId != undefined) {
-
+      this.getComments();
       if(this.isLoggedIn() && !this.isAdmin() && !this.isManager()) {
          this.checkIfUserCanLeaveComment();
       } 
@@ -38,7 +50,7 @@ export class CommentListComponent implements OnInit, OnChanges {
         this.CanUserLeaveComment = false;
       }
 
-      this.getComments();
+      this.UserId = this.authService.getUserId();
     }
   }
 
@@ -106,6 +118,13 @@ export class CommentListComponent implements OnInit, OnChanges {
       else {
         this.CanUserLeaveComment = false;
       }
+  }
+
+  deleteComment(userId: number, accommodationId: number) {
+    if(userId != undefined && accommodationId != undefined) {
+      this.commentListService.deleteComment(userId, accommodationId).subscribe( 
+        x => {this.router.navigate(['/home', 'comments', this.AccommodationId])});
+    }
   }
 
 }

@@ -13,6 +13,7 @@
         <blockquote>
             {{comment.Text}}
         </blockquote>
+        <button *ngIf = "UserId == comment.AppUser.Id" (click) = "deleteComment(comment.AppUserId, comment.AccommodationId)" > Delete comment </button>
     </div>
 </div>
 

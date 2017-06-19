@@ -169,6 +169,12 @@ namespace BookingApp.Controllers
         public IHttpActionResult DeleteComment(int id1, int id2)
         {
             var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+
+            if(user == null)
+            {
+                return Unauthorized();
+            }
+
             BAContext BAContext = new BAContext();
             var userRole = user.Roles.First().RoleId;
             var role = BAContext.Roles.FirstOrDefault(r => r.Id == userRole);
@@ -179,7 +185,9 @@ namespace BookingApp.Controllers
                 return Unauthorized();
             }
 
-            Comment comment = db.Comments.Find(new { AppUserId = id1, AccommodationId = id2 });
+
+
+            Comment comment = db.Comments.Find(id1, id2);
             if (comment == null)
             {
                 return NotFound();
