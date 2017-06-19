@@ -23,6 +23,7 @@ export class NotificationsComponent implements OnInit {
   ngOnInit() {
     this.checkConnection();
     this.subscribeForNotifications();
+    this.subscribeForAdminsNotifications();
   }
 
   private checkConnection(){
@@ -37,6 +38,17 @@ export class NotificationsComponent implements OnInit {
 
      this.ngZone.run(() => { 
        this.notifications.push(notif);  
+    });  
+  }
+
+  private subscribeForAdminsNotifications () {
+    this.notifService.disapprovedAccReceived.subscribe(e => this.onDisapprovedAccReceived(e));
+  }
+
+  public onDisapprovedAccReceived(notif) {
+
+     this.ngZone.run(() => { 
+       document.getElementById("disapprovedAccsButton").style.color = "red";  
     });  
   }
 

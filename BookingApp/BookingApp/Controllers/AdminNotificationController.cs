@@ -15,10 +15,11 @@ namespace BookingApp.Controllers
         // GET: api/WSClick
 
         [HttpPost]
+        //[Authorize(Roles = "Manager")]
         [Route("NotifyAdmin")]
         public IHttpActionResult Post()
         {
-           // NotificationHub.Notify(++ClickCount);
+            NotificationHub.NotifyAdmins();
             return Ok("Hello");
         }
     }

@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Origins } from './enumerations/origins.model';
 import { UserBan } from './services/user-ban.service';
-
 
 
 @Component({
@@ -17,13 +16,18 @@ export class AppComponent {
   disapproved: Origins = 'Disapproved';
   userName: string = "";
   origin: Origins = 'Manager';
+  buttonColor: string = "red";
+  isConnected: Boolean = false;
 
   constructor(private authService: AuthService, private router: Router){
   }
 
   ngOnInit() {
     this.isLoggedIn();
+    
   }
+
+
 
   isLoggedIn() : boolean{
     let retValue = this.authService.isLoggedIn();
@@ -52,6 +56,7 @@ export class AppComponent {
   }
 
   showCountries() {
+    
     this.router.navigate(['/countryList']);
   }
 
@@ -73,6 +78,7 @@ export class AppComponent {
   }
 
   showDisapprovedAcc() {
+    document.getElementById("disapprovedAccsButton").style.color = "black"; 
     let self = this.disapproved;
     this.router.navigate(['/accommodationList', 1, self, self, self]);
   }

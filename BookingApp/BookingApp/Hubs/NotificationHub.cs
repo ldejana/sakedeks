@@ -18,6 +18,11 @@ namespace BookingApp.Hubs
             hubContext.Clients.Group(managerId.ToString()).approveNotification($"Approved: {accName}");
         }
 
+        public static void NotifyAdmins()
+        {
+            hubContext.Clients.Group("Admins").disapprovedAccNotification($"True");
+        }
+
         public void AddToGroup(string role, string userId)
         {
             if (role == "Admin")

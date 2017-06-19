@@ -13,7 +13,8 @@ export class NotificationService {
     private connection: any;
 
     // create the Event Emitter
-    public notificationReceived: EventEmitter < string >;  
+    public notificationReceived: EventEmitter < string >; 
+    public disapprovedAccReceived: EventEmitter < boolean >;
     public connectionEstablished: EventEmitter < Boolean >;  
     public connectionExists: Boolean;
 
@@ -24,6 +25,7 @@ export class NotificationService {
         // Constructor initialization  
         this.connectionEstablished = new EventEmitter < Boolean > ();  
         this.notificationReceived = new EventEmitter < string > (); 
+        this.disapprovedAccReceived = new EventEmitter < boolean > ();
         this.connectionExists = false;  
         // create hub connection  
         this.connection = $.hubConnection("http://localhost:54042/");  
@@ -31,6 +33,7 @@ export class NotificationService {
         this.proxy = this.connection.createHubProxy(this.proxyName);  
         // register on server events  
         this.registerOnServerEvents();
+        this.adminRegisterOnServerEvents();
 
         // call the connecion start method to start the connection to send and receive events. 
         this.startConnection();      
@@ -41,6 +44,14 @@ export class NotificationService {
         this.proxy.on('approveNotification', (data: string) => {  
             console.log('received notification: ' + data);  
             this.notificationReceived.emit(data);  
+        }); 
+    }
+
+    private adminRegisterOnServerEvents(): void {  
+        
+        this.proxy.on('disapprovedAccNotification', (data: boolean) => {  
+            //console.log('received notification: ' + data);  
+            this.disapprovedAccReceived.emit(data);  
         }); 
     }
 

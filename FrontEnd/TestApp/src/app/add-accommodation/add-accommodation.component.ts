@@ -83,7 +83,7 @@ export class AddAccommodationComponent implements OnInit {
       this.AccommodationTypeId, this.PlaceId, userId);
 
     this.addAccommodationService.create(newAccommodation, this.file).subscribe(x => 
-    { this.httpService.notifyAdmin();
+    { this.httpService.notifyAdmin().subscribe();
       let managerId = this.authService.getUserId();
       this.router.navigate(['/accommodationList', managerId, "My", "Manager", "empty"]);}, 
       x => alert(x.json().Message));

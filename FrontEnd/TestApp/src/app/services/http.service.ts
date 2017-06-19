@@ -20,12 +20,13 @@ export class HttpService{
     }
 
     notifyAdmin(): Observable<any> {
-        const headers: Headers = new Headers();
-        headers.append("Accept", "text/plain")
+        let token=localStorage.getItem("token");
+        let headers: Headers = new Headers();
+        headers.append('Authorization', 'Bearer '+ JSON.parse(token).token);
         const opts: RequestOptions = new RequestOptions();
         opts.headers = headers;
         
-        return this.http.post("http://localhost:54042/api/NotifyAdmin", "", opts);
+        return this.http.post(`http://localhost:54042/api/NotifyAdmin`, "", opts);
     }
 
     approveAccommodation(id: number) {

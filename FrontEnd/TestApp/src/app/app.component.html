@@ -49,7 +49,7 @@
       </div>
 
       <div *ngIf="isLoggedIn() && isAdmin()" style='display: inline-block'>
-          <button md-button (click)="showDisapprovedAcc()"> Disapproved Accommodations </button>
+          <button md-button id="disapprovedAccsButton" (click)="showDisapprovedAcc()"> Disapproved Accommodations </button>
       </div>
 
       <div *ngIf="isLoggedIn() && isAdmin()" style='display: inline-block'>

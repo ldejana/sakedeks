@@ -36,7 +36,11 @@ export class LoginComponent implements OnInit {
     let userName = this.Username;
     this.loginService.login(new LoginData(this.Username, this.Password)).subscribe( 
       x => {this.authService.logIn(x); this.router.navigate(['/']);
-      this.authService.getUserById().subscribe(x => { this.user = x.json(); UserBan.isBanned = this.user.IsBanned; });
+        if (this.authService.getRole() != "Admin") {
+          this.authService.getUserById().subscribe(x => { 
+          this.user = x.json(); UserBan.isBanned = this.user.IsBanned; 
+        });
+      }
   }, 
       x => { this.Message = this.errorHandlerService.parseError(x); });
 
