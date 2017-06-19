@@ -16,6 +16,7 @@ export class AppComponent {
   title = 'booking.com';
   disapproved: Origins = 'Disapproved';
   userName: string = "";
+  origin: Origins = 'Manager';
 
   constructor(private authService: AuthService, private router: Router){
   }
@@ -88,5 +89,10 @@ export class AppComponent {
   showAppUsers() {
     let role = "AppUser";
     this.router.navigate(['/home', "showUsers", role]);
+  }
+
+  managersAccommodations() {
+    let managerId = this.authService.getUserId();
+    this.router.navigate(['/accommodationList', managerId, "My", this.origin, "empty"]);
   }
 }

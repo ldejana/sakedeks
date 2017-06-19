@@ -1,5 +1,3 @@
-accType, Comment Controller i Room Reservation uraditi autorizaciju na serveru, prebaci kod paginga
-sa 2 na 10 brojeva za odabir stranice,
-brisanje kom, zabraniti da 2 puta isti korisnik komentarise, dodati zabranu na servisu da banovani 
-menadzer dodaje acc, rezervacija otkazana, ali i dalje ne da drugima da rezervisu u tom periodu, 
-ako je menadzer da mu prikaze sve njegove smjestaje (i neodobrene)
+prebaci kod paginga sa 2 na 10 brojeva za odabir stranice,
+brisanje kom, zabraniti da 2 puta isti korisnik komentarise,
+rezervacija otkazana, ali i dalje ne da drugima da rezervisu u tom periodu, 

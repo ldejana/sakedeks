@@ -74,6 +74,20 @@ export class AccommodationListComponent implements OnInit {
             });
           break;
         }
+
+        case 'Manager' : {
+          this.accListService.getByManagerId(this.Id, 1, PagingService.PageSize).subscribe(x => {
+              this.Accommodations = (x.json()).value;
+              this.pagingService.initPagingService(x);
+
+              let counterLength = 2;
+              if (this.PageSet * 2 > PagingService.PageNumber) {
+                  counterLength = PagingService.PageNumber - ((this.PageSet-1)*2);
+              } 
+              this.counter = new Array(counterLength);
+            });
+          break;
+        }
         default: break;
       }
   }
@@ -95,6 +109,12 @@ export class AccommodationListComponent implements OnInit {
         }
         case 'Disapproved': {
           this.accListService.getDisapprovedAccs(pageNumber, PagingService.PageSize).subscribe(x => {
+              this.Accommodations = (x.json()).value; 
+            });
+          break;
+        }
+        case 'Manager': {
+          this.accListService.getByManagerId(this.Id, pageNumber, PagingService.PageSize).subscribe(x => {
               this.Accommodations = (x.json()).value; 
             });
           break;

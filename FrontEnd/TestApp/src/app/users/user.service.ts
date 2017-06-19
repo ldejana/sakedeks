@@ -13,13 +13,25 @@ export class UserService {
     }
 
     getAllManagers() : Observable<any> {
+        let token=localStorage.getItem("token");
+        let header = new Headers();
+        header.append('Authorization', 'Bearer '+ JSON.parse(token).token);
+
+        let options = new RequestOptions();
+        options.headers = header;
         let host = ConfigurationManager.Host;
-        return this.http.get(`http://${host}/api/Users`);
+        return this.http.get(`http://${host}/api/Users`, options);
     }
 
     getAllAppUsers() : Observable<any> {
+        let token=localStorage.getItem("token");
+        let header = new Headers();
+        header.append('Authorization', 'Bearer '+ JSON.parse(token).token);
+
+        let options = new RequestOptions();
+        options.headers = header;
         let host = ConfigurationManager.Host;
-        return this.http.get(`http://${host}/api/AppUsers`);
+        return this.http.get(`http://${host}/api/AppUsers`, options);
     }
 
     ban(id: number) {
