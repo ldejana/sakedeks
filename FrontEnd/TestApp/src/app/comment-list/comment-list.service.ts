@@ -36,5 +36,19 @@ export class CommentListService {
         let url = `http://${host}/api/RoomReservations?$filter=AppUserId eq ${userId} and Room/AccomodationId eq ${accommodationId} and IsCanceled eq false &$expand=Room`;
         return this.http.get(url);
     }
+
+    deleteComment(userId: number, accommodationId: number): Observable<any> {
+       let token=localStorage.getItem("token");
+        let header = new Headers();
+        header.append('Content-Type', 'application/json');
+        header.append('Authorization', 'Bearer '+ JSON.parse(token).token);
+
+        let options = new RequestOptions();
+        options.headers = header;
+        
+        let host = ConfigurationManager.Host;
+        let urlAddress = `http://${host}/api/Comments/${userId}/${accommodationId}`;
+        return this.http.delete(urlAddress, options);
+    }
 }
     

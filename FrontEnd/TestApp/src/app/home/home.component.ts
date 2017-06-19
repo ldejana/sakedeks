@@ -22,6 +22,8 @@ export class HomeComponent implements OnInit {
          this.Id = params["Param"];
        } else if (this.Origin == "showUsers") {
           this.Role = params["Param"];
+      } else if (this.Origin == "comments") {
+        this.Id = params["Param"];
       }
     });
    }
@@ -31,6 +33,8 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['/accommodation', this.Id]);
     } else if (this.Origin == "showUsers") {
       this.router.navigate(['users', this.Role]);
+    } else if (this.Origin == "comments") {
+      this.router.navigate(['/accommodation', this.Id]);
     }
   }
 
