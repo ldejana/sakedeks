@@ -1,17 +1,19 @@
-<h4> Accommodation Types </h4>
-<div *ngIf="isLoggedIn() && isAdmin()">
-  <add-acc-type (onAccommodationTypeAdded)="getAccommodationTypes($event)"> </add-acc-type>
-</div>
-
+<div style="float:left">
+<h4> <b> Accommodation Types </b> </h4> <br/>
 
 <table class="table table-striped table-hover ">
   <tbody>
     <tr *ngFor="let accType of accommodationTypes">
-      <td> <a [routerLink]="['/accommodationList', accType.Id, accType.Name, Origin, 'empty']"> {{accType.Name}} </a> </td>
-      <td> <a class="btn btn-default" *ngIf="isLoggedIn() && isAdmin()" (click)="deleteAccommodationType(accType.Id)">  Delete  </a> </td>
-      <td> <a class="btn btn-default" *ngIf="isLoggedIn() && isAdmin()" (click)="editAccommodationType(accType.Id, accType.Name)"> Edit </a> </td>
+      <td> <a [routerLink]="['/accommodationList', accType.Id, accType.Name, Origin, 'empty']"> <b> {{accType.Name}} </b> </a> </td>
+      <td> <a  *ngIf="isLoggedIn() && isAdmin()" (click)="deleteAccommodationType(accType.Id)">  Delete  </a> </td>
+      <td> <a  *ngIf="isLoggedIn() && isAdmin()" (click)="editAccommodationType(accType.Id, accType.Name)"> Edit </a> </td>
   </tbody>
 </table> 
 
 
 {{Message}}
+</div>
+
+<div *ngIf="isLoggedIn() && isAdmin()" style="float:left; margin-left: 80px;">
+  <add-acc-type (onAccommodationTypeAdded)="getAccommodationTypes($event)"> </add-acc-type>
+</div>

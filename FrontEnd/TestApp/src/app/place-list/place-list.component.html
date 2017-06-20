@@ -1,20 +1,10 @@
-<div *ngFor="let place of places"> 
-    <a [routerLink]="['/accommodationList', place.Id, path, Origin, place.Name]"> {{place.Name}} </a> &nbsp; 
-        <button *ngIf="isLoggedIn() && isAdmin()" (click)="deletePlace(place.Id)"> 
-            <b> Delete place </b> 
-        </button>
-        &nbsp; 
-        <button *ngIf="isLoggedIn() && isAdmin()" 
-            (click)="editPlace(place.Id, place.Name, region.Id, path)"> 
-            <b> Edit place </b> 
-        </button>
-</div>
-
+<h4> <b> Places </b> </h4>
 
 <table class="table table-striped table-hover ">
   <tbody>
     <tr *ngFor="let place of places">
-      <td> <a style="text-decoration: none" [routerLink]="['/accommodation', accommodation.Id]"> {{accommodation.Name}} </a> </td>
+      <td> <a style="text-decoration: none" [routerLink]="['/accommodationList', place.Id, path, Origin, place.Name]"> 
+              <b>  {{place.Name}} </b> </a> </td>
       <td> <a *ngIf="isLoggedIn() && isAdmin()" (click)="deletePlace(place.Id)"> Delete </a> </td>
       <td> <a *ngIf="isLoggedIn() && isAdmin()" 
             (click)="editPlace(place.Id, place.Name, region.Id, path)">  Edit  </a> </td>

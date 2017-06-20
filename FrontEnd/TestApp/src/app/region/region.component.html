@@ -1,18 +1,18 @@
-<div>
-  <p> {{countryName}} >> {{ region.Name }} 
-    &nbsp; <button *ngIf="isLoggedIn() && isAdmin()" (click)="deleteRegion(region.Id)"> <b> Delete </b> </button>
+<div style="float:left">
+   <h3> <b> {{countryName}} >> {{ region.Name }} </b> </h3>
+    <p> <button *ngIf="isLoggedIn() && isAdmin()" (click)="deleteRegion(region.Id)"> <b> Delete </b> </button>
     &nbsp; 
     <button *ngIf="isLoggedIn() && isAdmin()" 
       (click)="editRegion(region.Id, region.Name, region.CountryId, countryName)"> 
       <b> Edit </b> 
     </button>
-  </p>
-
-  <div *ngIf="isLoggedIn() && isAdmin()">
-    <add-place (onPlaceAdded)="addPlace($event)" [regionId]="region.Id"> </add-place>
-  </div> <br/>
+  </p> <br/>
 
   <div>
     <place-list [region]='region' [countryName] = 'countryName'> </place-list>
   </div>
 </div>
+
+<div *ngIf="isLoggedIn() && isAdmin()" style="float:left; margin: 20px 0px 100px 80px;">
+    <add-place (onPlaceAdded)="addPlace($event)" [regionId]="region.Id"> </add-place>
+  </div> <br/>

@@ -1,12 +1,13 @@
-<h4> Countries </h4>
-<div *ngIf="isLoggedIn() && isAdmin()">
-    <add-country (onCountryAdded)="addCountry($event)"> </add-country>
-</div> <br/>
-
-
+<div style="float:left">
+<h4> <b> Countries </b> </h4>
 <table class="table table-striped table-hover ">
   <tbody>
     <tr *ngFor="let c of countries">
       <td> <a [routerLink]="['/country', c.Id]"> {{c.Name}} </a> </td>
   </tbody>
 </table> 
+</div>
+
+<div *ngIf="isLoggedIn() && isAdmin()" style="float:left; margin-left: 80px;">
+    <add-country (onCountryAdded)="addCountry($event)"> </add-country>
+</div> <br/>
