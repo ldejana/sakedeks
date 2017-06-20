@@ -1,35 +1,46 @@
-<div>  
-  Name: {{accommodation.Name}} <br/> 
-  Description: {{accommodation.Description}} <br />
-  Address: {{accommodation.Address}} <br/> 
-  Average grade: {{accommodation.AverageGrade}} <br/> 
-  Latitude: {{accommodation.Latitude}} <br/>
-  Longitude: {{accommodation.Longitude}} <br/>
-  Owner: {{ accommodation.Owner.Name + ' ' + accommodation.Owner.LastName}} <br/>
-  Place: {{ accommodation.Place.Name }} <br/>
-  Accommodation type: {{ accommodation.AccommodationType.Name }} <br/>
-  Approved: {{accommodation.Approved}} <br/>
-  <a [routerLink]="['/roomList', accommodation.Id, accommodation.Name, accommodation.Owner.Id]"> Rooms </a>
-</div>
-
 <div>
-  <img [src]=ImageUrl height="150" width="150" />
+
+
+<div class="panel panel-default">
+  <div class="panel-heading"> <h3> {{ accommodation.Name }} </h3> </div>
+    <div class="panel-body">
+
+      <div style="float: right">
+        <a class="btn btn-default" *ngIf="isLoggedIn() && isManager() && isMyAcc(accommodation.Owner.Id)" (click)="deleteAcc(accommodation.Id)"> 
+            <b> Delete </b> 
+        </a> 
+
+        <a class="btn btn-default" *ngIf="isLoggedIn() && isManager() && isMyAcc(accommodation.Owner.Id)" 
+               (click)="editAcc(accommodation.Id, accommodation.Name, accommodation.Description, accommodation.Address, accommodation.Latitude, accommodation.Longitude,
+               accommodation.AverageGrade, accommodation.Approved, accommodation.AccommodationTypeId, accommodation.PlaceId, accommodation.OwnerId, accommodation.ImageUrl)"> 
+               <b> Edit </b> 
+        </a>
+      </div>  
+
+
+      <div style="display:block-inline">
+        <p> Rating: {{ accommodation.AverageGrade }} </p>
+        <p> Accommodation type: {{ accommodation.AccommodationType.Name }} </p>
+        <p> Description: {{ accommodation.Description }} <p>
+        <a [routerLink]="['/roomList', accommodation.Id, accommodation.Name, accommodation.Owner.Id]"> See rooms </a> 
+      </div>
+
+
+      <img  [src]=ImageUrl height="300" width="450" />
+
+      <div class="panel-footer">Address: {{accommodation.Place.Name}}, {{ accommodation.Address }}</div>
+    </div>
 </div>
 
-<div style="width:50%; margin: 0 auto">
+
+<div >
+  <comment-list [AccommodationId] = 'accommodation.Id'> </comment-list>
+</div>
+
+
+<div style="width:90%; margin: 0 auto">
     <map [mapInfo]="mapInfo" [accAddress]="accommodation.Address" [accName]="accommodation.Name"></map>
-  </div>
+</div>
 
-<div>
-  <button *ngIf="isLoggedIn() && isManager() && isMyAcc(accommodation.Owner.Id)" (click)="deleteAcc(accommodation.Id)"> 
-      <b> Delete Accommodation </b> 
-    </button>
 
-    <button *ngIf="isLoggedIn() && isManager() && isMyAcc(accommodation.Owner.Id)" 
-      (click)="editAcc(accommodation.Id, accommodation.Name, accommodation.Description, accommodation.Address, accommodation.Latitude, accommodation.Longitude,
-      accommodation.AverageGrade, accommodation.Approved, accommodation.AccommodationTypeId, accommodation.PlaceId, accommodation.OwnerId, accommodation.ImageUrl)"> 
-      <b> Edit Accommodation </b> 
-    </button>
-</div>  
-
-<comment-list [AccommodationId] = 'accommodation.Id'> </comment-list>
+</div>

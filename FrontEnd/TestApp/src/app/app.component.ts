@@ -3,13 +3,14 @@ import { AuthService } from './services/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Origins } from './enumerations/origins.model';
 import { UserBan } from './services/user-ban.service';
+import { LogoutService } from "app/services/logout.service";
 
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [UserBan]
+  providers: [UserBan, LogoutService]
 })
 export class AppComponent {
   title = 'booking.com';
@@ -19,15 +20,13 @@ export class AppComponent {
   buttonColor: string = "red";
   isConnected: Boolean = false;
 
-  constructor(private authService: AuthService, private router: Router){
+  constructor(private authService: AuthService, private router: Router, private logoutService: LogoutService){
   }
 
   ngOnInit() {
     this.isLoggedIn();
     
   }
-
-
 
   isLoggedIn() : boolean{
     let retValue = this.authService.isLoggedIn();
@@ -100,5 +99,9 @@ export class AppComponent {
   managersAccommodations() {
     let managerId = this.authService.getUserId();
     this.router.navigate(['/accommodationList', managerId, "My", this.origin, "empty"]);
+  }
+
+   logout() {
+    this.logoutService.logout().subscribe(x => {this.authService.logOut(); this.router.navigate(['/']);});  
   }
 }

@@ -1,81 +1,69 @@
-<md-sidenav-container>
 <header>
-
   <div style="text-align:center">
     <h1>
       {{title}}
     </h1>
   </div>
-
-  <div style="text-align:right" *ngIf="isLoggedIn()">
-    {{ userName }}
-  </div>
-  
 </header>
 
-<div *ngIf="isLoggedIn()">
-    <notifications> </notifications>
-  </div>
+<nav class="navbar navbar-default">
+   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
 
-<nav name="navigationBar">
-  <md-card>
-     <button md-button (click) = "showCountries()"> Countries </button>
-     <button md-button (click) = "showAccommodationTypes()"> Accommodation Types </button>
+         <li> <a (click)="showCountries()"> Countries </a> </li>
+         <li> <a (click) = "showAccommodationTypes()"> Accommodation types </a></li>
+         <li *ngIf="isLoggedIn() && !isManager() && !isAdmin()"> 
+           <a (click) = "showReservations()"> My reservations </a>
+         </li>
 
-     <div *ngIf="isLoggedIn() && !isManager() && !isAdmin()" style="display:inline-block">
-          <button md-button (click) = "showReservations()"> My reservations </button>
-     </div> 
+         <li *ngIf="isLoggedIn() && isManager() && !isUserBanned()"> 
+           <a (click)="addAccommodation()"> Add new accommodation </a>
+         </li>
 
-     <div *ngIf="isLoggedIn() && isManager() && !isUserBanned()" style='display: inline-block'>
-          <button md-button (click)="addAccommodation()"> Add Accommodation </button>
-      </div>
+         <li> <a (click)="showFilterPage()"> Filter </a></li>
+         
+          <li *ngIf="isLoggedIn() && isAdmin()">
+            <a id="disapprovedAccsButton" (click)="showDisapprovedAcc()"> Pending approval </a>
+         </li>
 
-     <div *ngIf="isLoggedIn()" style='display: inline-block'>
-        <logout> </logout>
-      </div>
+         <li *ngIf="isLoggedIn() && isAdmin()"> <a (click)="showManagers()"> Managers </a></li>
+         
+         <li *ngIf="isLoggedIn() && isAdmin()"> <a (click)="showAppUsers()"> Users </a></li>
+
+         <li *ngIf="isLoggedIn() && isManager()"> <a (click)="managersAccommodations()"> My accommodations </a> </li>
+
+      </ul>
       
-      <div *ngIf="!isLoggedIn()" style='display: inline-block'>
-        <button md-button (click)="showLoginPage()"> Sign In </button>
-        <button md-button (click)="showRegistrationPage()"> Sign Up </button>
-      </div>
+      <ul class="nav navbar-nav navbar-right">
+         <li *ngIf="isLoggedIn()"> <a> {{ userName }} </a> </li>
 
-      <div style='display: inline-block'>
-          <button md-button (click)="showFilterPage()"> Filter </button>
-      </div>
+         <li *ngIf="isLoggedIn()"> 
+           <a (click)="logout()">Log out </a>
+         </li>
 
+         <li *ngIf = "!isLoggedIn()"> 
+           <a (click)="showLoginPage()"> Sign in </a>
+         </li>
 
-      <div *ngIf="isLoggedIn() && isManager()">
-        <notification-manager> </notification-manager>
-      </div>
-
-      <div *ngIf="isLoggedIn() && isAdmin()" style='display: inline-block'>
-          <button md-button id="disapprovedAccsButton" (click)="showDisapprovedAcc()"> Disapproved Accommodations </button>
-      </div>
-
-      <div *ngIf="isLoggedIn() && isAdmin()" style='display: inline-block'>
-          <button md-button (click)="showManagers()"> Managers </button>
-      </div>
-
-      <div *ngIf="isLoggedIn() && isAdmin()" style='display: inline-block'>
-          <button md-button (click)="showAppUsers()"> App Users </button>
-      </div>
-
-      <div *ngIf="isLoggedIn() && isManager()" style='display: inline-block'>
-          <button md-button (click)="managersAccommodations()"> My Accommodations </button>
-      </div>
-
-  </md-card>
+         <li *ngIf = "!isLoggedIn()"> 
+           <a (click)="showRegistrationPage()"> Sign up </a>
+         </li>
+      </ul>
+    </div>
 </nav>
 
+<span *ngIf="isLoggedIn()"> <notifications> </notifications> </span>
+
+ <div *ngIf="isLoggedIn() && isManager()">
+        <notification-manager> </notification-manager>
+</div>
 
 <main>
-
   <div style='float: right; position: relative; left: -50%;'>
-      <router-outlet ></router-outlet>
+      <router-outlet> </router-outlet>
   </div>
 </main>
 
-</md-sidenav-container>
 
 
 

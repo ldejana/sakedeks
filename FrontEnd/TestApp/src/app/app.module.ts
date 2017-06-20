@@ -18,7 +18,6 @@ import { LoggedInGuard } from './guards/logged-in.guard';
 import { IsAdminGuard} from './guards/is-admin.guard';
 import { IsManagerGuard} from './guards/is-manager.guard';
 
-import { LogoutComponent } from './logout/logout.component';
 import { HomeComponent } from './home/home.component';
 import { RegionListComponent } from './region-list/region-list.component';
 import { PlaceListComponent } from './place-list/place-list.component';
@@ -105,7 +104,6 @@ const Routes = [
     CountryComponent,
     RegisterComponent,
     LoginComponent,
-    LogoutComponent,
     HomeComponent,
     RegionListComponent,
     PlaceListComponent,
