@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core"
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import { ConfigurationManager } from '../services/configuration-manager.service';
 
 @Injectable()
 export class HttpService{
@@ -15,8 +16,9 @@ export class HttpService{
         headers.append("Accept", "text/plain")
         const opts: RequestOptions = new RequestOptions();
         opts.headers = headers;
-        
-        return this.http.post("http://localhost:54042/api/WSClick", "", opts);
+        let host = ConfigurationManager.Host;
+
+        return this.http.post(`http://${host}/api/WSClick`, "", opts);
     }
 
     notifyAdmin(): Observable<any> {
@@ -25,8 +27,9 @@ export class HttpService{
         headers.append('Authorization', 'Bearer '+ JSON.parse(token).token);
         const opts: RequestOptions = new RequestOptions();
         opts.headers = headers;
+        let host = ConfigurationManager.Host;
         
-        return this.http.post(`http://localhost:54042/api/NotifyAdmin`, "", opts);
+        return this.http.post(`http://${host}/api/NotifyAdmin`, "", opts);
     }
 
     approveAccommodation(id: number) {
@@ -35,7 +38,8 @@ export class HttpService{
         headers.append('Authorization', 'Bearer '+ JSON.parse(token).token);
         const opts: RequestOptions = new RequestOptions();
         opts.headers = headers;
+        let host = ConfigurationManager.Host;
         
-        return this.http.put(`http://localhost:54042/api/NotifyManager/${id}`, "", opts);
+        return this.http.put(`http://${host}/api/NotifyManager/${id}`, "", opts);
     }
 }

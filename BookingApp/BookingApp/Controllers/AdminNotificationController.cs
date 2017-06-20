@@ -15,7 +15,7 @@ namespace BookingApp.Controllers
         // GET: api/WSClick
 
         [HttpPost]
-        //[Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Manager")]
         [Route("NotifyAdmin")]
         public IHttpActionResult Post()
         {

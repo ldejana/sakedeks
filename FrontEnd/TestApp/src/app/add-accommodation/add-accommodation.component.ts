@@ -16,13 +16,14 @@ import {
 } from '@angular/router';
 import { NotificationService } from "app/services/notification.service";
 import { HttpService } from "app/services/http.service";
+import { UserBan } from '../services/user-ban.service';
 
 @Component({
   selector: 'add-accommodation',
   templateUrl: './add-accommodation.component.html',
   styleUrls: ['./add-accommodation.component.css'],
   providers: [CountryListService, RegionListService, PlaceListService,
-              AccommodationTypeListService, AddAccommodationService, HttpService]
+              AccommodationTypeListService, AddAccommodationService, HttpService, UserBan]
 })
 export class AddAccommodationComponent implements OnInit {
 
@@ -42,6 +43,7 @@ export class AddAccommodationComponent implements OnInit {
   placeName: string;
   ImageURL: File;
   file: File;
+  isBannedManager: boolean = false;
 
   constructor(private countryListService: CountryListService, private regionListService: RegionListService,
     private placeListService: PlaceListService, private accTypeListService: AccommodationTypeListService, private authService: AuthService,
@@ -50,7 +52,7 @@ export class AddAccommodationComponent implements OnInit {
     this.regions = [];
     this.places = [];
     this.accTypes = [];
-
+    this.isBannedManager = UserBan.isBanned;
    }
 
   ngOnInit() {
@@ -105,6 +107,10 @@ export class AddAccommodationComponent implements OnInit {
     let target: HTMLInputElement = <HTMLInputElement> eventObj.target;
     let files: FileList = target.files;
     this.file = files[0];
+  }
+
+  isBanned() :boolean {
+    return this.isBannedManager;
   }
 
 }

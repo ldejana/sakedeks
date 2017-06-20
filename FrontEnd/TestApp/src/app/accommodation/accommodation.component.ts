@@ -69,7 +69,8 @@ export class AccommodationComponent implements OnInit {
 
   deleteAcc(id) {
     this.accommodationService.delete(id).subscribe(x => {alert("Accommodation deleted successfuly!");
-      this.router.navigate(['/accommodationList', this.accommodation.PlaceId, "Place", "Place", this.accommodation.Place.Name])}, 
+      let managerId = this.authService.getUserId();
+      this.router.navigate(['/accommodationList', managerId, "My", 'Manager',"empty"])}, 
       x => alert(x.json().Message));
   }
 

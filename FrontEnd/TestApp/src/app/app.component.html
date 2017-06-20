@@ -6,6 +6,7 @@
   </div>
 </header>
 
+
 <nav class="navbar navbar-default">
    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
@@ -52,7 +53,10 @@
     </div>
 </nav>
 
-<span *ngIf="isLoggedIn()"> <notifications> </notifications> </span>
+<div *ngIf="isLoggedIn()">
+    <notifications> </notifications>
+</div>
+
 
  <div *ngIf="isLoggedIn() && isManager()">
         <notification-manager> </notification-manager>
