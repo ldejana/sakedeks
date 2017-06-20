@@ -82,7 +82,7 @@ export class AppComponent {
   }
 
   showDisapprovedAcc() {
-    document.getElementById("disapprovedAccsButton").style.color = "black"; 
+    document.getElementById("disapprovedAccsButton").style.color = "white"; 
     let self = this.disapproved;
     this.router.navigate(['/accommodationList', 1, self, self, self]);
   }

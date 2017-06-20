@@ -167,7 +167,7 @@ export class AccommodationListComponent implements OnInit {
 
   approve(id: number){
     this.http.approveAccommodation(id).subscribe( x => {
-      let index: number = -1;
+     /* let index: number = -1;
       let i: number = 0;
       for (let acc of this.Accommodations) {
         if (acc.Id == id){
@@ -178,7 +178,25 @@ export class AccommodationListComponent implements OnInit {
       }
       if (index !== -1) {
         this.Accommodations.splice(index, 1);
-      }
+        this.pagingService.resetPageNumber(this.Accommodations.length);
+
+        let counterLength = 2;
+        if (this.PageSet * 2 > PagingService.PageNumber) {
+            counterLength = PagingService.PageNumber - ((this.PageSet-1)*2);
+        } 
+        this.counter = new Array(counterLength);
+        this.changePage(1);
+      }*/
+      this.accListService.getDisapprovedAccs(1, PagingService.PageSize).subscribe(x => {
+              this.Accommodations = (x.json()).value;
+              this.pagingService.initPagingService(x);
+
+              let counterLength = 2;
+              if (this.PageSet * 2 > PagingService.PageNumber) {
+                  counterLength = PagingService.PageNumber - ((this.PageSet-1)*2);
+              } 
+              this.counter = new Array(counterLength);
+            });
     });
   }
 

@@ -1,6 +1,6 @@
 <div *ngIf="isLoggedIn() && isManager()">
-  <h4 style="color:red"> Notifications </h4> <br/>
-  <button (click) = "clearNotifications()"> Clear </button>
+   <b> Notifications </b>
+  <button (click) = "clearNotifications()" md-button> Clear </button>
 
   <ul> 
     <li *ngFor="let notif of notifications">{{notif}}</li>

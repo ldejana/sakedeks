@@ -1,8 +1,8 @@
 <h4> Create region </h4>
 
-<form #f = "ngForm" (ngSubmit)="onSubmit()">
+<form #f = "ngForm" (ngSubmit)="onSubmit()" ngNativeValidate>
     <label for="Name"> Name: </label>
-    <input type="text" id="Name" name="Name" [(ngModel)]="Name"> <br/>
+    <input type="text" id="Name" name="Name" [(ngModel)]="Name" required> <br/>
     <input type="submit" value="Create">
 </form>
 

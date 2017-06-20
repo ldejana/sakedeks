@@ -20,6 +20,7 @@ namespace BookingApp.Controllers
     public class MyUserController : ApiController
     {
         private BAContext db = new BAContext();
+        private static object lockObj = new object();
 
         [HttpGet]
         [Route("Users")]
@@ -110,42 +111,54 @@ namespace BookingApp.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult BanUser(int id)
         {
+            bool isBadRequest = false;
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            AppUser appUser = db.AppUsers.Where(au => au.Id == id).FirstOrDefault();
-            bool isManager = false;
-
-            var role = db.Roles.Where(r => r.Name.Equals("Manager")).FirstOrDefault();
-            var users = role.Users.Join(db.Users, u1 => u1.UserId, u2 => u2.Id, (u1, u2)
-            => new { UserRole = u1, User = u2 }).Select(x => x.User.AppUserId).Join(db.AppUsers, u3 => u3, u4 => u4.Id, (u3, u4) => new { AppUser = u4 }).ToList();
-            foreach (var user in users)
+            lock (lockObj)
             {
-                if (user.AppUser.Id == id)
+                AppUser appUser = db.AppUsers.Where(au => au.Id == id).FirstOrDefault();
+                bool isManager = false;
+
+                var role = db.Roles.Where(r => r.Name.Equals("Manager")).FirstOrDefault();
+                var users = role.Users.Join(db.Users, u1 => u1.UserId, u2 => u2.Id, (u1, u2)
+                => new { UserRole = u1, User = u2 }).Select(x => x.User.AppUserId).Join(db.AppUsers, u3 => u3, u4 => u4.Id, (u3, u4) => new { AppUser = u4 }).ToList();
+                foreach (var user in users)
                 {
-                    isManager = true;
-                    break;
+                    if (user.AppUser.Id == id)
+                    {
+                        isManager = true;
+                        break;
+                    }
+                }
+
+
+                if (appUser == null || !isManager)
+                {
+                    isBadRequest = true;
+                }
+                else
+                {
+                    appUser.IsBanned = true;
+
+
+                    db.Entry(appUser).State = EntityState.Modified;
+
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        isBadRequest = true;
+                    }
                 }
             }
 
-
-            if (appUser == null || !isManager)
-            {
-                return BadRequest();
-            }
-
-            appUser.IsBanned = true;
-
-
-            db.Entry(appUser).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
+            if (isBadRequest)
             {
                 return BadRequest();
             }
@@ -159,42 +172,55 @@ namespace BookingApp.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult UnbanUser(int id)
         {
+            bool isBadRequest = false;
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            AppUser appUser = db.AppUsers.Where(au => au.Id == id).FirstOrDefault();
-            bool isManager = false;
-
-            var role = db.Roles.Where(r => r.Name.Equals("Manager")).FirstOrDefault();
-            var users = role.Users.Join(db.Users, u1 => u1.UserId, u2 => u2.Id, (u1, u2)
-            => new { UserRole = u1, User = u2 }).Select(x => x.User.AppUserId).Join(db.AppUsers, u3 => u3, u4 => u4.Id, (u3, u4) => new { AppUser = u4 }).ToList();
-            foreach (var user in users)
+            lock (lockObj)
             {
-                if (user.AppUser.Id == id)
+
+                AppUser appUser = db.AppUsers.Where(au => au.Id == id).FirstOrDefault();
+                bool isManager = false;
+
+                var role = db.Roles.Where(r => r.Name.Equals("Manager")).FirstOrDefault();
+                var users = role.Users.Join(db.Users, u1 => u1.UserId, u2 => u2.Id, (u1, u2)
+                => new { UserRole = u1, User = u2 }).Select(x => x.User.AppUserId).Join(db.AppUsers, u3 => u3, u4 => u4.Id, (u3, u4) => new { AppUser = u4 }).ToList();
+                foreach (var user in users)
                 {
-                    isManager = true;
-                    break;
+                    if (user.AppUser.Id == id)
+                    {
+                        isManager = true;
+                        break;
+                    }
+                }
+
+
+                if (appUser == null || !isManager)
+                {
+                    isBadRequest = true;
+                }
+                else
+                {
+                    appUser.IsBanned = false;
+
+
+                    db.Entry(appUser).State = EntityState.Modified;
+
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        isBadRequest = true;
+                    }
                 }
             }
 
-
-            if (appUser == null || !isManager)
-            {
-                return BadRequest();
-            }
-
-            appUser.IsBanned = false;
-
-
-            db.Entry(appUser).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
+            if (isBadRequest)
             {
                 return BadRequest();
             }

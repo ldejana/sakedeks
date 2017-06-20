@@ -79,7 +79,7 @@ export class CommentListComponent implements OnInit, OnChanges {
 
   checkIfUserLeftComment() {
     let userId = this.authService.getUserId();
-    if(this.CommentsCount > 0) {
+    if(this.Comments.length > 0) {
        for(let comment of this.Comments) {
           if(comment.AppUserId == userId) {
             this.CanUserLeaveComment = false;
@@ -125,6 +125,10 @@ export class CommentListComponent implements OnInit, OnChanges {
       this.commentListService.deleteComment(userId, accommodationId).subscribe( 
         x => {this.router.navigate(['/home', 'comments', this.AccommodationId])});
     }
+  }
+
+  canUserrLeaveComment(): boolean {
+    return this.CanUserLeaveComment;
   }
 
 }

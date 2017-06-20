@@ -17,7 +17,7 @@
            <a (click) = "showReservations()"> My reservations </a>
          </li>
 
-         <li *ngIf="isLoggedIn() && isManager() && !isUserBanned()"> 
+         <li *ngIf="isLoggedIn() && isManager()"> 
            <a (click)="addAccommodation()"> Add new accommodation </a>
          </li>
 
@@ -53,7 +53,7 @@
     </div>
 </nav>
 
-<div *ngIf="isLoggedIn()">
+<div *ngIf="isLoggedIn()" style=" width: 200px; float:left">
     <notifications> </notifications>
 </div>
 

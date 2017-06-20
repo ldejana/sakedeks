@@ -10,16 +10,16 @@
   </tbody>
 </table> 
 
-<div *ngFor="let c of counter; let i=index">
+<div *ngFor="let c of counter; let i=index" style="float:left">
     <button [ngClass]="{'fill-data-btn': selectedButton == ((PageSet -1)*2 + i + 1) }" (click)="changePage((PageSet -1)*2 + i + 1)" md-button> 
         {{ (PageSet -1)*2 + i + 1 }}  
     </button>
 </div>
 
-<div *ngIf="showNext()"> 
-    <button (click)="nextPageSet()"> Next </button> 
+<div *ngIf="showNext()" style="float:left"> 
+    <button (click)="nextPageSet()" md-button> Next </button> 
 </div>
 
 <div *ngIf="showPrevious()"> 
-    <button (click)="previousPageSet()"> Previous </button> 
+    <button (click)="previousPageSet()" md-button> Previous </button> 
 </div>

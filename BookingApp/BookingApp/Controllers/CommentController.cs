@@ -134,7 +134,14 @@ namespace BookingApp.Controllers
                             sum += (decimal)comm.Grade;
                         }
 
-                        averageGrade = sum / allComments.Count;
+                        if (allComments.Count == 0)
+                        {
+                            averageGrade = 0;
+                        }
+                        else
+                        {
+                            averageGrade = sum / allComments.Count;
+                        }
 
                         Accommodation acc = db.Accommodations.Where(accomm => accomm.Id == comment.AccommodationId).FirstOrDefault();
                         if (acc == null)
@@ -195,6 +202,42 @@ namespace BookingApp.Controllers
 
             db.Comments.Remove(comment);
             db.SaveChanges();
+
+            List<Comment> allComments = db.Comments.Where(cm => cm.AccommodationId == comment.AccommodationId).ToList();
+            decimal sum = 0;
+            decimal averageGrade;
+
+            foreach (Comment comm in allComments)
+            {
+                sum += (decimal)comm.Grade;
+            }
+
+            if (allComments.Count == 0)
+            {
+                averageGrade = 0;
+            }
+            else
+            {
+                averageGrade = sum / allComments.Count;
+            }
+
+            Accommodation acc = db.Accommodations.Where(accomm => accomm.Id == comment.AccommodationId).FirstOrDefault();
+            if (acc == null)
+            {
+                return BadRequest("Cannot refresh average grade.");
+            }
+            acc.AverageGrade = averageGrade;
+
+            db.Entry(acc).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return BadRequest("Cannot refresh average grade.");
+            }
 
             return Ok(comment);
         }

@@ -17,4 +17,8 @@ export class PagingService {
 
         PagingService.PageNumber = Math.ceil(elementsCount/PagingService.PageSize);    
     }
+
+    resetPageNumber(elementsCount) {
+        PagingService.PageNumber = Math.ceil(elementsCount/PagingService.PageSize); 
+    }
 }

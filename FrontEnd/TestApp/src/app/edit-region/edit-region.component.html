@@ -1,11 +1,11 @@
 <h4> Edit region </h4>
 
-<form #f = "ngForm" (ngSubmit)="onSubmit()">
+<form #f = "ngForm" (ngSubmit)="onSubmit()" ngNativeValidate>
   <div>
     <label for="Id"> Id: </label>
     <input type="text" id="Id" name="Id" [(ngModel)]="Id" disabled> <br/>
     <label for="Name"> Name: </label>
-    <input type="text" id="Name" name="Name" [(ngModel)]="Name"> <br/>
+    <input type="text" id="Name" name="Name" [(ngModel)]="Name" required> <br/>
     <input type="submit" value="Edit">
   </div>
 </form>

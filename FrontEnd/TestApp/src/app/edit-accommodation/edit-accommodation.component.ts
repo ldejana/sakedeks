@@ -42,8 +42,9 @@ export class EditAccommodationComponent implements OnInit {
   onSubmit() {
     if (this.file == undefined) {
       alert ("Choose picture!");
-    }
-    else {
+    } else if (isNaN(this.Latitude) || isNaN(this.Longitude)) {
+      alert("Latitude and Longitude must be numbers!");
+    } else {
       let newAcc = new Accommodation(this.Id, this.Name, this.Description, this.Address, this.AverageGrade, this.Latitude, this.Longitude,
       this.ImageUrl, this.Approved, this.AccommodationTypeId, this.PlaceId, this.OwnerId);
       this.editAccommodationService.edit(newAcc, this.file).subscribe(x => 

@@ -78,17 +78,21 @@ export class AddAccommodationComponent implements OnInit {
   }
 
   onSubmit() {
-    let userId = this.authService.getOwnerId();
-    this.findPlaceName(this.PlaceId);
-    let placeName = this.placeName;
-    let newAccommodation = new Accommodation(1, this.Name, this.Description, this.Address, 0, this.Latitude, this.Longitude, "", false,
-      this.AccommodationTypeId, this.PlaceId, userId);
+    if (isNaN(this.Latitude) || isNaN(this.Longitude)) {
+      alert("Latitude and Longitude must be numbers!");
+    } else {
+      let userId = this.authService.getOwnerId();
+      this.findPlaceName(this.PlaceId);
+      let placeName = this.placeName;
+      let newAccommodation = new Accommodation(1, this.Name, this.Description, this.Address, 0, this.Latitude, this.Longitude, "", false,
+        this.AccommodationTypeId, this.PlaceId, userId);
 
-    this.addAccommodationService.create(newAccommodation, this.file).subscribe(x => 
-    { this.httpService.notifyAdmin().subscribe();
-      let managerId = this.authService.getUserId();
-      this.router.navigate(['/accommodationList', managerId, "My", "Manager", "empty"]);}, 
-      x => alert(x.json().Message));
+      this.addAccommodationService.create(newAccommodation, this.file).subscribe(x => 
+      { this.httpService.notifyAdmin().subscribe();
+        let managerId = this.authService.getUserId();
+        this.router.navigate(['/accommodationList', managerId, "My", "Manager", "empty"]);}, 
+        x => alert(x.json().Message));
+    }
   }
 
   findPlaceName(id: number) {

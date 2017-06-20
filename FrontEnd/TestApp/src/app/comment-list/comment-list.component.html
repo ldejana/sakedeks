@@ -17,7 +17,7 @@
     </div>
 </div>
 
-<add-comment *ngIf="CanUserLeaveComment" 
+<add-comment *ngIf="canUserrLeaveComment()" 
              [AccommodationId] = 'AccommodationId' 
              (OnCommentAdded) = "commentAdded($event)" > 
 

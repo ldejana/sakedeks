@@ -1,10 +1,10 @@
 <h4> Create country </h4>
 
-<form #f = "ngForm" (ngSubmit)="onSubmit()">
+<form #f = "ngForm" (ngSubmit)="onSubmit()" ngNativeValidate>
     <label for="Name"> Name: </label>
-    <input type="text" id="Name" name="Name" [(ngModel)]="Name"> <br/>
+    <input type="text" id="Name" name="Name" [(ngModel)]="Name" required> <br/>
     <label for="Code"> Code: </label>
-    <input type="text" id="Code" name="Code" [(ngModel)]="Code"> <br/>
+    <input type="text" id="Code" name="Code" [(ngModel)]="Code" required> <br/>
     <input type="submit" value="Create">
 </form>
 

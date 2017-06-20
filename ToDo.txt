@@ -1,3 +1,2 @@
 prebaci kod paginga sa 2 na 10 brojeva za odabir stranice,
-brisanje kom, zabraniti da 2 puta isti korisnik komentarise,
-rezervacija otkazana, ali i dalje ne da drugima da rezervisu u tom periodu, 
+obrisati polja forme nakon dodavanja sobe

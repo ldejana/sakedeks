@@ -1,4 +1,4 @@
-<div>
+<div style="width: 500px; float: left;">
 
 
 <div class="panel panel-default">
@@ -21,7 +21,9 @@
       <div style="display:block-inline">
         <p> Rating: {{ accommodation.AverageGrade }} </p>
         <p> Accommodation type: {{ accommodation.AccommodationType.Name }} </p>
-        <p> Description: {{ accommodation.Description }} <p>
+        <p> Description: {{ accommodation.Description }} </p>
+        <p> Owner: {{ accommodation.Owner.Name }} &nbsp; {{ accommodation.Owner.LastName }} </p>
+        <p *ngIf="isLoggedIn() && isManager() && isMyAcc(accommodation.Owner.Id)"> Approved: {{ accommodation.Approved }} </p>
         <a [routerLink]="['/roomList', accommodation.Id, accommodation.Name, accommodation.Owner.Id]"> See rooms </a> 
       </div>
 
@@ -36,11 +38,10 @@
 <div >
   <comment-list [AccommodationId] = 'accommodation.Id'> </comment-list>
 </div>
+</div>
 
-
-<div style="width:90%; margin: 0 auto">
+<div style="margin: 0 auto; width: 0px; float: left; margin: 100px 0px 100px 80px;">
     <map [mapInfo]="mapInfo" [accAddress]="accommodation.Address" [accName]="accommodation.Name"></map>
 </div>
 
 
-</div>

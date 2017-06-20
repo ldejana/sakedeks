@@ -23,6 +23,7 @@ export class FilteredAccommodationsComponent implements OnInit {
   MaxPrice: number;
   counter: Array<number>;
   PageSet: number = 1;
+  selectedButton: number = 1;
 
   constructor(private activatedRoute: ActivatedRoute, private filteredAccService: FilteredAccommodationsService,
     private pagingService: PagingService) {
@@ -53,6 +54,8 @@ export class FilteredAccommodationsComponent implements OnInit {
   }
 
   changePage(pageNumber: number){
+        this.selectedButton = pageNumber;
+
         this.filteredAccService.getAccommodations(this.Name, this.PlaceName, this.RegionName, 
         this.CountryName, this.AverageGrade, this.BedCount, this.MinPrice, this.MaxPrice, 
         pageNumber, PagingService.PageSize).subscribe(x => {
@@ -75,6 +78,8 @@ export class FilteredAccommodationsComponent implements OnInit {
           counterLength = PagingService.PageNumber - ((this.PageSet-1)*2);
       } 
       this.counter = new Array(counterLength);
+
+      this.changePage((this.PageSet -1)*2 + 1);
   }
 
   previousPageSet() {
@@ -84,6 +89,8 @@ export class FilteredAccommodationsComponent implements OnInit {
           counterLength = PagingService.PageNumber - ((this.PageSet-1)*2);
       } 
       this.counter = new Array(counterLength);
+
+      this.changePage((this.PageSet -1)*2 + 1);
   }
 
 }
