@@ -42,7 +42,7 @@ export class AccommodationTypeListComponent implements OnInit {
   }
 
   getAccommodationTypes() {
-    this.accommodationTypeService.getAll().subscribe( x => this.accommodationTypes=x.json());
+    this.accommodationTypeService.getAll().subscribe( x => {this.accommodationTypes=x.json(); this.Message=""});
   }
 
 

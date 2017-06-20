@@ -1,29 +1,33 @@
 <h4> Filter accommodations </h4>
 
 <form #f = "ngForm" (ngSubmit)="onSubmit()">
-    <label for="Name"> Name: </label>
-    <textarea id="Name" name="Name" [(ngModel)]="Name"> </textarea> <br/>
+    <table> <tbody>
+     <tr>
+        <td> <label for="Name"> Name: </label>
+        <textarea id="Name" name="Name" [(ngModel)]="Name" style="width:80%; height:60px"> </textarea> </td>
 
-    <label for="Place"> Place: </label>
-    <textarea id="PlaceName" name="PlaceName" [(ngModel)]="PlaceName"> </textarea> <br/>
+        <td> <label for="Place"> Place: </label>
+        <textarea id="PlaceName" name="PlaceName" [(ngModel)]="PlaceName" style="width:80%; height:60px"> </textarea> </td>
+     </tr> <tr>
+        <td> <label for="Region"> Region: </label>
+        <textarea id="RegionName" name="RegionName" [(ngModel)]="RegionName" style="width:80%; height:60px"> </textarea> </td>
 
-    <label for="Region"> Region: </label>
-    <textarea id="RegionName" name="RegionName" [(ngModel)]="RegionName"> </textarea> <br/>
+        <td> <label for="Country"> Country: </label>
+        <textarea id="CountryName" name="CountryName" [(ngModel)]="CountryName" style="width:80%; height:60px"> </textarea> </td>
+     </tr> <tr>
+        <td> <label for="AverageGrade"> Average grade: </label>
+        <input type="text" id="AverageGrade" name="AverageGrade" [(ngModel)]="AverageGrade" style="width:80%; height:60px"> </td>
 
-    <label for="Country"> Country: </label>
-    <textarea id="CountryName" name="CountryName" [(ngModel)]="CountryName"> </textarea> <br/>
+        <td> <label for="BedCount"> Bed count: </label>
+        <input type="text" id="BedCount" name="BedCount" [(ngModel)]="BedCount" style="width:80%; height:60px"> </td>
+     </tr> <tr>
+        <td> <label for="MinPrice"> Min price: </label>
+        <input type="text" id="MinPrice" name="MinPrice" [(ngModel)]="MinPrice" style="width:80%; height:60px"> </td>
 
-    <label for="AverageGrade"> Average grade: </label>
-    <input type="text" id="AverageGrade" name="AverageGrade" [(ngModel)]="AverageGrade"> <br/>
-
-    <label for="BedCount"> Bed count: </label>
-    <input type="text" id="BedCount" name="BedCount" [(ngModel)]="BedCount"> <br/>
-
-    <label for="MinPrice"> Min price: </label>
-    <input type="text" id="MinPrice" name="MinPrice" [(ngModel)]="MinPrice"> <br/>
-
-    <label for="MaxPrice"> Min price: </label>
-    <input type="text" id="MaxPrice" name="MaxPrice" [(ngModel)]="MaxPrice"> <br/>
+        <td> <label for="MaxPrice"> Min price: </label>
+        <input type="text" id="MaxPrice" name="MaxPrice" [(ngModel)]="MaxPrice" style="width:80%; height:60px"> </td>
+     </tr>
+    </tbody> </table>
 
     <input type="submit" value="Filter">
 </form>
