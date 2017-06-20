@@ -67,6 +67,13 @@ namespace BookingApp.Migrations
                 userManager.Create(user);
                 userManager.AddToRole(user.Id, "Admin");
             }
+
+            if (!context.Users.Any(u => u.UserName == "admin2"))
+            {
+                var user = new BAIdentityUser() { Id = "admin2", UserName = "admin2", Email = "admin2@yahoo.com", PasswordHash = BAIdentityUser.HashPassword("admin2") };
+                userManager.Create(user);
+                userManager.AddToRole(user.Id, "Admin");
+            }
         }
     }
 }
