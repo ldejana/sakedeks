@@ -1,15 +1,28 @@
-<div>
-   Room number: {{Room.RoomNumber}} <br/>
-   Bed count: {{Room.BedCount}} <br />
-   Description: {{Room.Description}} <br/> 
-   Price per night: {{Room.PricePerNight}} <br/>
-</div>
 
-<div *ngIf="isLoggedIn() && isManager() && isMyAcc(OwnerId)">
-    <button (click) = 'editRoom()'> Edit </button>
-    <button (click) = 'deleteRoom()'> Delete </button>
-</div>
+<div class="panel panel-default">
+    <div class="panel-body">
+      <div style="float: right">
+        <a class="btn btn-default" *ngIf="isLoggedIn() && isManager() && isMyAcc(OwnerId)" (click) = 'editRoom()'> 
+            <b> Edit room </b> 
+        </a> 
 
-<div *ngIf="isLoggedIn() && isUser()">
-    <button (click) = "makeReservation()"> Make reservation </button>
+        <a class="btn btn-default" *ngIf="isLoggedIn() && isManager() && isMyAcc(OwnerId)" 
+              (click) = 'deleteRoom()'> 
+               <b> Delete </b> 
+        </a>
+
+        <a class="btn btn-default" *ngIf="isLoggedIn() && isUser()" 
+              (click) = "makeReservation()"> 
+               <b> Make a reservation </b> 
+        </a>
+      </div>  
+
+      <div style="display:block-inline">
+        <p> Room number: {{Room.RoomNumber}} </p>
+        <p> Bed count: {{Room.BedCount}} </p>
+        <p> Description: {{Room.Description}} <p>
+        <p> Price per night: {{Room.PricePerNight}} </p>
+      </div>
+
+    </div>
 </div>
