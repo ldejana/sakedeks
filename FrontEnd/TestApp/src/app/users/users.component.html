@@ -1,8 +1,11 @@
 <h4 *ngIf="role == 'Manager'"> Managers </h4>
-<h4 *ngIf="role == 'AppUser'"> App Users </h4>
+<h4 *ngIf="role == 'AppUser'"> Users </h4>
 
-<div *ngFor="let user of users"> 
-     {{user.Name}} &nbsp;  {{user.LastName}}
-    <button *ngIf="isManagerPage() && !user.IsBanned" (click)="ban(user.Id)"> Ban </button>
-    <button *ngIf="isManagerPage() && user.IsBanned" (click)="unban(user.Id)"> Unban </button>
-</div>
+<table class="table table-striped table-hover ">
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td> <a style="text-decoration: none">  {{user.Name}} &nbsp;  {{user.LastName}} </a> </td>
+      <td> <a style="text-decoration: none" *ngIf="isManagerPage() && !user.IsBanned" (click)="ban(user.Id)"> Ban </a> </td>
+      <td> <a style="text-decoration: none" *ngIf="isManagerPage() && user.IsBanned" (click)="unban(user.Id)"> Unban </a> </td>
+  </tbody>
+</table> 
